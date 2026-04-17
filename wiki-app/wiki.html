@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novel Wiki</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><i class="bi bi-collection-fill"></i></div>
+      <div>
+        <div class="logo-text">Novel Wiki</div>
+        <div class="logo-sub">Personal Fandom Wiki</div>
+      </div>
+    </div>
+
+    <div class="sidebar-novel-info">
+      <div class="sidebar-novel-title" id="sb-title">Loading...</div>
+      <div class="sidebar-novel-genre" id="sb-genre"></div>
+    </div>
+
+    <nav class="sidebar-nav" id="sb-nav">
+      <!-- populated by JS -->
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="index.html" class="btn-home">
+        <i class="bi bi-arrow-left-circle"></i>Library
+      </a>
+      <a href="import.html" class="btn-home mt-8">
+        <i class="bi bi-plus-circle"></i>Import Novel
+      </a>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div id="main">
+
+    <!-- Header -->
+    <header id="header">
+      <button class="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+      <div class="header-breadcrumb">
+        <span id="hdr-novel" class="text-muted" style="cursor:pointer" onclick="Router.go('overview')"></span>
+        <i class="bi bi-chevron-right" id="hdr-sep" class="hidden"></i>
+        <span id="hdr-page" class="crumb-active"></span>
+      </div>
+      <div class="header-search">
+        <i class="bi bi-search"></i>
+        <input type="text" id="search-input" placeholder="Search wiki..." onkeydown="handleSearch(event)">
+      </div>
+      <a href="import.html" class="btn btn-secondary btn-sm" title="Import / Update">
+        <i class="bi bi-box-arrow-in-down"></i>
+      </a>
+    </header>
+
+    <!-- Content -->
+    <main id="content">
+      <div class="empty-state">
+        <i class="bi bi-hourglass-split"></i>
+        <h3>Loading wiki...</h3>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/store.js"></script>
+<script src="js/genre.js"></script>
+<script src="js/search.js"></script>
+<script src="js/render.js"></script>
+
+<script>
+/* ══════════════════════════════════════
+   ROUTER
+═══════════════════════════════════════ */
+const Router = {
+  novel: null,
+
+  init(novel) {
+    this.novel = novel;
+    window.addEventListener('hashchange', () => this._resolve());
+    this._resolve();
+  },
+
+  go(hash) {
+    location.hash = hash;
+  },
+
+  _resolve() {
+    const raw   = location.hash.replace('#','') || 'overview';
+    const parts = raw.split('/');
+    const page  = parts[0];
+    const id    = parts[1] || null;
+
+    this._setActive(page);
+    this._setBreadcrumb(page, id);
+    this._render(page, id);
+
+    // Close sidebar on mobile after navigation
+    if (window.innerWidth <= 900) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    window.scrollTo(0, 0);
+  },
+
+  _render(page, id) {
+    const n   = this.novel;
+    const out = document.getElementById('content');
+
+    try {
+      switch(page) {
+        case 'overview':    out.innerHTML = R.overview(n);                     break;
+        case 'characters':  out.innerHTML = id ? R.characterDetail(n, id) : R.characterList(n); break;
+        case 'power':       out.innerHTML = R.powerSystem(n);                  break;
+        case 'techniques':  out.innerHTML = id ? R.techniqueDetail(n, id) : R.techniqueList(n); break;
+        case 'artifacts':   out.innerHTML = id ? R.artifactDetail(n, id)  : R.artifactList(n);  break;
+        case 'pills':       out.innerHTML = R.pillList(n);                     break;
+        case 'bloodlines':  out.innerHTML = R.bloodlineList(n);                break;
+        case 'bestiary':    out.innerHTML = id ? R.beastDetail(n, id)     : R.bestiaryList(n);  break;
+        case 'locations':   out.innerHTML = id ? R.locationDetail(n, id)  : R.locationList(n);  break;
+        case 'realms':      out.innerHTML = R.realmList(n);                    break;
+        case 'factions':    out.innerHTML = id ? R.factionDetail(n, id)   : R.factionList(n);   break;
+        case 'events':      out.innerHTML = R.eventsList(n);                   break;
+        case 'arcs':        out.innerHTML = R.arcTimeline(n);                  break;
+        case 'lore':        out.innerHTML = R.loreList(n);                     break;
+        case 'glossary':    out.innerHTML = R.glossary(n);                     break;
+        case 'analysis':    out.innerHTML = R.analysis(n);                     break;
+        case 'search':      out.innerHTML = R.searchResults(n, id || '');      break;
+        default:            out.innerHTML = R.overview(n);
+      }
+    } catch(e) {
+      out.innerHTML = `<div class="empty-state">
+        <i class="bi bi-exclamation-triangle"></i>
+        <h3>Render Error</h3>
+        <p>${e.message}</p>
+      </div>`;
+      console.error(e);
+    }
+  },
+
+  _setActive(page) {
+    document.querySelectorAll('.nav-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.page === page);
+    });
+  },
+
+  _setBreadcrumb(page, id) {
+    const novel = this.novel.novel || {};
+    const labels = {
+      overview:'Overview', characters:'Characters', power:'Power System',
+      techniques:'Techniques', artifacts:'Artifacts', pills:'Pills & Resources',
+      bloodlines:'Bloodlines', bestiary:'Bestiary', locations:'Locations',
+      realms:'Realms', factions:'Factions', events:'Battles & Events',
+      arcs:'Story Arcs', lore:'Lore & Prophecies', glossary:'Glossary',
+      analysis:'AI Analysis', search:'Search'
+    };
+    document.getElementById('hdr-novel').textContent = novel.title || 'Novel';
+    document.getElementById('hdr-sep').style.display  = 'block';
+    document.getElementById('hdr-page').textContent   = labels[page] || page;
+    document.title = `${labels[page] || page} — ${novel.title || 'Wiki'}`;
+  }
+};
+
+
+/* ══════════════════════════════════════
+   SIDEBAR BUILDER
+═══════════════════════════════════════ */
+function buildSidebar(novel) {
+  const type    = novel.novel?.type || 'other';
+  const modules = Genre.getModules(type);
+  const nav     = document.getElementById('sb-nav');
+
+  const sections = {
+    novel:    { label: 'Novel',      icon: 'bi-book'         },
+    world:    { label: 'World',      icon: 'bi-globe2'       },
+    story:    { label: 'Story',      icon: 'bi-diagram-3'    },
+    analysis: { label: 'Analysis',   icon: 'bi-cpu'          },
+    genre:    { label: 'Extra',      icon: 'bi-puzzle'       },
+  };
+
+  const grouped = {};
+  modules.forEach(m => {
+    if (!grouped[m.section]) grouped[m.section] = [];
+    grouped[m.section].push(m);
+  });
+
+  const countMap = {
+    characters:'characters', techniques:'techniques', artifacts:'artifacts',
+    pills:'pills_and_resources', bloodlines:'bloodlines', bestiary:'beasts_and_creatures',
+    locations:'locations', realms:'realms_and_dimensions', factions:'factions',
+    events:'battles_and_events', arcs:'arcs', lore:'prophecies_and_lore', glossary:'terminology'
+  };
+
+  let html = '';
+  Object.entries(grouped).forEach(([sec, items]) => {
+    html += `<div class="sidebar-section-label">${sections[sec]?.label || sec}</div>`;
+    items.forEach(m => {
+      const key   = countMap[m.id];
+      const count = key ? (novel[key]||[]).length : 0;
+      html += `<a class="nav-item" data-page="${m.id}" onclick="Router.go('${m.id}')">
+        <i class="bi ${m.icon}"></i>
+        ${m.label}
+        ${count > 0 ? `<span class="nav-badge">${count}</span>` : ''}
+      </a>`;
+    });
+  });
+
+  nav.innerHTML = html;
+}
+
+
+/* ══════════════════════════════════════
+   SEARCH
+═══════════════════════════════════════ */
+function handleSearch(e) {
+  if (e.key === 'Enter') {
+    const q = e.target.value.trim();
+    if (q) Router.go(`search/${encodeURIComponent(q)}`);
+  }
+}
+
+
+/* ══════════════════════════════════════
+   MOBILE SIDEBAR
+═══════════════════════════════════════ */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', e => {
+  const sb = document.getElementById('sidebar');
+  if (window.innerWidth <= 900 && !sb.contains(e.target) && !e.target.closest('.menu-toggle')) {
+    sb.classList.remove('open');
+  }
+});
+
+
+/* ══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+(function init() {
+  const id = Store.getCurrentId();
+  if (!id) { location.href = 'index.html'; return; }
+
+  const novel = Store.getNovel(id);
+  if (!novel) {
+    document.getElementById('content').innerHTML = `
+      <div class="empty-state">
+        <i class="bi bi-exclamation-triangle"></i>
+        <h3>Novel Not Found</h3>
+        <p>This novel was not found in your library.</p>
+        <a href="index.html" class="btn btn-primary mt-16"><i class="bi bi-arrow-left"></i>Back to Library</a>
+      </div>`;
+    return;
+  }
+
+  /* Apply genre accent */
+  Genre.applyAccent(novel.novel?.type);
+
+  /* Sidebar info */
+  document.getElementById('sb-title').textContent = novel.novel?.title || 'Novel';
+  document.getElementById('sb-genre').textContent = (novel.novel?.type || '').replace(/-/g,' ');
+
+  /* Build sidebar nav */
+  buildSidebar(novel);
+
+  /* Build search index */
+  Search.build(novel);
+
+  /* Start router */
+  Router.init(novel);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1235 @@
+{
+  "novel": {
+    "title": "Eternal Sword Sovereign",
+    "type": "cultivation",
+    "genre_tags": [
+      "Xianxia",
+      "Sword Cultivation",
+      "Revenge",
+      "Harem"
+    ],
+    "summary": "A disgraced sword prodigy stripped of his spiritual roots awakens an ancient Sword Soul and embarks on a path of slaughter and ascension, cutting through heavens and overturning the cultivation world that once abandoned him.",
+    "themes": [
+      "Revenge",
+      "Perseverance",
+      "The cost of power",
+      "Loyalty"
+    ],
+    "world_name": "Nine Heaven Realm",
+    "status": "completed"
+  },
+  "characters": [
+    {
+      "id": "lin-feng",
+      "name": "Lin Feng",
+      "aliases": [
+        "Sword Demon",
+        "The Uncrowned King",
+        "Slaughterer of Sects"
+      ],
+      "role": "protagonist",
+      "gender": "Male",
+      "age": "17 (start) / 127 (end)",
+      "description": "Tall, sharp black eyes that gleam like sword edges, long dark hair, scar running from left jaw to collarbone. Wears plain grey robes early on, later adorned in black sovereign robes embroidered with a single sword motif.",
+      "personality": "Cold and calculating to enemies, loyal to a fault with allies. Has a dark sense of humor. Remembers every slight and repays tenfold.",
+      "background": "Born into the Lin Clan, hailed as a generational genius. Framed by Elder Zhao and crippled at fourteen. Spent three years as the clan's laughingstock before awakening the Void Sword Soul at a life-or-death trial.",
+      "current_power_level": "Heavenly Sovereign (Peak)",
+      "power_progression": [
+        {
+          "stage": "Crippled (no cultivation)",
+          "chapter": "Ch. 1"
+        },
+        {
+          "stage": "Qi Condensation — Layer 1",
+          "chapter": "Ch. 8"
+        },
+        {
+          "stage": "Foundation Building — Early",
+          "chapter": "Ch. 34"
+        },
+        {
+          "stage": "Golden Core — Mid",
+          "chapter": "Ch. 112"
+        },
+        {
+          "stage": "Nascent Soul — Late",
+          "chapter": "Ch. 280"
+        },
+        {
+          "stage": "Spirit Severing",
+          "chapter": "Ch. 450"
+        },
+        {
+          "stage": "Dao Seeking",
+          "chapter": "Ch  . 680"
+        },
+        {
+          "stage": "Heavenly Sovereign (Peak)",
+          "chapter": "Ch. 1200"
+        }
+      ],
+      "cultivation_path": "Void Sword Dao",
+      "special_abilities": [
+        "Void Sword Soul — sword intent can cut through space itself",
+        "Sword Domain — creates a 500-meter field of absolute sword dominance",
+        "Slaughter Will — power multiplies with killing intent",
+        "Spatial Step — teleportation via sword flicker",
+        "Undying Sword Body — regenerates from near-fatal wounds using sword qi"
+      ],
+      "owned_artifacts": [
+        "void-sovereign-blade",
+        "spatial-ring-of-ten-thousand-swords"
+      ],
+      "faction_ids": [
+        "sword-sovereign-sect"
+      ],
+      "relationships": [
+        {
+          "character_id": "elder-zhao",
+          "type": "enemy"
+        },
+        {
+          "character_id": "xiao-yue",
+          "type": "love-interest"
+        },
+        {
+          "character_id": "old-swordsman",
+          "type": "master"
+        },
+        {
+          "character_id": "chen-wu",
+          "type": "rival"
+        },
+        {
+          "character_id": "lin-xue",
+          "type": "family"
+        }
+      ],
+      "first_appearance": "Ch. 1",
+      "status": "alive",
+      "tags": [
+        "sword cultivator",
+        "revenge arc",
+        "found family",
+        "domain user"
+      ]
+    },
+    {
+      "id": "elder-zhao",
+      "name": "Elder Zhao Kun",
+      "aliases": [
+        "The Crippler",
+        "Zhao the Serpent"
+      ],
+      "role": "antagonist",
+      "gender": "Male",
+      "age": "340",
+      "description": "Heavyset, long grey robes of the Lin Clan elder circle. Deep-set cunning eyes. Wears a jade pendant at all times — later revealed to be a soul-capture device.",
+      "personality": "Outwardly deferential and humble, inwardly vicious and paranoid. Threatened by talent he cannot control.",
+      "background": "A Golden Core cultivator who rose through political maneuvering rather than talent. Framed Lin Feng to eliminate a future threat and secure his own position in the clan.",
+      "current_power_level": "Golden Core — Peak",
+      "power_progression": [
+        {
+          "stage": "Golden Core — Peak",
+          "chapter": "Ch. 1"
+        }
+      ],
+      "cultivation_path": "Poison Flame Arts",
+      "special_abilities": [
+        "Soul Seal Technique",
+        "Serpent Flame Qi"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [
+        "lin-clan"
+      ],
+      "relationships": [
+        {
+          "character_id": "lin-feng",
+          "type": "enemy"
+        }
+      ],
+      "first_appearance": "Ch. 1",
+      "status": "dead",
+      "tags": [
+        "political manipulator",
+        "early antagonist",
+        "killed by Lin Feng - Ch. 88"
+      ]
+    },
+    {
+      "id": "xiao-yue",
+      "name": "Xiao Yue",
+      "aliases": [
+        "Moonstone Fairy",
+        "Lady of the Azure Peak"
+      ],
+      "role": "supporting",
+      "gender": "Female",
+      "age": "16 (start) / 126 (end)",
+      "description": "Silver hair, pale skin, violet eyes. Always carries a jade flute. Wears flowing white robes of the Azure Peak Sect.",
+      "personality": "Gentle on the surface but has a fiercely protective streak. Highly perceptive. Hides sadness behind a calm smile.",
+      "background": "Daughter of the Azure Peak Sect master. Encountered Lin Feng fleeing from the Lin Clan and sheltered him for a week, unknowingly sparking a bond that lasts a millennium.",
+      "current_power_level": "Spirit Severing — Mid",
+      "power_progression": [
+        {
+          "stage": "Foundation Building — Late",
+          "chapter": "Ch. 45"
+        },
+        {
+          "stage": "Golden Core — Peak",
+          "chapter": "Ch. 300"
+        },
+        {
+          "stage": "Spirit Severing — Mid",
+          "chapter": "Ch. 900"
+        }
+      ],
+      "cultivation_path": "Moonrise Harmony Arts",
+      "special_abilities": [
+        "Soul Resonance Flute — debilitates enemies with sound waves",
+        "Moonshield Formation"
+      ],
+      "owned_artifacts": [
+        "jade-harmony-flute"
+      ],
+      "faction_ids": [
+        "azure-peak-sect"
+      ],
+      "relationships": [
+        {
+          "character_id": "lin-feng",
+          "type": "love-interest"
+        }
+      ],
+      "first_appearance": "Ch. 22",
+      "status": "alive",
+      "tags": [
+        "love interest",
+        "sound cultivator",
+        "sect background"
+      ]
+    },
+    {
+      "id": "chen-wu",
+      "name": "Chen Wu",
+      "aliases": [
+        "Blazing Fist King",
+        "Ironblood"
+      ],
+      "role": "supporting",
+      "gender": "Male",
+      "age": "18 (start) / 128 (end)",
+      "description": "Stocky and muscular, red spiked hair, always shirtless under a vest. Covered in burn scars he considers trophies.",
+      "personality": "Loud, aggressive, loves to fight. Has a simple moral code — respect strength and never betray a friend. Becomes Lin Feng's most loyal blood brother.",
+      "background": "Street brawler from the Crimson City slums who fought his way into the Blazing Fist Sect with nothing but raw talent. Initially rivals Lin Feng at the Sect's entry trial.",
+      "current_power_level": "Dao Seeking — Early",
+      "power_progression": [
+        {
+          "stage": "Qi Condensation — Layer 6",
+          "chapter": "Ch. 60"
+        },
+        {
+          "stage": "Golden Core — Late",
+          "chapter": "Ch. 350"
+        },
+        {
+          "stage": "Dao Seeking — Early",
+          "chapter": "Ch. 900"
+        }
+      ],
+      "cultivation_path": "Blazing Iron Fist Dao",
+      "special_abilities": [
+        "Iron Body Constitution",
+        "Eruption Fist — volcanic qi release",
+        "Berserker State"
+      ],
+      "owned_artifacts": [
+        "iron-blood-gauntlets"
+      ],
+      "faction_ids": [
+        "sword-sovereign-sect"
+      ],
+      "relationships": [
+        {
+          "character_id": "lin-feng",
+          "type": "ally"
+        }
+      ],
+      "first_appearance": "Ch. 60",
+      "status": "alive",
+      "tags": [
+        "body cultivator",
+        "comic relief",
+        "blood brother"
+      ]
+    },
+    {
+      "id": "old-swordsman",
+      "name": "Ye Qingfeng",
+      "aliases": [
+        "Old Sword Eccentric",
+        "The Hermit of Broken Peak"
+      ],
+      "role": "supporting",
+      "gender": "Male",
+      "age": "2,100+",
+      "description": "Appears as a withered old man in tattered sage robes. Brown age-spotted skin hiding a body that can survive a divine tribulation. Eyes contain visible sword light.",
+      "personality": "Cryptic, lazily wise, enjoys drinking spiritual wine. Will not interfere unless the situation is genuinely hopeless. Tests disciples through cruelty disguised as neglect.",
+      "background": "A former Heavenly Sovereign who shattered his own cultivation to escape a heavenly nemesis. Has been hiding on Broken Peak for eight hundred years, waiting for a worthy successor.",
+      "current_power_level": "Shattered — formerly Heavenly Sovereign",
+      "power_progression": [
+        {
+          "stage": "Heavenly Sovereign (shattered to Spirit Severing)",
+          "chapter": "Ch. 150"
+        }
+      ],
+      "cultivation_path": "One Sword — All Things Cut",
+      "special_abilities": [
+        "Sword Intent Transmission",
+        "Void Echo Slash (residual power)"
+      ],
+      "owned_artifacts": [
+        "broken-heaven-sword"
+      ],
+      "faction_ids": [],
+      "relationships": [
+        {
+          "character_id": "lin-feng",
+          "type": "master"
+        }
+      ],
+      "first_appearance": "Ch. 148",
+      "status": "dead",
+      "tags": [
+        "mentor figure",
+        "tragic backstory",
+        "dies protecting Lin Feng - Ch. 502"
+      ]
+    },
+    {
+      "id": "lin-xue",
+      "name": "Lin Xue",
+      "aliases": [
+        "Little Snow"
+      ],
+      "role": "supporting",
+      "gender": "Female",
+      "age": "12 (first appearance)",
+      "description": "Small, wide-eyed, always has ink on her fingers from drawing talismans. White hair from birth — considered an ill omen by the Lin Clan.",
+      "personality": "Cheerful and stubborn. Worships her elder brother Lin Feng. Has a photographic memory.",
+      "background": "Lin Feng's younger sister, also mistreated by the clan due to her white hair. Lin Feng's primary motivation in his early revenge arc.",
+      "current_power_level": "Nascent Soul — Mid",
+      "cultivation_path": "Talisman Dao",
+      "special_abilities": [
+        "Talisman Inscription — can inscribe divine-grade talismans",
+        "Memory Imprint"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [
+        "sword-sovereign-sect"
+      ],
+      "relationships": [
+        {
+          "character_id": "lin-feng",
+          "type": "family"
+        }
+      ],
+      "first_appearance": "Ch. 3",
+      "status": "alive",
+      "tags": [
+        "family motivation",
+        "talisman master"
+      ]
+    }
+  ],
+  "power_system": {
+    "name": "Nine Heaven Cultivation System",
+    "description": "Cultivators absorb spiritual qi from heaven and earth to refine body and soul through successive breakthroughs. The sword is considered the supreme path — those who master a Sword Dao are historically capable of fighting above their realm.",
+    "tiers": [
+      {
+        "rank": 1,
+        "name": "Qi Condensation",
+        "description": "The cultivator gathers spiritual qi and stores it in the dantian. Accessible to almost all people with any spiritual root.",
+        "sub_stages": [
+          "Layer 1",
+          "Layer 2",
+          "Layer 3",
+          "Layer 4",
+          "Layer 5",
+          "Layer 6",
+          "Layer 7",
+          "Layer 8",
+          "Layer 9"
+        ],
+        "power_feats": [
+          "Enhanced physical strength (2-5x human)",
+          "Minor qi projection",
+          "Can sense spiritual herbs"
+        ],
+        "notable_individuals": [
+          "lin-feng",
+          "chen-wu"
+        ],
+        "breakthrough_requirements": "Consistent meditation and spiritual stone absorption. No tribulation required.",
+        "lifespan_extension": "+50 years"
+      },
+      {
+        "rank": 2,
+        "name": "Foundation Building",
+        "description": "The dantian forms a solid qi foundation. The cultivator's body begins a fundamental transformation. Spiritual roots deepen.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "Flight (short bursts)",
+          "Qi shield formation",
+          "Weapon spiritualization begins"
+        ],
+        "notable_individuals": [
+          "lin-feng",
+          "xiao-yue"
+        ],
+        "breakthrough_requirements": "A Foundation Pill dramatically increases success rate. Without it, roughly 30% naturally succeed.",
+        "lifespan_extension": "+100 years"
+      },
+      {
+        "rank": 3,
+        "name": "Golden Core",
+        "description": "A golden core crystallizes in the dantian, concentrating refined qi. Cultivators at this stage are considered true practitioners — eligible to lead clans and small sects.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "Sustained flight",
+          "Elemental affinity manifestation",
+          "Minor realm pressure"
+        ],
+        "notable_individuals": [
+          "elder-zhao",
+          "xiao-yue"
+        ],
+        "breakthrough_requirements": "Core Formation Lightning Tribulation — a minor heavenly punishment. Roughly 40% of Foundation Peak cultivators fail.",
+        "lifespan_extension": "+300 years"
+      },
+      {
+        "rank": 4,
+        "name": "Nascent Soul",
+        "description": "The golden core hatches a nascent soul — a spiritual avatar that can leave the body. Death of the physical body no longer means the end; the nascent soul can survive and seek a new vessel.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "Soul projection combat",
+          "Terrain manipulation",
+          "Vast qi reserves",
+          "Can destroy small mountains"
+        ],
+        "notable_individuals": [
+          "lin-feng",
+          "lin-xue"
+        ],
+        "breakthrough_requirements": "Nascent Soul Tribulation — three waves of lightning. Many Peak Golden Core cultivators spend decades stuck here.",
+        "lifespan_extension": "+500 years"
+      },
+      {
+        "rank": 5,
+        "name": "Spirit Severing",
+        "description": "The cultivator severs their connection to mortal desires (fear, love, hate) to embrace the Dao. The nascent soul melds back into the body, forming a semi-divine physical form.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "Space compression",
+          "Divine sense spanning hundreds of kilometers",
+          "Can level small cities"
+        ],
+        "notable_individuals": [
+          "xiao-yue",
+          "old-swordsman"
+        ],
+        "breakthrough_requirements": "Must fight and defeat a manifestation of one's heart demon. Failure means immediate death or permanent insanity.",
+        "lifespan_extension": "+1,000 years"
+      },
+      {
+        "rank": 6,
+        "name": "Dao Seeking",
+        "description": "The cultivator begins to absorb the laws of heaven and earth into their being, becoming a living embodiment of a Dao. Reality bends slightly around them.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "Minor law manipulation (time dilation, gravity warp)",
+          "Can shatter mountains with a gesture",
+          "Presence alone is lethal to weaker cultivators"
+        ],
+        "notable_individuals": [
+          "lin-feng",
+          "chen-wu"
+        ],
+        "breakthrough_requirements": "Must comprehend at least one fragment of a True Dao. The tribulation is a full Heavenly Calamity — nine waves.",
+        "lifespan_extension": "+5,000 years"
+      },
+      {
+        "rank": 7,
+        "name": "Heavenly Sovereign",
+        "description": "The pinnacle of known cultivation. The cultivator becomes a law unto themselves. There are at most a dozen Heavenly Sovereigns in the entire Nine Heaven Realm at any time.",
+        "sub_stages": [
+          "Early",
+          "Mid",
+          "Late",
+          "Peak"
+        ],
+        "power_feats": [
+          "True law mastery",
+          "Can warp continental geography in an all-out battle",
+          "Essentially immortal unless killed",
+          "Divine domain extends for thousands of kilometers"
+        ],
+        "notable_individuals": [
+          "lin-feng",
+          "old-swordsman"
+        ],
+        "breakthrough_requirements": "Unknown. Lin Feng achieved it by comprehending the complete Void Sword Dao during a near-death battle.",
+        "lifespan_extension": "Effectively immortal"
+      }
+    ],
+    "special_constitutions": [
+      {
+        "id": "void-sword-soul",
+        "name": "Void Sword Soul",
+        "rarity": "Ancient",
+        "description": "A primordial sword soul that allows the host to cut through the fabric of space with sword intent alone. Considered a myth — last recorded bearer lived 30,000 years ago.",
+        "known_bearers": [
+          "lin-feng"
+        ],
+        "advantages": [
+          "Sword intent comprehension is 10x faster than normal",
+          "Can cut through spatial barriers",
+          "Absorbs enemy sword qi and converts it to one's own",
+          "Immune to space-type restrictions and seals"
+        ],
+        "disadvantages": [
+          "Actively repels non-sword cultivation paths",
+          "Causes periodic episodes of uncontrollable killing intent",
+          "Other Sword Souls attempt to devour it on instinct"
+        ],
+        "lore": "The Void Sword Soul is theorized to be a fragment of the sword used by the First Sword God to cut open the Nine Heavens at the dawn of existence. It lay dormant in the Lin Clan's ancestral sword for ten thousand years before awakening in Lin Feng."
+      },
+      {
+        "id": "iron-body-constitution",
+        "name": "Blazing Iron Constitution",
+        "rarity": "Rare",
+        "description": "A body cultivation constitution that makes the host's flesh progressively more durable than refined iron. The host also generates and absorbs volcanic qi naturally.",
+        "known_bearers": [
+          "chen-wu"
+        ],
+        "advantages": [
+          "Physical defense surpasses cultivators one realm higher",
+          "Passive volcanic qi regeneration",
+          "Cannot be poisoned by heat-type toxins"
+        ],
+        "disadvantages": [
+          "Water-type techniques are 40% more effective",
+          "Spiritual arts cultivation is slower than normal — body resists qi refinement"
+        ],
+        "lore": "Said to appear once every five hundred years in the descendants of an ancient race of fire giants who lived before the Nine Heavens were fully formed."
+      }
+    ],
+    "daos_or_paths": [
+      {
+        "id": "void-sword-dao",
+        "name": "Void Sword Dao",
+        "description": "The supreme sword path — the belief that the sword is not a weapon but an extension of the void itself. A perfect strike erases the opposition rather than destroying it.",
+        "known_practitioners": [
+          "lin-feng",
+          "old-swordsman"
+        ],
+        "associated_techniques": [
+          "void-severance",
+          "ten-thousand-sword-return",
+          "sword-domain"
+        ]
+      },
+      {
+        "id": "blazing-fist-dao",
+        "name": "Blazing Iron Fist Dao",
+        "description": "A body-forging path that treats the fist as the ultimate weapon. Practitioners progressively abandon spiritual arts in favor of absolute physical dominance.",
+        "known_practitioners": [
+          "chen-wu"
+        ],
+        "associated_techniques": [
+          "eruption-fist",
+          "iron-mountain-stance"
+        ]
+      }
+    ]
+  },
+  "techniques": [
+    {
+      "id": "void-severance",
+      "name": "Void Severance",
+      "type": "attack",
+      "tier": "Divine",
+      "rank_required": "Dao Seeking — Late",
+      "description": "A single horizontal sword slash that does not cut the target — it cuts the space the target occupies, collapsing that section of reality onto the enemy.",
+      "effects": [
+        "Bypasses all physical and qi-based defenses",
+        "Collapses spatial barriers within 3 kilometers",
+        "Leaves a permanent void scar at the point of impact"
+      ],
+      "weaknesses": [
+        "Requires 30% of total qi reserves per use",
+        "Cannot be used consecutively — needs 10 breaths recovery",
+        "Ineffective against targets who have comprehended Space Dao themselves"
+      ],
+      "origin": "Created by Lin Feng during his near-death battle against the Heaven Tyrant Sect leader at Ch. 890",
+      "known_users": [
+        "lin-feng"
+      ],
+      "lore": "The first use of Void Severance split the Heaven Tyrant Plateau in two, creating what is now known as the Dead Rift — a permanent void fracture that swallows anything that enters it."
+    },
+    {
+      "id": "ten-thousand-sword-return",
+      "name": "Ten Thousand Sword Return",
+      "type": "attack",
+      "tier": "Heavenly",
+      "rank_required": "Spirit Severing — Peak",
+      "description": "Lin Feng projects ten thousand sword qi threads in all directions, then collapses them all toward a single point simultaneously. The resulting convergence point is equivalent to the pressure of ten thousand swords striking at once.",
+      "effects": [
+        "Omnidirectional — cannot be evaded by spatial movement",
+        "Pressure alone can rupture qi shields below Dao Seeking",
+        "Can target multiple enemies by splitting threads"
+      ],
+      "weaknesses": [
+        "2-second preparation window — experienced fighters can interrupt",
+        "Ineffective in very small enclosed spaces"
+      ],
+      "origin": "Inherited principle from Ye Qingfeng, perfected by Lin Feng with Void Sword Soul enhancement.",
+      "known_users": [
+        "lin-feng",
+        "old-swordsman"
+      ],
+      "lore": "Ye Qingfeng's original version used 1,000 sword threads. Lin Feng's version grew from 3,000 to 10,000 as his comprehension deepened."
+    },
+    {
+      "id": "sword-domain",
+      "name": "Sword Domain — Heaven Cuts All",
+      "type": "passive",
+      "tier": "Divine",
+      "rank_required": "Dao Seeking — Peak",
+      "description": "A permanent domain manifestation around Lin Feng. Within 500 meters, every particle of air becomes a potential sword edge under his control. Movement inside the domain feels like walking through invisible blades.",
+      "effects": [
+        "All enemies inside take continuous cutting damage",
+        "Lin Feng's attack speed and power double inside the domain",
+        "Suppresses domains lower than Heavenly Sovereign rank"
+      ],
+      "weaknesses": [
+        "Domain maintenance consumes qi passively",
+        "Friendly fire — allies must be given explicit domain access"
+      ],
+      "origin": "Manifested naturally when Lin Feng reached Dao Seeking Peak",
+      "known_users": [
+        "lin-feng"
+      ],
+      "lore": "When Lin Feng first manifested the domain during the Battle of the Four Sects, witnesses reported that every leaf within 500 meters was sliced into uniform cross-sections."
+    },
+    {
+      "id": "eruption-fist",
+      "name": "Eruption Fist — Magma Surge",
+      "type": "attack",
+      "tier": "Earth",
+      "rank_required": "Qi Condensation — Layer 6",
+      "description": "Chen Wu channels volcanic qi into his fist and releases it in a forward-driving explosion on impact. Later enhanced versions create a shockwave that spreads outward from the point of impact.",
+      "effects": [
+        "Massive forward knockback",
+        "Burns qi shields from inside on contact",
+        "Later form creates 50m shockwave"
+      ],
+      "weaknesses": [
+        "Fully telegraphed windup",
+        "Water-type qi can absorb and dissipate the volcanic qi"
+      ],
+      "origin": "Blazing Fist Sect combat manual, Chapter 3.",
+      "known_users": [
+        "chen-wu"
+      ],
+      "lore": "Chen Wu's version of Eruption Fist is considered the most powerful in Blazing Fist Sect history due to his Iron Constitution amplifying the base volcanic qi output."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "void-sovereign-blade",
+      "name": "Void Sovereign Blade",
+      "type": "weapon",
+      "grade": "Divine",
+      "description": "A pitch-black sword with no visible edge — the blade is made of compressed void energy rather than metal. Looking directly at the blade causes a sensation of falling into darkness. Approximately 90cm long.",
+      "abilities": [
+        "Amplifies void-type sword qi by 300%",
+        "Can store up to 100 sword qi strikes internally and release them simultaneously",
+        "Resonates with Lin Feng's Void Sword Soul — grows stronger as he grows stronger",
+        "Can cut through King-grade defensive artifacts as if they were paper"
+      ],
+      "origin": "Forged by the First Sword God 30,000 years ago and buried in the Void Rift beneath the Sword Sovereign Sect's ancestral peak. Lin Feng obtained it at Ch. 620.",
+      "current_owner": "lin-feng",
+      "previous_owners": [],
+      "spirit_intelligence": "High",
+      "lore": "The blade has a sword spirit named 'Xu' (Void). Xu communicates with Lin Feng through sword intent pulses — it has rejected every other owner for 30,000 years. Xu occasionally mocks Lin Feng's slower-than-expected growth."
+    },
+    {
+      "id": "jade-harmony-flute",
+      "name": "Jade Harmony Flute",
+      "type": "weapon",
+      "grade": "King",
+      "description": "A pale green jade flute about 40cm long, perfectly smooth, with celestial inscriptions along its length that glow faintly during use.",
+      "abilities": [
+        "Sound waves generated by the flute bypass physical shields — affects the soul directly",
+        "Can be used as a formation-anchor for moon-type defensive arrays",
+        "Soul Resonance — harmonizes the qi of allied cultivators within 200m, boosting their output by 15%"
+      ],
+      "origin": "A gift from Xiao Yue's father, the Azure Peak Sect Master, for her coming-of-age ceremony.",
+      "current_owner": "xiao-yue",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "The flute was originally carved from a 10,000-year-old Celestial Jade Bamboo — a material that naturally resonates with moonlight. Its inscriptions were added by a Dao Seeking formation master."
+    },
+    {
+      "id": "broken-heaven-sword",
+      "name": "Broken Heaven Sword",
+      "type": "weapon",
+      "grade": "Mythic",
+      "description": "An ancient sword shattered into three pieces. The largest shard — about half a blade — still radiates intense sword intent that causes weaker cultivators to bleed from their sense organs just by being near it.",
+      "abilities": [
+        "Even broken, the sword intent within suppresses all other sword-type artifacts within 1 kilometer",
+        "The sword will not allow itself to be wielded by anyone who has not comprehended at least Mortal Sword Intent"
+      ],
+      "origin": "The personal weapon of Ye Qingfeng throughout his time as a Heavenly Sovereign. Shattered when he destroyed his own cultivation to escape the Heaven Devouring Tribulation.",
+      "current_owner": "lin-feng",
+      "previous_owners": [
+        "old-swordsman"
+      ],
+      "spirit_intelligence": "Low",
+      "lore": "The Broken Heaven Sword was bequeathed to Lin Feng upon Ye Qingfeng's death at Ch. 502. It cannot be repaired by any known smithing technique — but the Void Sovereign Blade's spirit Xu claims the two swords 'recognize' each other."
+    }
+  ],
+  "pills_and_resources": [
+    {
+      "id": "foundation-ascension-pill",
+      "name": "Foundation Ascension Pill",
+      "type": "pill",
+      "grade": "Mid",
+      "effects": [
+        "Guarantees a successful Foundation Building breakthrough",
+        "Cleanses 30% of qi impurities accumulated during Qi Condensation"
+      ],
+      "side_effects": [
+        "Extreme pain during the breakthrough process — lasts 3 days",
+        "Leaves the user bedridden for a week"
+      ],
+      "ingredients": [
+        "Dragon Spine Grass",
+        "Nine-Petal Lotus",
+        "Golden Sand Moss"
+      ],
+      "rarity": "Rare",
+      "known_locations": [
+        "crimson-city-auction-house"
+      ],
+      "used_by": [
+        "lin-feng"
+      ]
+    },
+    {
+      "id": "void-crystal-ore",
+      "name": "Void Crystal Ore",
+      "type": "ore",
+      "grade": "Divine",
+      "effects": [
+        "Primary material for void-type artifacts",
+        "Absorbing raw shards accelerates Void Dao comprehension"
+      ],
+      "side_effects": [
+        "Non-void cultivators who touch raw ore suffer spatial qi disruption — potentially fatal"
+      ],
+      "ingredients": [],
+      "rarity": "Legendary",
+      "known_locations": [
+        "void-rift-depths"
+      ],
+      "used_by": [
+        "lin-feng"
+      ]
+    }
+  ],
+  "bloodlines": [
+    {
+      "id": "sword-god-bloodline",
+      "name": "First Sword God Bloodline",
+      "origin": "The First Sword God — the being who cut open the Nine Heavens at the dawn of time",
+      "purity_levels": [
+        {
+          "level": "1/1000th dilution",
+          "abilities": [
+            "Marginally faster sword intent comprehension"
+          ]
+        },
+        {
+          "level": "1/100th",
+          "abilities": [
+            "Sword qi is naturally sharper",
+            "Weapons feel lighter"
+          ]
+        },
+        {
+          "level": "1/10th",
+          "abilities": [
+            "Can manifest rudimentary Sword Domain",
+            "Void resonance begins"
+          ]
+        },
+        {
+          "level": "Awakened",
+          "abilities": [
+            "Full Void Sword Soul activation",
+            "Communion with ancient sword memories"
+          ]
+        }
+      ],
+      "known_bearers": [
+        "lin-feng"
+      ],
+      "lore": "The First Sword God's bloodline was thought extinct for twenty thousand years. Lin Feng's mother — whose identity is only revealed at Ch. 980 — was a direct descendant carrying a 1/10th diluted bloodline. The Lin Clan's ancestral sword acted as a catalyst, awakening the bloodline to full potency in Lin Feng."
+    }
+  ],
+  "beasts_and_creatures": [
+    {
+      "id": "void-serpent",
+      "name": "Void Spatial Serpent",
+      "rank": "Nascent Soul Equivalent",
+      "type": "ancient-creature",
+      "description": "A pitch-black serpent roughly 20 meters long with silver geometric patterns along its scales. Its body flickers in and out of visible space — it phases through solid matter at will.",
+      "abilities": [
+        "Spatial phasing — passes through any non-void-sealed barrier",
+        "Void Venom — causes spatial qi disruption in the bloodstream",
+        "Can swallow targets into a pocket dimension within its body"
+      ],
+      "habitat": [
+        "void-rift-depths"
+      ],
+      "tame_difficulty": "Very Hard",
+      "named_individuals": [
+        {
+          "name": "Xu'er",
+          "owner": "lin-feng",
+          "notes": "A young Void Serpent Lin Feng tamed at Ch. 630. Acts as his scout. Has a mischievous personality — fond of stealing food from Chen Wu."
+        }
+      ],
+      "drops": [
+        "Void Serpent Scale — spatial-resistance crafting material",
+        "Serpent Core — void-type core"
+      ],
+      "lore": "Void Spatial Serpents are natural guardians of spatial fractures. They are drawn to Void Crystal Ore and will aggressively defend deposits of it. The species is not inherently malicious — they are simply territorial. Cultivators who can prove they carry void affinity are sometimes allowed passage."
+    },
+    {
+      "id": "crimson-war-tiger",
+      "name": "Crimson War Tiger",
+      "rank": "Golden Core Equivalent",
+      "type": "spirit-beast",
+      "description": "A massive tiger the size of a carriage, crimson fur with black tiger stripes. Emanates heat — the air visibly distorts around it.",
+      "abilities": [
+        "Flame Roar — cone-shaped fire breath 50m",
+        "Iron Hide — physical attacks below Golden Core bounce off",
+        "War Charge — speed burst for 100m in a straight line"
+      ],
+      "habitat": [
+        "crimson-mountains"
+      ],
+      "tame_difficulty": "Hard",
+      "named_individuals": [],
+      "drops": [
+        "Crimson Tiger Bone — high-grade body-tempering material",
+        "Tiger Core"
+      ],
+      "lore": "Common mount among Golden Core cultivators from the eastern regions. The Blazing Fist Sect keeps a breeding program for them."
+    }
+  ],
+  "locations": [
+    {
+      "id": "void-rift-depths",
+      "name": "Void Rift Depths",
+      "type": "dungeon",
+      "description": "A permanent spatial fracture beneath the Sword Sovereign Sect's ancestral peak. The fracture extends several kilometers deep into a pocket dimension where the laws of space are unstable. Gravity does not function normally; light bends at odd angles.",
+      "dangers": [
+        "Random spatial collapse — can crush anything inside",
+        "Void Serpent guardian colony",
+        "Complete loss of spatial orientation for non-void cultivators"
+      ],
+      "resources": [
+        "void-crystal-ore"
+      ],
+      "factions_present": [
+        "sword-sovereign-sect"
+      ],
+      "notable_characters": [
+        "lin-feng"
+      ],
+      "is_accessible": "Restricted",
+      "lore": "The Void Rift was created 30,000 years ago when the First Sword God's blade shattered after its final battle. The Void Sovereign Blade was buried at its deepest point. For three thousand years the Sword Sovereign Sect's most powerful disciples attempted to reach the bottom — all failed until Lin Feng."
+    },
+    {
+      "id": "crimson-city",
+      "name": "Crimson City",
+      "type": "city",
+      "description": "A major trade hub in the Eastern Domain, built at the intersection of four major cultivation territories. Home to the famous Crimson City Auction House where rare pills and artifacts change hands monthly.",
+      "dangers": [
+        "High density of cultivators — disputes frequently turn lethal in back alleys",
+        "Slave trade operates in the underground market"
+      ],
+      "resources": [],
+      "factions_present": [
+        "lin-clan",
+        "blazing-fist-sect",
+        "azure-peak-sect"
+      ],
+      "notable_characters": [
+        "lin-feng",
+        "chen-wu",
+        "elder-zhao"
+      ],
+      "is_accessible": "Open",
+      "lore": "Crimson City has changed hands between dominant sects twelve times in the last millennium. Its current nominal governance by the Crimson City Lord — a Nascent Soul cultivator — is essentially a fiction; real power rests with the three major sects who maintain embassies here."
+    },
+    {
+      "id": "broken-peak",
+      "name": "Broken Peak",
+      "type": "mountain",
+      "description": "A remote mountain in the northern wastelands that appears shattered at its summit — as if something enormous struck it from above. Perpetually shrouded in grey mist. Ye Qingfeng's hermitage is at the 9th ledge from the base.",
+      "dangers": [
+        "Disorienting mist — those without strong divine sense become lost permanently",
+        "Ye Qingfeng's defensive formations (while he lived)"
+      ],
+      "resources": [],
+      "factions_present": [],
+      "notable_characters": [
+        "old-swordsman",
+        "lin-feng"
+      ],
+      "is_accessible": "Open",
+      "lore": "Locals claim Broken Peak was struck by a heavenly lightning bolt ten thousand years ago. Cultivators who reach the summit report hearing a low continuous ringing — like a sword vibrating after being struck."
+    }
+  ],
+  "realms_and_dimensions": [
+    {
+      "id": "mortal-realm",
+      "name": "Mortal Lower Realm",
+      "hierarchy_rank": 1,
+      "description": "The foundation world where most cultivation takes place. Spiritual qi density is moderate — enough to support cultivation up to Spirit Severing with effort. Heavenly Sovereign breakthroughs here are nearly impossible due to heavenly law suppression.",
+      "access_methods": [
+        "Born here",
+        "Descended from upper realms"
+      ],
+      "known_factions": [
+        "lin-clan",
+        "azure-peak-sect",
+        "blazing-fist-sect",
+        "sword-sovereign-sect"
+      ],
+      "lore": "The Mortal Lower Realm is one of approximately three thousand lower realms seeded by the Heavenly Palace after the Nine Heavens were established. It is considered below average in spiritual qi density."
+    },
+    {
+      "id": "nine-heaven-realm",
+      "name": "Nine Heaven Upper Realm",
+      "hierarchy_rank": 2,
+      "description": "The upper realm where Heavenly Sovereigns reside. Spiritual qi is so dense it is visible to the naked eye as golden mist. Laws of heaven and earth are more directly accessible here — cultivation speed for those already at Dao Seeking increases tenfold.",
+      "access_methods": [
+        "Ascending through a heavenly tribulation that opens an ascension gate",
+        "Forcible methods used by Heavenly Sovereigns to retrieve people"
+      ],
+      "known_factions": [],
+      "lore": "Lin Feng reaches the Nine Heaven Upper Realm at Ch. 1100 and discovers it is controlled by a council of ancient Heavenly Sovereigns who have been deliberately suppressing the lower realms to prevent new competitors from ascending."
+    }
+  ],
+  "factions": [
+    {
+      "id": "lin-clan",
+      "name": "Lin Clan",
+      "type": "clan",
+      "description": "A mid-tier cultivation clan in the Eastern Domain. Strong in political maneuvering, weak in individual genius. Lin Feng was their greatest prospect before they crippled him.",
+      "alignment": "evil",
+      "standing": "Minor Power",
+      "headquarters": "crimson-city",
+      "leader": "elder-zhao",
+      "notable_members": [
+        "lin-feng",
+        "elder-zhao",
+        "lin-xue"
+      ],
+      "allied_factions": [],
+      "enemy_factions": [
+        "sword-sovereign-sect"
+      ],
+      "signature_techniques": [],
+      "history": "The Lin Clan was founded approximately 400 years ago by a Golden Core cultivator who unified 12 smaller families. It has since declined from a once mid-major power.",
+      "lore": "After Lin Feng's revenge arc culminates at Ch. 320, the Lin Clan is effectively dissolved — surviving members absorbed into the Sword Sovereign Sect under Lin Feng's authority."
+    },
+    {
+      "id": "sword-sovereign-sect",
+      "name": "Sword Sovereign Sect",
+      "type": "sect",
+      "description": "The sect Lin Feng founded at Ch. 450 using the ruins of the Heaven Tyrant Sect. Grows from nothing to the dominant force in the Eastern Domain within 200 chapters.",
+      "alignment": "neutral",
+      "standing": "Major Power",
+      "headquarters": "broken-peak",
+      "leader": "lin-feng",
+      "notable_members": [
+        "lin-feng",
+        "chen-wu",
+        "lin-xue"
+      ],
+      "allied_factions": [
+        "azure-peak-sect"
+      ],
+      "enemy_factions": [
+        "lin-clan"
+      ],
+      "signature_techniques": [
+        "void-severance",
+        "ten-thousand-sword-return"
+      ],
+      "history": "Founded by Lin Feng on the ruins of the Heaven Tyrant Sect. Initial membership was 12 people. By Ch. 700, membership exceeded 50,000 across all cultivation levels.",
+      "lore": "The Sword Sovereign Sect's founding principle — 'Cut what must be cut, preserve what must be preserved' — is considered extremely unusual for a major sect, most of which prioritize absolute expansion."
+    },
+    {
+      "id": "azure-peak-sect",
+      "name": "Azure Peak Sect",
+      "type": "sect",
+      "description": "A harmony-focused sect specializing in formation arrays, healing arts, and sound cultivation. Considered pacifist by nature — rarely initiates conflict.",
+      "alignment": "good",
+      "standing": "Minor Power",
+      "headquarters": "crimson-city",
+      "leader": "xiao-yue",
+      "notable_members": [
+        "xiao-yue"
+      ],
+      "allied_factions": [
+        "sword-sovereign-sect"
+      ],
+      "enemy_factions": [],
+      "signature_techniques": [],
+      "history": "One of the oldest sects in the Eastern Domain — predates the major wars by 600 years. Has survived by maintaining strict neutrality.",
+      "lore": "After Xiao Yue becomes sect master at Ch. 780 following her father's death, the Azure Peak Sect formally allies with the Sword Sovereign Sect — the first political alliance in the sect's history."
+    }
+  ],
+  "battles_and_events": [
+    {
+      "id": "lin-feng-crippling",
+      "name": "The Crippling of Lin Feng",
+      "type": "betrayal",
+      "chapters": "Ch. 1",
+      "summary": "Elder Zhao Kun secretly uses a Soul Seal Technique to destroy Lin Feng's spiritual roots during a clan cultivation assessment, framing it as a natural failure. Lin Feng spends three years as the clan's punching bag before the Void Sword Soul awakens.",
+      "participants": [
+        "lin-feng",
+        "elder-zhao"
+      ],
+      "outcome": "Lin Feng loses his cultivation. Elder Zhao's position in the clan solidifies.",
+      "casualties": [],
+      "significance": "The inciting event of the entire story. Every action Lin Feng takes in the first 300 chapters is a direct response to this moment.",
+      "lore_revealed": [
+        "Elder Zhao has been secretly using Soul Seal techniques — forbidden by clan law",
+        "The Lin Clan's ancestral sword reacted to Lin Feng's despair — early hint at the Void Sword Soul"
+      ]
+    },
+    {
+      "id": "revenge-elder-zhao",
+      "name": "Lin Feng Kills Elder Zhao",
+      "type": "battle",
+      "chapters": "Ch. 88",
+      "summary": "Newly at Foundation Building Mid, Lin Feng challenges Elder Zhao — now known to be at Golden Core Peak — in front of the entire clan assembly. Despite the massive power gap, Lin Feng's Void Sword Soul allows him to cut through Zhao's qi defenses and deliver a killing blow.",
+      "participants": [
+        "lin-feng",
+        "elder-zhao"
+      ],
+      "outcome": "Elder Zhao killed. Lin Feng declares war on the Lin Clan leadership.",
+      "casualties": [
+        "elder-zhao"
+      ],
+      "significance": "Establishes that Lin Feng can fight above his realm. Marks the transition from survival mode to active revenge.",
+      "lore_revealed": [
+        "The Void Sword Soul's ability to cut qi constructs directly",
+        "Elder Zhao's soul-capture jade pendant is revealed — he had been collecting souls for a forbidden technique"
+      ]
+    },
+    {
+      "id": "battle-of-four-sects",
+      "name": "Battle of the Four Sects",
+      "type": "battle",
+      "chapters": "Ch. 680-700",
+      "summary": "The four major Eastern Domain sects unite to destroy the rising Sword Sovereign Sect. Lin Feng faces four Dao Seeking cultivators simultaneously. The battle lasts six days and reshapes the geography of the Eastern Domain.",
+      "participants": [
+        "lin-feng",
+        "chen-wu"
+      ],
+      "outcome": "All four sects defeated. Three sect leaders killed, one flees to the Nine Heaven Realm. The Eastern Domain is unified under the Sword Sovereign Sect.",
+      "casualties": [],
+      "significance": "The climax of the Eastern Domain arc. Lin Feng's Sword Domain first manifests here.",
+      "lore_revealed": [
+        "The four sects were being manipulated by agents from the Nine Heaven Upper Realm",
+        "The Eastern Domain's geography contains a concealed ascension gate — revealed when Lin Feng's domain intersects with it"
+      ]
+    }
+  ],
+  "arcs": [
+    {
+      "title": "The Fallen Genius",
+      "chapters": "Ch. 1-87",
+      "summary": "Lin Feng rebuilds his cultivation from zero after being crippled. The Void Sword Soul awakens. He navigates the clan's hostility while secretly training, ultimately finding his first mentor and preparing for revenge.",
+      "key_events": [
+        "lin-feng-crippling"
+      ],
+      "characters_introduced": [
+        "lin-feng",
+        "elder-zhao",
+        "lin-xue"
+      ],
+      "power_level_context": "Crippled → Foundation Building Early",
+      "major_gains": [
+        "Void Sword Soul awakening",
+        "Foundation Ascension Pill",
+        "First sword intent comprehension"
+      ]
+    },
+    {
+      "title": "The Revenge Arc",
+      "chapters": "Ch. 88-320",
+      "summary": "Lin Feng systematically dismantles everyone who wronged him or his sister. He grows from a clan pariah into a feared name across the Eastern Domain, begins cultivating in earnest, and meets Xiao Yue and Chen Wu.",
+      "key_events": [
+        "revenge-elder-zhao"
+      ],
+      "characters_introduced": [
+        "xiao-yue",
+        "chen-wu"
+      ],
+      "power_level_context": "Foundation Building → Nascent Soul Early",
+      "major_gains": [
+        "Broken Heaven Sword (from Ye Qingfeng)",
+        "Sword Domain seed comprehension",
+        "Lin Clan dissolved"
+      ]
+    },
+    {
+      "title": "Sect Founding Era",
+      "chapters": "Ch. 321-679",
+      "summary": "Lin Feng founds the Sword Sovereign Sect, discovers the Void Rift and the Void Sovereign Blade, loses his master Ye Qingfeng, and rapidly expands from a small group to a regional power.",
+      "key_events": [],
+      "characters_introduced": [
+        "old-swordsman"
+      ],
+      "power_level_context": "Nascent Soul → Dao Seeking Early",
+      "major_gains": [
+        "Void Sovereign Blade",
+        "Void Serpent companion Xu'er",
+        "Sword Sovereign Sect established"
+      ]
+    },
+    {
+      "title": "Eastern Domain Unification",
+      "chapters": "Ch. 680-900",
+      "summary": "The four major sects unite against the Sword Sovereign Sect in a final confrontation. Lin Feng wins at catastrophic cost, unifies the Eastern Domain, and discovers the conspiracy linking the upper and lower realms.",
+      "key_events": [
+        "battle-of-four-sects"
+      ],
+      "characters_introduced": [],
+      "power_level_context": "Dao Seeking → Heavenly Sovereign Early",
+      "major_gains": [
+        "Sword Domain — Heaven Cuts All",
+        "Void Severance technique",
+        "Eastern Domain political control",
+        "Discovery of hidden ascension gate"
+      ]
+    },
+    {
+      "title": "Ascension and the Heavenly Council",
+      "chapters": "Ch. 901-1200",
+      "summary": "Lin Feng ascends to the Nine Heaven Upper Realm, discovers the Heavenly Council's suppression conspiracy, battles ancient Sovereigns, and ultimately achieves Heavenly Sovereign Peak — the novel's conclusion.",
+      "key_events": [],
+      "characters_introduced": [],
+      "power_level_context": "Heavenly Sovereign Early → Peak",
+      "major_gains": [
+        "Heavenly Sovereign Peak breakthrough",
+        "Void Sword Dao completion",
+        "Heavenly Council overthrown"
+      ]
+    }
+  ],
+  "prophecies_and_lore": [
+    {
+      "id": "sword-prophecy",
+      "title": "The Prophecy of the Void Sword",
+      "type": "prophecy",
+      "content": "When the Sword that cuts the Void awakens again, the Nine Heavens will bleed. The Crippled will rise, the Mighty will kneel, and the Sealed will finally speak.",
+      "source": "Found carved into the wall of the Void Rift at Ch. 620 — inscribed 30,000 years ago",
+      "related_characters": [
+        "lin-feng"
+      ],
+      "fulfilled": "Yes",
+      "significance": "Foreshadows Lin Feng's full arc — his crippling (the crippled), the Heavenly Council bowing (the mighty kneel), and the Void Sovereign Blade's spirit Xu finally communicating freely (the sealed speaks)."
+    }
+  ],
+  "terminology": [
+    {
+      "term": "Dantian",
+      "category": "power-system",
+      "definition": "The spiritual energy center located in the lower abdomen. Stores refined qi and serves as the source of all cultivation power. Destroying the dantian effectively cripples a cultivator."
+    },
+    {
+      "term": "Qi",
+      "category": "power-system",
+      "definition": "The fundamental spiritual energy of heaven and earth absorbed by cultivators. Qi varies in type based on elemental affinity — fire qi, sword qi, void qi, etc."
+    },
+    {
+      "term": "Sword Intent",
+      "category": "power-system",
+      "definition": "The spiritual essence of sword cultivation transcending mere technique. A cultivator who comprehends sword intent can project cutting force through their will alone, without physical contact."
+    },
+    {
+      "term": "Divine Sense",
+      "category": "power-system",
+      "definition": "The cultivator's spiritual awareness projected outward. Stronger divine sense = greater range and detail. Nascent Soul cultivators can sense kilometers. Heavenly Sovereigns can monitor entire regions."
+    },
+    {
+      "term": "Heart Demon",
+      "category": "power-system",
+      "definition": "A manifestation of the cultivator's deepest fears, regrets, and obsessions. Heart Demons become critical threats during Spirit Severing breakthrough — failure to overcome one results in death or madness."
+    },
+    {
+      "term": "Heavenly Tribulation",
+      "category": "power-system",
+      "definition": "A heavenly punishment that challenges cultivators at major breakthrough points. Heaven sends increasingly powerful lightning strikes that must be endured or redirected. Failing a tribulation typically kills the cultivator."
+    },
+    {
+      "term": "Void Scar",
+      "category": "world-building",
+      "definition": "A permanent tear in spatial fabric caused by extremely powerful void-type techniques. Void Scars do not heal — they persist indefinitely and swallow anything that contacts them."
+    },
+    {
+      "term": "Spiritual Root",
+      "category": "power-system",
+      "definition": "The innate connection a cultivator has to spiritual qi. Determines what types of qi they can most effectively absorb. Having no spiritual root — or having it destroyed — prevents cultivation."
+    }
+  ]
+}

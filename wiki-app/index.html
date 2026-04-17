@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novel Wiki — My Library</title>
+  <meta name="description" content="Personal self-hosted fandom wiki for novels. Powered by AI extraction.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <div style="min-height:100vh">
+
+    <!-- LIBRARY HEADER -->
+    <div class="library-header" style="border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+            <div style="width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#000">
+              <i class="bi bi-collection-fill"></i>
+            </div>
+            <div class="library-title">My Novel Library</div>
+          </div>
+          <div class="library-subtitle">Your personal fandom wiki — powered by Qwen AI extraction</div>
+        </div>
+        <a href="import.html" class="btn btn-primary btn-lg">
+          <i class="bi bi-plus-circle"></i>Import Novel
+        </a>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="library-toolbar">
+      <div class="filter-search" style="max-width:400px;flex:1">
+        <i class="bi bi-search"></i>
+        <input type="text" id="lib-search" placeholder="Search your library..." oninput="filterLibrary()">
+      </div>
+      <select class="filter-select" id="lib-genre" onchange="filterLibrary()">
+        <option value="">All Genres</option>
+        <option value="cultivation">Cultivation</option>
+        <option value="tower">Tower</option>
+        <option value="regression">Regression</option>
+        <option value="system">System</option>
+        <option value="isekai">Isekai</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="sci-fi">Sci-Fi</option>
+        <option value="light-novel">Light Novel</option>
+        <option value="web-novel">Web Novel</option>
+        <option value="other">Other</option>
+      </select>
+      <span id="lib-count" class="text-muted text-sm"></span>
+    </div>
+
+    <!-- NOVEL GRID -->
+    <div class="library-grid" id="novel-grid">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="lib-empty" class="empty-state hidden">
+      <i class="bi bi-collection"></i>
+      <h3>Your library is empty</h3>
+      <p>Import your first novel to get started.</p>
+      <a href="import.html" class="btn btn-primary mt-16">
+        <i class="bi bi-plus-circle"></i>Import Novel
+      </a>
+    </div>
+
+  </div>
+
+  <script src="js/store.js"></script>
+  <script>
+    /* Genre accent color map */
+    const genreColors = {
+      cultivation:'#f0a500', tower:'#58a6ff', regression:'#f78166',
+      system:'#3fb950', isekai:'#bc8cff', fantasy:'#db61a2',
+      'sci-fi':'#39d0d8', 'light-novel':'#8b949e', 'web-novel':'#8b949e', other:'#f0a500'
+    };
+
+    const genreIcons = {
+      cultivation:'bi-fire', tower:'bi-layers', regression:'bi-arrow-counterclockwise',
+      system:'bi-hdd-stack', isekai:'bi-globe2', fantasy:'bi-stars',
+      'sci-fi':'bi-cpu', 'light-novel':'bi-book', 'web-novel':'bi-book', other:'bi-collection'
+    };
+
+    let allNovels = [];
+
+    function renderLibrary(novels) {
+      const grid = document.getElementById('novel-grid');
+      const empty = document.getElementById('lib-empty');
+      document.getElementById('lib-count').textContent = `${novels.length} novel${novels.length !== 1 ? 's' : ''}`;
+
+      if (!novels.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      grid.innerHTML = novels.map(n => {
+        const color  = genreColors[n.type] || '#f0a500';
+        const icon   = genreIcons[n.type]  || 'bi-book';
+        const s      = n.stats || {};
+        return `
+          <div class="novel-card" data-type="${n.type}" data-title="${n.title}" onclick="openNovel('${n.id}')">
+            <div class="novel-card-top" style="background:${color}"></div>
+            <div class="novel-card-body">
+              <div class="novel-card-title">${n.title}</div>
+              <div class="novel-card-genre">
+                <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">
+                  <i class="bi ${icon}"></i>${(n.type||'other').replace(/-/g,' ')}
+                </span>
+                ${(n.genre_tags||[]).slice(0,2).map(t=>`<span class="badge badge-muted">${t}</span>`).join('')}
+              </div>
+              <div class="novel-card-stats">
+                ${s.characters  ? `<span class="novel-stat"><i class="bi bi-people"></i>${s.characters} chars</span>` : ''}
+                ${s.arcs        ? `<span class="novel-stat"><i class="bi bi-diagram-3"></i>${s.arcs} arcs</span>` : ''}
+                ${s.techniques  ? `<span class="novel-stat"><i class="bi bi-lightning"></i>${s.techniques} techniques</span>` : ''}
+                ${s.locations   ? `<span class="novel-stat"><i class="bi bi-map"></i>${s.locations} locations</span>` : ''}
+              </div>
+            </div>
+            <div class="novel-card-actions">
+              <a href="wiki.html?novel=${n.id}" class="btn btn-secondary btn-sm" onclick="event.stopPropagation()">
+                <i class="bi bi-book-open"></i>Open Wiki
+              </a>
+              <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); editNovel('${n.id}')">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); deleteNovel('${n.id}', '${n.title}')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function filterLibrary() {
+      const q     = document.getElementById('lib-search').value.toLowerCase();
+      const genre = document.getElementById('lib-genre').value;
+      const filtered = allNovels.filter(n => {
+        const matchTitle = n.title.toLowerCase().includes(q);
+        const matchGenre = !genre || n.type === genre;
+        return matchTitle && matchGenre;
+      });
+      renderLibrary(filtered);
+    }
+
+    function openNovel(id) {
+      location.href = `wiki.html?novel=${id}`;
+    }
+
+    function editNovel(id) {
+      location.href = `import.html?edit=${id}`;
+    }
+
+    function deleteNovel(id, title) {
+      if (confirm(`Delete "${title}" from your library? This cannot be undone.`)) {
+        Store.deleteNovel(id);
+        allNovels = Store.getNovels();
+        filterLibrary();
+      }
+    }
+
+    /* Init */
+    allNovels = Store.getNovels();
+    renderLibrary(allNovels);
+  </script>
+</body>
+</html>

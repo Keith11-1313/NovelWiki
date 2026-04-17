@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Import Novel — Novel Wiki</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <div style="height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:90">
+    <a href="index.html" class="btn-home"><i class="bi bi-arrow-left"></i>Back to Library</a>
+    <span style="color:var(--border)">|</span>
+    <span style="font-size:14px;font-weight:600;color:var(--text-primary)" id="page-label">Import Novel</span>
+  </div>
+
+  <div class="import-container">
+
+    <div style="margin-bottom:32px">
+      <div class="page-title"><i class="bi bi-box-arrow-in-down"></i><span id="import-heading">Import Novel from Qwen</span></div>
+      <div class="page-subtitle">Paste the JSON output from your Qwen Novel Extractor project below, or upload the file directly.</div>
+    </div>
+
+    <!-- MODE TABS -->
+    <div style="display:flex;gap:8px;margin-bottom:24px">
+      <button id="tab-extract" class="btn btn-primary btn-sm" onclick="switchMode('extract')">
+        <i class="bi bi-file-earmark-code"></i>Base Extraction
+      </button>
+      <button id="tab-analysis" class="btn btn-secondary btn-sm" onclick="switchMode('analysis')">
+        <i class="bi bi-cpu"></i>Analysis Pass
+      </button>
+    </div>
+
+    <!-- BASE EXTRACTION MODE -->
+    <div id="mode-extract">
+      <!-- FILE UPLOAD ZONE -->
+      <div class="import-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <i class="bi bi-cloud-upload"></i>
+        <h3>Drop your JSON file here</h3>
+        <p>Or click to browse — supports .json files exported from Qwen</p>
+      </div>
+      <input type="file" id="file-input" accept=".json" style="display:none">
+
+      <div class="import-divider">or paste JSON directly</div>
+
+      <textarea class="import-textarea" id="json-input" placeholder='Paste the JSON from Qwen here...&#10;&#10;{&#10;  "novel": { "title": "...", "type": "cultivation", ... },&#10;  "characters": [...],&#10;  ...&#10;}' oninput="validateJson()"></textarea>
+
+      <div id="feedback" class="hidden"></div>
+
+      <!-- PREVIEW -->
+      <div id="preview-box" class="import-preview hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <div id="preview-title" style="font-size:16px;font-weight:700"></div>
+          <span id="preview-genre" class="badge badge-accent"></span>
+        </div>
+        <div id="preview-summary" class="text-sm text-muted mb-12"></div>
+        <div class="import-preview-grid" id="preview-stats"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:20px">
+        <button class="btn btn-primary btn-lg" id="save-btn" onclick="saveNovel()" disabled style="opacity:.5">
+          <i class="bi bi-check-circle"></i>Save to Wiki
+        </button>
+        <button class="btn btn-ghost btn-lg" onclick="clearForm()">
+          <i class="bi bi-x-circle"></i>Clear
+        </button>
+      </div>
+    </div>
+
+    <!-- ANALYSIS MERGE MODE -->
+    <div id="mode-analysis" class="hidden">
+      <div class="card mb-16" style="border-left:3px solid var(--accent)">
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7">
+          <i class="bi bi-info-circle text-accent"></i>
+          <strong>Analysis Mode</strong> — Paste the JSON output from the <em>Analysis Pass</em> in Qwen.
+          Select which novel to merge it into, then click Save.
+        </div>
+      </div>
+
+      <label style="font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px">Target Novel</label>
+      <select class="filter-select" id="target-novel" style="width:100%;margin-bottom:16px;padding:12px">
+        <option value="">Select a novel...</option>
+      </select>
+
+      <textarea class="import-textarea" id="analysis-input" placeholder='Paste the Analysis JSON from Qwen here...&#10;&#10;{&#10;  "analysis": {&#10;    "character_analyses": [...],&#10;    "power_rankings": [...],&#10;    ...&#10;  }&#10;}' oninput="validateAnalysis()"></textarea>
+
+      <div id="analysis-feedback" class="hidden"></div>
+
+      <div style="display:flex;gap:12px;margin-top:20px">
+        <button class="btn btn-primary btn-lg" id="analysis-save-btn" onclick="saveAnalysis()" disabled style="opacity:.5">
+          <i class="bi bi-cpu"></i>Merge Analysis
+        </button>
+        <button class="btn btn-ghost btn-lg" onclick="document.getElementById('analysis-input').value='';validateAnalysis()">
+          <i class="bi bi-x-circle"></i>Clear
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/store.js"></script>
+  <script>
+    let parsedData = null;
+    let currentMode = 'extract';
+
+    /* ── Mode Switch ── */
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('mode-extract').classList.toggle('hidden', mode !== 'extract');
+      document.getElementById('mode-analysis').classList.toggle('hidden', mode !== 'analysis');
+      document.getElementById('tab-extract').className   = 'btn btn-sm ' + (mode==='extract'  ? 'btn-primary'   : 'btn-secondary');
+      document.getElementById('tab-analysis').className  = 'btn btn-sm ' + (mode==='analysis' ? 'btn-primary'   : 'btn-secondary');
+
+      if (mode === 'analysis') {
+        const novels = Store.getNovels();
+        const sel = document.getElementById('target-novel');
+        sel.innerHTML = '<option value="">Select a novel...</option>' +
+          novels.map(n => `<option value="${n.id}">${n.title}</option>`).join('');
+      }
+    }
+
+    /* ── JSON Validation (Base) ── */
+    function validateJson() {
+      const raw = document.getElementById('json-input').value.trim();
+      const fb  = document.getElementById('feedback');
+      const btn = document.getElementById('save-btn');
+      const prev = document.getElementById('preview-box');
+
+      if (!raw) {
+        fb.className = 'hidden'; btn.disabled = true; btn.style.opacity = '.5';
+        prev.classList.add('hidden'); parsedData = null; return;
+      }
+
+      try {
+        parsedData = JSON.parse(raw);
+        if (!parsedData.novel || !parsedData.novel.title) throw new Error('Missing novel.title');
+
+        fb.className = 'import-feedback valid';
+        fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid JSON — ready to import';
+
+        /* Preview */
+        const n = parsedData.novel;
+        document.getElementById('preview-title').textContent = n.title;
+        document.getElementById('preview-genre').textContent = (n.type||'Other').replace(/-/g,' ');
+        document.getElementById('preview-summary').textContent = (n.summary||'').slice(0,160);
+        const statDefs = [
+          ['bi-people',    'Characters',  (parsedData.characters||[]).length],
+          ['bi-lightning', 'Techniques',  (parsedData.techniques||[]).length],
+          ['bi-gem',       'Artifacts',   (parsedData.artifacts||[]).length],
+          ['bi-capsule',   'Resources',   (parsedData.pills_and_resources||[]).length],
+          ['bi-dna',       'Bloodlines',  (parsedData.bloodlines||[]).length],
+          ['bi-bug',       'Beasts',      (parsedData.beasts_and_creatures||[]).length],
+          ['bi-map',       'Locations',   (parsedData.locations||[]).length],
+          ['bi-globe2',    'Realms',      (parsedData.realms_and_dimensions||[]).length],
+          ['bi-shield',    'Factions',    (parsedData.factions||[]).length],
+          ['bi-crosshair', 'Events',      (parsedData.battles_and_events||[]).length],
+          ['bi-diagram-3', 'Arcs',        (parsedData.arcs||[]).length],
+          ['bi-alphabet',  'Terms',       (parsedData.terminology||[]).length],
+        ];
+        document.getElementById('preview-stats').innerHTML = statDefs.map(([icon,label,count]) =>
+          `<div class="preview-stat">
+            <div class="preview-stat-num">${count}</div>
+            <div class="preview-stat-label"><i class="bi ${icon}"></i> ${label}</div>
+          </div>`
+        ).join('');
+        prev.classList.remove('hidden');
+        btn.disabled = false; btn.style.opacity = '1';
+
+      } catch (e) {
+        parsedData = null;
+        fb.className = 'import-feedback invalid';
+        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> Invalid JSON: ${e.message}`;
+        prev.classList.add('hidden');
+        btn.disabled = true; btn.style.opacity = '.5';
+      }
+    }
+
+    /* ── Save Base Novel ── */
+    function saveNovel() {
+      if (!parsedData) return;
+      const id = Store.saveNovel(parsedData);
+      location.href = `wiki.html?novel=${id}`;
+    }
+
+    /* ── Drag and Drop ── */
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault(); dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) readFile(file);
+    });
+    document.getElementById('file-input').addEventListener('change', e => {
+      if (e.target.files[0]) readFile(e.target.files[0]);
+    });
+
+    function readFile(file) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        document.getElementById('json-input').value = ev.target.result;
+        validateJson();
+      };
+      reader.readAsText(file);
+    }
+
+    /* ── Clear ── */
+    function clearForm() {
+      document.getElementById('json-input').value = '';
+      parsedData = null;
+      document.getElementById('feedback').className = 'hidden';
+      document.getElementById('preview-box').classList.add('hidden');
+      document.getElementById('save-btn').disabled = true;
+      document.getElementById('save-btn').style.opacity = '.5';
+    }
+
+    /* ── Analysis Validation ── */
+    function validateAnalysis() {
+      const raw = document.getElementById('analysis-input').value.trim();
+      const fb  = document.getElementById('analysis-feedback');
+      const btn = document.getElementById('analysis-save-btn');
+      if (!raw) { fb.className = 'hidden'; btn.disabled = true; btn.style.opacity = '.5'; return; }
+      try {
+        const d = JSON.parse(raw);
+        if (!d.analysis) throw new Error('Missing "analysis" key');
+        fb.className = 'import-feedback valid';
+        fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid analysis JSON';
+        btn.disabled = false; btn.style.opacity = '1';
+      } catch(e) {
+        fb.className = 'import-feedback invalid';
+        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> Invalid JSON: ${e.message}`;
+        btn.disabled = true; btn.style.opacity = '.5';
+      }
+    }
+
+    /* ── Save Analysis ── */
+    function saveAnalysis() {
+      const targetId = document.getElementById('target-novel').value;
+      if (!targetId) { alert('Please select a target novel.'); return; }
+      const raw = document.getElementById('analysis-input').value.trim();
+      try {
+        const d = JSON.parse(raw);
+        Store.mergeAnalysis(targetId, d);
+        location.href = `wiki.html?novel=${targetId}#analysis`;
+      } catch(e) { alert('Error: ' + e.message); }
+    }
+
+    /* ── Edit mode ── */
+    const params = new URLSearchParams(location.search);
+    if (params.get('edit')) {
+      const existing = Store.getNovel(params.get('edit'));
+      if (existing) {
+        document.getElementById('import-heading').textContent = 'Update Novel';
+        document.getElementById('page-label').textContent = 'Update Novel';
+        document.getElementById('json-input').value = JSON.stringify(existing, null, 2);
+        validateJson();
+      }
+    }
+  </script>
+</body>
+</html>

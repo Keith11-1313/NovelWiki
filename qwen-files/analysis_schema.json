@@ -1,0 +1,89 @@
+{
+  "analysis": {
+    "character_analyses": [
+      {
+        "character_id": "slug",
+        "fighting_style": "How this character fights — patterns, preferred range, psychology in combat",
+        "move_breakdown": [
+          {
+            "move_name": "Technique name or unnamed described move",
+            "type": "signature | opener | finisher | desperation | counter | combo | passive-trigger",
+            "description": "What it looks like in combat",
+            "conditions_used": "When and why they use this move",
+            "chapter_first_used": "string",
+            "opponents_defeated_with": ["character-slug"],
+            "power_level_when_used": "string"
+          }
+        ],
+        "strategic_tendencies": [
+          "e.g. Baits opponents into overcommitting",
+          "e.g. Overwhelms with raw power before opponent adapts",
+          "e.g. Studies opponent first, fights defensively early"
+        ],
+        "notable_battles": ["event-slug"],
+        "win_loss_draw": { "wins": 0, "losses": 0, "draws": 0 },
+        "power_scaling_notes": "How their power grew arc by arc with context",
+        "character_arc_analysis": "Emotional and moral journey throughout the novel",
+        "role_in_world": "Their broader significance to the plot and world"
+      }
+    ],
+    "power_rankings": [
+      {
+        "title": "e.g. Top 10 Strongest Characters at Peak",
+        "methodology": "How you determined the ranking",
+        "entries": [
+          {
+            "rank": 1,
+            "character_id": "slug",
+            "peak_power": "Stage or level at their absolute strongest",
+            "reasoning": "Detailed explanation for this ranking position"
+          }
+        ]
+      }
+    ],
+    "relationship_dynamics": [
+      {
+        "characters": ["slug1", "slug2"],
+        "dynamic_type": "rivalry | romance | mentorship | betrayal | loyalty | foil | parallel",
+        "analysis": "Deep analysis of how this relationship evolved over the story",
+        "turning_points": ["event-slug"],
+        "thematic_significance": "string"
+      }
+    ],
+    "foreshadowing_analysis": [
+      {
+        "hint": "What was hinted or foreshadowed",
+        "chapter_hinted": "string",
+        "payoff": "What actually happened in the story",
+        "chapter_payoff": "string",
+        "quality": "Obvious | Subtle | Brilliant"
+      }
+    ],
+    "plot_patterns": [
+      {
+        "pattern": "e.g. Villain becomes ally, Power-up before boss fight, Death fake-out",
+        "occurrences": ["Arc or chapter where this pattern appeared"],
+        "analysis": "Whether this trope was used effectively or felt repetitive"
+      }
+    ],
+    "world_building_insights": [
+      {
+        "insight": "string",
+        "evidence": ["What in the novel text supports this insight"],
+        "significance": "Why this matters to the world or story"
+      }
+    ],
+    "thematic_analysis": {
+      "central_themes": ["string"],
+      "motifs": ["string"],
+      "author_message": "What the novel as a whole seems to be saying"
+    },
+    "unanswered_questions": [
+      {
+        "question": "A plot point or lore detail left unresolved by the end",
+        "context": "Where in the story this was raised",
+        "theories": ["Possible explanations supported by existing data"]
+      }
+    ]
+  }
+}
