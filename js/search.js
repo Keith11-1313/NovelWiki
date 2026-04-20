@@ -3,6 +3,16 @@
 const Search = {
 
   _index: [],
+  _lastResults: [],
+
+  escapeHtml(text) {
+    return String(text ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
 
   /* Build flat search index from novel data */
   build(novel) {
@@ -73,9 +83,15 @@ const Search = {
 
   /* Highlight matching term in text */
   highlight(text, q) {
-    if (!q || !text) return text || '';
+    if (!text) return '';
+    const escaped = this.escapeHtml(text);
+    if (!q) return escaped;
     const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(re, '<span class="search-highlight">$1</span>');
+    return escaped.replace(re, '<span class="search-highlight">$1</span>');
+  },
+
+  setResults(results) {
+    this._lastResults = Array.isArray(results) ? results : [];
   },
 
   /* Group results by type */
@@ -106,5 +122,10 @@ const Search = {
       Term:      `${base}#glossary`,
     };
     location.href = routes[result.type] || base;
+  },
+
+  navigateByIndex(index, novelId) {
+    const result = this._lastResults[index];
+    if (result) this.navigate(result, novelId);
   }
 };

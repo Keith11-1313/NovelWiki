@@ -19,10 +19,19 @@ const Store = {
   },
 
   /* ── Save a novel (full JSON from Qwen) ── */
-  saveNovel(data) {
-    const id = this._slugify(data.novel.title);
+  saveNovel(data, preferredId = null) {
+    const id = preferredId || data?.__meta?.id || this._createId();
     const novels = this.getNovels();
     const existing = novels.findIndex(n => n.id === id);
+    const savedAt = Date.now();
+    const fullData = {
+      ...data,
+      __meta: {
+        ...(data.__meta || {}),
+        id,
+        savedAt
+      }
+    };
 
     const meta = {
       id,
@@ -41,14 +50,14 @@ const Store = {
         arcs:               (data.arcs               || []).length,
         events:             (data.battles_and_events  || []).length,
       },
-      savedAt: Date.now()
+      savedAt
     };
 
     if (existing >= 0) novels[existing] = meta;
     else novels.push(meta);
 
     localStorage.setItem(this.NOVELS_KEY, JSON.stringify(novels));
-    localStorage.setItem('wiki_novel_' + id, JSON.stringify(data));
+    localStorage.setItem('wiki_novel_' + id, JSON.stringify(fullData));
     return id;
   },
 
@@ -81,10 +90,9 @@ const Store = {
   },
 
   /* ── Helpers ── */
-  _slugify(str) {
-    return (str || '').toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
+  _createId() {
+    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+    return 'novel-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
   },
 
   findCharacter(novel, id) {

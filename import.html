@@ -6,187 +6,534 @@
   <title>Import Novel — Novel Wiki</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script>
+  /* ── Boot: apply saved appearance before first paint ── */
+  (function(){
+    var D={accent:'#ff304f',bgBase:'#07080c',bgCard:'#0d101a',textPrimary:'#f4f7fb',textSecondary:'#bfd1f2',radius:18};
+    function rgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')';}
+    try{
+      var s=Object.assign({},D,JSON.parse(localStorage.getItem('wiki_appearance')||'{}'));
+      var ar=parseInt(s.accent.slice(1,3),16),ag=parseInt(s.accent.slice(3,5),16),ab=parseInt(s.accent.slice(5,7),16);
+      var r=document.documentElement.style;
+      r.setProperty('--accent-rgb',ar+','+ag+','+ab);
+      r.setProperty('--accent',s.accent);
+      r.setProperty('--accent-dim',rgba(s.accent,.15));
+      r.setProperty('--accent-border',rgba(s.accent,.40));
+      r.setProperty('--bg-base',s.bgBase);
+      r.setProperty('--bg-card',s.bgCard);
+      r.setProperty('--text-primary',s.textPrimary);
+      r.setProperty('--text-secondary',s.textSecondary);
+      r.setProperty('--radius',s.radius+'px');
+      r.setProperty('--radius-lg',(s.radius+8)+'px');
+    }catch(e){}
+  })();
+  </script>
+  <style>
+    /* ── Input method toggle ── */
+    .input-method-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+    .input-method-toggle button {
+      flex: 1;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .input-method-toggle button.active {
+      background: var(--accent);
+      color: #fff;
+    }
+    .input-method-toggle button:not(.active):hover {
+      background: var(--accent-dim);
+      color: var(--text-primary);
+    }
+    /* ── Validation warnings ── */
+    .validation-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .validation-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .validation-list li .vi { flex-shrink: 0; margin-top: 2px; }
+    .v-error   { color: #ff4d4d; }
+    .v-warning { color: #f0a500; }
+    .v-ok      { color: #23f0c7; }
+    .validation-box {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+    .validation-box-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .analysis-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  </style>
 </head>
-<body>
+<body class="page-import">
 
   <!-- TOP NAV -->
-  <div style="height:56px;background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:90">
+  <div class="import-topbar">
     <a href="index.html" class="btn-home"><i class="bi bi-arrow-left"></i>Back to Library</a>
-    <span style="color:var(--border)">|</span>
-    <span style="font-size:14px;font-weight:600;color:var(--text-primary)" id="page-label">Import Novel</span>
+    <span class="import-topbar-divider">|</span>
+    <span class="import-topbar-label" id="page-label">Import Novel</span>
   </div>
 
   <div class="import-container">
 
     <div style="margin-bottom:32px">
-      <div class="page-title"><i class="bi bi-box-arrow-in-down"></i><span id="import-heading">Import Novel from Qwen</span></div>
-      <div class="page-subtitle">Paste the JSON output from your Qwen Novel Extractor project below, or upload the file directly.</div>
+      <div class="page-title">
+        <i class="bi bi-box-arrow-in-down"></i>
+        <span id="import-heading">Import Novel from AI</span>
+      </div>
+      <div class="page-subtitle">
+        Paste or upload the combined JSON output from your AI session.
+        The JSON contains both extraction data <em>and</em> analysis in one file.
+      </div>
     </div>
 
-    <!-- MODE TABS -->
-    <div style="display:flex;gap:8px;margin-bottom:24px">
-      <button id="tab-extract" class="btn btn-primary btn-sm" onclick="switchMode('extract')">
-        <i class="bi bi-file-earmark-code"></i>Base Extraction
+    <!-- INPUT METHOD TOGGLE -->
+    <div style="margin-bottom:8px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-secondary)">
+      How did your AI give you the output?
+    </div>
+    <div class="input-method-toggle" id="method-toggle">
+      <button id="btn-method-paste" class="active" onclick="setMethod('paste')">
+        <i class="bi bi-chat-text"></i>AI output text — I'll paste it
       </button>
-      <button id="tab-analysis" class="btn btn-secondary btn-sm" onclick="switchMode('analysis')">
-        <i class="bi bi-cpu"></i>Analysis Pass
+      <button id="btn-method-file" onclick="setMethod('file')">
+        <i class="bi bi-file-earmark-arrow-down"></i>AI gave me a .json file
       </button>
     </div>
 
-    <!-- BASE EXTRACTION MODE -->
-    <div id="mode-extract">
-      <!-- FILE UPLOAD ZONE -->
+    <!-- PASTE METHOD -->
+    <div id="panel-paste">
+      <textarea class="import-textarea" id="json-input"
+        placeholder='Paste the combined JSON from your AI here...&#10;&#10;{&#10;  "novel": { "title": "...", "type": "cultivation", ... },&#10;  "characters": [...],&#10;  "analysis": { ... }&#10;}'
+        oninput="validateJson()"></textarea>
+    </div>
+
+    <!-- FILE METHOD -->
+    <div id="panel-file" class="hidden">
       <div class="import-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
         <i class="bi bi-cloud-upload"></i>
         <h3>Drop your JSON file here</h3>
-        <p>Or click to browse — supports .json files exported from Qwen</p>
+        <p>Or click to browse — accepts .json files exported from your AI tool</p>
       </div>
       <input type="file" id="file-input" accept=".json" style="display:none">
-
-      <div class="import-divider">or paste JSON directly</div>
-
-      <textarea class="import-textarea" id="json-input" placeholder='Paste the JSON from Qwen here...&#10;&#10;{&#10;  "novel": { "title": "...", "type": "cultivation", ... },&#10;  "characters": [...],&#10;  ...&#10;}' oninput="validateJson()"></textarea>
-
-      <div id="feedback" class="hidden"></div>
-
-      <!-- PREVIEW -->
-      <div id="preview-box" class="import-preview hidden">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-          <div id="preview-title" style="font-size:16px;font-weight:700"></div>
-          <span id="preview-genre" class="badge badge-accent"></span>
-        </div>
-        <div id="preview-summary" class="text-sm text-muted mb-12"></div>
-        <div class="import-preview-grid" id="preview-stats"></div>
-      </div>
-
-      <div style="display:flex;gap:12px;margin-top:20px">
-        <button class="btn btn-primary btn-lg" id="save-btn" onclick="saveNovel()" disabled style="opacity:.5">
-          <i class="bi bi-check-circle"></i>Save to Wiki
-        </button>
-        <button class="btn btn-ghost btn-lg" onclick="clearForm()">
-          <i class="bi bi-x-circle"></i>Clear
-        </button>
-      </div>
     </div>
 
-    <!-- ANALYSIS MERGE MODE -->
-    <div id="mode-analysis" class="hidden">
-      <div class="card mb-16" style="border-left:3px solid var(--accent)">
-        <div style="font-size:13px;color:var(--text-secondary);line-height:1.7">
-          <i class="bi bi-info-circle text-accent"></i>
-          <strong>Analysis Mode</strong> — Paste the JSON output from the <em>Analysis Pass</em> in Qwen.
-          Select which novel to merge it into, then click Save.
+    <!-- FEEDBACK -->
+    <div id="feedback" class="hidden"></div>
+
+    <!-- VALIDATION DETAIL BOX -->
+    <div id="validation-box" class="validation-box hidden">
+      <div class="validation-box-title"><i class="bi bi-clipboard-check"></i> Post-load Check</div>
+      <ul class="validation-list" id="validation-list"></ul>
+    </div>
+
+    <!-- PREVIEW -->
+    <div id="preview-box" class="import-preview hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div id="preview-title" style="font-size:16px;font-weight:700"></div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span id="preview-genre" class="badge badge-accent"></span>
+          <span id="preview-analysis-badge" class="analysis-badge hidden">
+            <i class="bi bi-cpu"></i> Analysis included
+          </span>
         </div>
       </div>
+      <div id="preview-summary" class="text-sm text-muted mb-12"></div>
+      <div class="import-preview-grid" id="preview-stats"></div>
+    </div>
 
-      <label style="font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:8px">Target Novel</label>
-      <select class="filter-select" id="target-novel" style="width:100%;margin-bottom:16px;padding:12px">
-        <option value="">Select a novel...</option>
-      </select>
-
-      <textarea class="import-textarea" id="analysis-input" placeholder='Paste the Analysis JSON from Qwen here...&#10;&#10;{&#10;  "analysis": {&#10;    "character_analyses": [...],&#10;    "power_rankings": [...],&#10;    ...&#10;  }&#10;}' oninput="validateAnalysis()"></textarea>
-
-      <div id="analysis-feedback" class="hidden"></div>
-
-      <div style="display:flex;gap:12px;margin-top:20px">
-        <button class="btn btn-primary btn-lg" id="analysis-save-btn" onclick="saveAnalysis()" disabled style="opacity:.5">
-          <i class="bi bi-cpu"></i>Merge Analysis
-        </button>
-        <button class="btn btn-ghost btn-lg" onclick="document.getElementById('analysis-input').value='';validateAnalysis()">
-          <i class="bi bi-x-circle"></i>Clear
-        </button>
-      </div>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button class="btn btn-primary btn-lg" id="save-btn" onclick="saveNovel()" disabled style="opacity:.5">
+        <i class="bi bi-check-circle"></i>Save to Wiki
+      </button>
+      <button class="btn btn-ghost btn-lg" onclick="clearForm()">
+        <i class="bi bi-x-circle"></i>Clear
+      </button>
     </div>
 
   </div>
 
   <script src="js/store.js"></script>
   <script>
-    let parsedData = null;
-    let currentMode = 'extract';
-
-    /* ── Mode Switch ── */
-    function switchMode(mode) {
-      currentMode = mode;
-      document.getElementById('mode-extract').classList.toggle('hidden', mode !== 'extract');
-      document.getElementById('mode-analysis').classList.toggle('hidden', mode !== 'analysis');
-      document.getElementById('tab-extract').className   = 'btn btn-sm ' + (mode==='extract'  ? 'btn-primary'   : 'btn-secondary');
-      document.getElementById('tab-analysis').className  = 'btn btn-sm ' + (mode==='analysis' ? 'btn-primary'   : 'btn-secondary');
-
-      if (mode === 'analysis') {
-        const novels = Store.getNovels();
-        const sel = document.getElementById('target-novel');
-        sel.innerHTML = '<option value="">Select a novel...</option>' +
-          novels.map(n => `<option value="${n.id}">${n.title}</option>`).join('');
-      }
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    /* ── JSON Validation (Base) ── */
+    let parsedData = null;
+    let inputMethod = 'paste'; // 'paste' | 'file'
+
+    /* ══════════════════════════════════════
+       INPUT METHOD TOGGLE
+    ═══════════════════════════════════════ */
+    function setMethod(method) {
+      inputMethod = method;
+      document.getElementById('panel-paste').classList.toggle('hidden', method !== 'paste');
+      document.getElementById('panel-file').classList.toggle('hidden',  method !== 'file');
+      document.getElementById('btn-method-paste').classList.toggle('active', method === 'paste');
+      document.getElementById('btn-method-file').classList.toggle('active',  method === 'file');
+      clearForm(true); // clear existing data when switching
+    }
+
+    /* ══════════════════════════════════════
+       JSON VALIDATION + POST-LOAD CHECK
+    ═══════════════════════════════════════ */
     function validateJson() {
       const raw = document.getElementById('json-input').value.trim();
-      const fb  = document.getElementById('feedback');
-      const btn = document.getElementById('save-btn');
+      processRaw(raw);
+    }
+
+    function processRaw(raw) {
+      const fb   = document.getElementById('feedback');
+      const btn  = document.getElementById('save-btn');
       const prev = document.getElementById('preview-box');
+      const vbox = document.getElementById('validation-box');
 
       if (!raw) {
         fb.className = 'hidden'; btn.disabled = true; btn.style.opacity = '.5';
-        prev.classList.add('hidden'); parsedData = null; return;
+        prev.classList.add('hidden'); vbox.classList.add('hidden');
+        parsedData = null; return;
       }
 
       try {
         parsedData = JSON.parse(raw);
-        if (!parsedData.novel || !parsedData.novel.title) throw new Error('Missing novel.title');
+
+        if (!parsedData.novel || !parsedData.novel.title) {
+          throw new Error('Missing required field: novel.title');
+        }
 
         fb.className = 'import-feedback valid';
-        fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid JSON — ready to import';
+        fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid JSON — running post-load check…';
 
-        /* Preview */
+        /* Run post-load checks */
+        const issues = runPostLoadChecks(parsedData);
+        renderValidation(issues);
+
+        /* Preview panel */
         const n = parsedData.novel;
         document.getElementById('preview-title').textContent = n.title;
-        document.getElementById('preview-genre').textContent = (n.type||'Other').replace(/-/g,' ');
-        document.getElementById('preview-summary').textContent = (n.summary||'').slice(0,160);
+        document.getElementById('preview-genre').textContent = (n.type || 'Other').replace(/-/g, ' ');
+        document.getElementById('preview-summary').textContent = (n.summary || '').slice(0, 180);
+
+        const hasAnalysis = !!(parsedData.analysis && Object.keys(parsedData.analysis).length > 0);
+        document.getElementById('preview-analysis-badge').classList.toggle('hidden', !hasAnalysis);
+
         const statDefs = [
-          ['bi-people',    'Characters',  (parsedData.characters||[]).length],
-          ['bi-lightning', 'Techniques',  (parsedData.techniques||[]).length],
-          ['bi-gem',       'Artifacts',   (parsedData.artifacts||[]).length],
-          ['bi-capsule',   'Resources',   (parsedData.pills_and_resources||[]).length],
-          ['bi-dna',       'Bloodlines',  (parsedData.bloodlines||[]).length],
-          ['bi-bug',       'Beasts',      (parsedData.beasts_and_creatures||[]).length],
-          ['bi-map',       'Locations',   (parsedData.locations||[]).length],
-          ['bi-globe2',    'Realms',      (parsedData.realms_and_dimensions||[]).length],
-          ['bi-shield',    'Factions',    (parsedData.factions||[]).length],
-          ['bi-crosshair', 'Events',      (parsedData.battles_and_events||[]).length],
-          ['bi-diagram-3', 'Arcs',        (parsedData.arcs||[]).length],
-          ['bi-alphabet',  'Terms',       (parsedData.terminology||[]).length],
+          ['bi-people',    'Characters',  (parsedData.characters         || []).length],
+          ['bi-lightning', 'Techniques',  (parsedData.techniques         || []).length],
+          ['bi-gem',       'Artifacts',   (parsedData.artifacts          || []).length],
+          ['bi-capsule',   'Resources',   (parsedData.pills_and_resources || []).length],
+          ['bi-dna',       'Bloodlines',  (parsedData.bloodlines         || []).length],
+          ['bi-bug',       'Beasts',      (parsedData.beasts_and_creatures || []).length],
+          ['bi-map',       'Locations',   (parsedData.locations          || []).length],
+          ['bi-globe2',    'Realms',      (parsedData.realms_and_dimensions || []).length],
+          ['bi-shield',    'Factions',    (parsedData.factions           || []).length],
+          ['bi-crosshair', 'Events',      (parsedData.battles_and_events  || []).length],
+          ['bi-diagram-3', 'Arcs',        (parsedData.arcs               || []).length],
+          ['bi-alphabet',  'Terms',       (parsedData.terminology        || []).length],
         ];
-        document.getElementById('preview-stats').innerHTML = statDefs.map(([icon,label,count]) =>
+        document.getElementById('preview-stats').innerHTML = statDefs.map(([icon, label, count]) =>
           `<div class="preview-stat">
             <div class="preview-stat-num">${count}</div>
             <div class="preview-stat-label"><i class="bi ${icon}"></i> ${label}</div>
           </div>`
         ).join('');
+
         prev.classList.remove('hidden');
         btn.disabled = false; btn.style.opacity = '1';
 
       } catch (e) {
         parsedData = null;
         fb.className = 'import-feedback invalid';
-        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> Invalid JSON: ${e.message}`;
+        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> ${escapeHtml(e.message)}`;
         prev.classList.add('hidden');
+        vbox.classList.add('hidden');
         btn.disabled = true; btn.style.opacity = '.5';
       }
     }
 
-    /* ── Save Base Novel ── */
+    /* ══════════════════════════════════════
+       POST-LOAD CHECK RULES
+    ═══════════════════════════════════════ */
+    function runPostLoadChecks(data) {
+      const issues = [];
+
+      // ── Novel fields ──
+      const novel = data.novel || {};
+      if (!novel.title)   issues.push({ level: 'error',   msg: 'novel.title is missing' });
+      if (!novel.type)    issues.push({ level: 'warning', msg: 'novel.type is missing — defaulting to "other"' });
+      if (!novel.summary) issues.push({ level: 'warning', msg: 'novel.summary is empty — the overview page will have no description' });
+      if (!novel.world_name) issues.push({ level: 'warning', msg: 'novel.world_name not set' });
+
+      // ── Characters ──
+      const chars = data.characters || [];
+      if (chars.length === 0) {
+        issues.push({ level: 'error', msg: 'No characters found — at least one is required' });
+      } else {
+        const missingId   = chars.filter(c => !c.id);
+        const missingName = chars.filter(c => !c.name);
+        const missingRole = chars.filter(c => !c.role);
+        const missingStatus = chars.filter(c => !c.status);
+        if (missingId.length)     issues.push({ level: 'error',   msg: `${missingId.length} character(s) have no id slug` });
+        if (missingName.length)   issues.push({ level: 'error',   msg: `${missingName.length} character(s) have no name` });
+        if (missingRole.length)   issues.push({ level: 'warning', msg: `${missingRole.length} character(s) missing role field` });
+        if (missingStatus.length) issues.push({ level: 'warning', msg: `${missingStatus.length} character(s) missing status field` });
+      }
+
+      // ── Slug cross-reference check ──
+      const charIds = new Set((data.characters || []).map(c => c.id).filter(Boolean));
+      const locIds  = new Set((data.locations   || []).map(l => l.id).filter(Boolean));
+      const facIds  = new Set((data.factions    || []).map(f => f.id).filter(Boolean));
+      const techIds = new Set((data.techniques  || []).map(t => t.id).filter(Boolean));
+      const artIds  = new Set((data.artifacts   || []).map(a => a.id).filter(Boolean));
+      const eventIds = new Set((data.battles_and_events || []).map(e => e.id).filter(Boolean));
+      const brokenDetails = [];
+
+      const chk = (id, pool, source, targetType) => {
+        if (id && !pool.has(id)) brokenDetails.push({ source, target: id, type: targetType });
+      };
+
+      // Characters → factions, relationships, owned artifacts
+      (data.characters || []).forEach(c => {
+        const src = `character "${c.name || c.id}"`;
+        (c.faction_ids || []).forEach(fid => chk(fid, facIds, src, 'faction'));
+        (c.relationships || []).forEach(r => chk(r.character_id, charIds, src, 'character'));
+        (c.owned_artifacts || []).forEach(aid => chk(aid, artIds, src, 'artifact'));
+      });
+
+      // Artifacts → current_owner, previous_owners
+      (data.artifacts || []).forEach(a => {
+        const src = `artifact "${a.name || a.id}"`;
+        chk(a.current_owner, charIds, src, 'character');
+        (a.previous_owners || []).forEach(pid => chk(pid, charIds, src, 'character'));
+      });
+
+      // Factions → leader, notable_members, headquarters, allies, enemies
+      (data.factions || []).forEach(f => {
+        const src = `faction "${f.name || f.id}"`;
+        chk(f.leader, charIds, src, 'character');
+        chk(f.headquarters, locIds, src, 'location');
+        (f.notable_members || []).forEach(mid => chk(mid, charIds, src, 'character'));
+        (f.allied_factions || []).forEach(fid => chk(fid, facIds, src, 'faction'));
+        (f.enemy_factions || []).forEach(fid => chk(fid, facIds, src, 'faction'));
+      });
+
+      // Locations → factions_present, notable_characters
+      (data.locations || []).forEach(l => {
+        const src = `location "${l.name || l.id}"`;
+        (l.factions_present || []).forEach(fid => chk(fid, facIds, src, 'faction'));
+        (l.notable_characters || []).forEach(cid => chk(cid, charIds, src, 'character'));
+      });
+
+      // Techniques → known_users
+      (data.techniques || []).forEach(t => {
+        const src = `technique "${t.name || t.id}"`;
+        (t.known_users || []).forEach(uid => chk(uid, charIds, src, 'character'));
+      });
+
+      // Pills & resources → used_by
+      (data.pills_and_resources || []).forEach(p => {
+        const src = `resource "${p.name || p.id}"`;
+        (p.used_by || []).forEach(uid => chk(uid, charIds, src, 'character'));
+      });
+
+      // Bloodlines → known_bearers
+      (data.bloodlines || []).forEach(b => {
+        const src = `bloodline "${b.name || b.id}"`;
+        (b.known_bearers || []).forEach(bid => chk(bid, charIds, src, 'character'));
+      });
+
+      // Beasts → habitat (location), named_individuals.owner (character)
+      (data.beasts_and_creatures || []).forEach(b => {
+        const src = `beast "${b.name || b.id}"`;
+        (b.habitat || []).forEach(lid => chk(lid, locIds, src, 'location'));
+        (b.named_individuals || []).forEach(ni => chk(ni.owner, charIds, src, 'character'));
+      });
+
+      // Battles & events → participants, casualties
+      (data.battles_and_events || []).forEach(e => {
+        const src = `event "${e.name || e.id}"`;
+        (e.participants || []).forEach(pid => chk(pid, charIds, src, 'character'));
+        (e.casualties || []).forEach(cid => chk(cid, charIds, src, 'character'));
+      });
+
+      // Arcs → characters_introduced, key_events
+      (data.arcs || []).forEach(a => {
+        const src = `arc "${a.title || 'untitled'}"`;
+        (a.characters_introduced || []).forEach(cid => chk(cid, charIds, src, 'character'));
+        (a.key_events || []).forEach(eid => chk(eid, eventIds, src, 'event'));
+      });
+
+      // Prophecies & lore → related_characters
+      (data.prophecies_and_lore || []).forEach(p => {
+        const src = `lore "${p.title || p.id}"`;
+        (p.related_characters || []).forEach(cid => chk(cid, charIds, src, 'character'));
+      });
+
+      // Power system → tiers notable_individuals, daos associated_techniques
+      if (data.power_system) {
+        (data.power_system.tiers || []).forEach(t => {
+          const src = `power tier "${t.name || 'unnamed'}"`;
+          (t.notable_individuals || []).forEach(cid => chk(cid, charIds, src, 'character'));
+        });
+        (data.power_system.daos_or_paths || []).forEach(d => {
+          const src = `dao "${d.name || d.id}"`;
+          (d.known_practitioners || []).forEach(cid => chk(cid, charIds, src, 'character'));
+          (d.associated_techniques || []).forEach(tid => chk(tid, techIds, src, 'technique'));
+        });
+        (data.power_system.special_constitutions || []).forEach(sc => {
+          const src = `constitution "${sc.name || sc.id}"`;
+          (sc.known_bearers || []).forEach(cid => chk(cid, charIds, src, 'character'));
+        });
+      }
+
+      // Analysis → character_analyses, power_rankings, relationship_dynamics
+      if (data.analysis) {
+        (data.analysis.character_analyses || []).forEach(ca => {
+          chk(ca.character_id, charIds, 'analysis combat', 'character');
+          (ca.move_breakdown || []).forEach(m => {
+            (m.opponents_defeated_with || []).forEach(cid => chk(cid, charIds, `analysis move "${m.move_name || '?'}"`, 'character'));
+          });
+        });
+        (data.analysis.power_rankings || []).forEach(pr => {
+          (pr.entries || []).forEach(e => chk(e.character_id, charIds, `ranking "${pr.title || '?'}"`, 'character'));
+        });
+        (data.analysis.relationship_dynamics || []).forEach(rd => {
+          (rd.characters || []).forEach(cid => chk(cid, charIds, 'analysis relationships', 'character'));
+        });
+      }
+
+      if (brokenDetails.length > 0) {
+        issues.push({ level: 'warning', msg: `${brokenDetails.length} broken slug reference(s) found — some links may not resolve:` });
+        brokenDetails.forEach(d => {
+          issues.push({ level: 'warning', msg: `${d.source} → missing ${d.type} "${d.target}"` });
+        });
+      }
+
+      // ── Power system ──
+      const ps = data.power_system;
+      if (!ps || !ps.name) {
+        issues.push({ level: 'warning', msg: 'power_system is missing or has no name' });
+      }
+
+      // ── Analysis ──
+      const analysis = data.analysis;
+      if (!analysis || Object.keys(analysis).length === 0) {
+        issues.push({ level: 'warning', msg: 'No analysis data found — the AI Analysis page will be empty. Re-run with combined_schema.json.' });
+      } else {
+        const ca = analysis.character_analyses || [];
+        if (ca.length === 0) issues.push({ level: 'warning', msg: 'analysis.character_analyses is empty' });
+        const pr = analysis.power_rankings || [];
+        if (pr.length === 0) issues.push({ level: 'warning', msg: 'analysis.power_rankings is empty' });
+      }
+
+      // ── Optional but empty sections ──
+      const optionalSections = [
+        ['techniques',          'techniques'],
+        ['artifacts',           'artifacts'],
+        ['locations',           'locations'],
+        ['factions',            'factions'],
+        ['battles_and_events',  'battles & events'],
+        ['arcs',                'story arcs'],
+        ['terminology',         'glossary terms'],
+      ];
+      optionalSections.forEach(([key, label]) => {
+        if (!data[key] || data[key].length === 0) {
+          issues.push({ level: 'info', msg: `${label} is empty — section will show as empty in wiki` });
+        }
+      });
+
+      // All good summary
+      if (issues.filter(i => i.level === 'error').length === 0
+       && issues.filter(i => i.level === 'warning').length === 0) {
+        issues.push({ level: 'ok', msg: 'All required fields present and slug references look healthy!' });
+      }
+
+      return issues;
+    }
+
+    function renderValidation(issues) {
+      const vbox = document.getElementById('validation-box');
+      const vlist = document.getElementById('validation-list');
+
+      const iconMap = {
+        error:   '<i class="bi bi-x-circle-fill vi v-error"></i>',
+        warning: '<i class="bi bi-exclamation-triangle-fill vi v-warning"></i>',
+        info:    '<i class="bi bi-info-circle vi" style="color:var(--text-secondary)"></i>',
+        ok:      '<i class="bi bi-check-circle-fill vi v-ok"></i>',
+      };
+      const colorMap = { error: 'v-error', warning: 'v-warning', info: '', ok: 'v-ok' };
+
+      vlist.innerHTML = issues.map(issue =>
+        `<li><span class="${colorMap[issue.level]}">${iconMap[issue.level]} ${escapeHtml(issue.msg)}</span></li>`
+      ).join('');
+
+      vbox.classList.remove('hidden');
+    }
+
+    /* ══════════════════════════════════════
+       SAVE
+    ═══════════════════════════════════════ */
     function saveNovel() {
       if (!parsedData) return;
-      const id = Store.saveNovel(parsedData);
+      const editId = new URLSearchParams(location.search).get('edit');
+      const id = Store.saveNovel(parsedData, editId);
       location.href = `wiki.html?novel=${id}`;
     }
 
-    /* ── Drag and Drop ── */
+    /* ══════════════════════════════════════
+       FILE UPLOAD / DRAG & DROP
+    ═══════════════════════════════════════ */
     const dropZone = document.getElementById('drop-zone');
-    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', e => {
       e.preventDefault(); dropZone.classList.remove('dragover');
@@ -200,54 +547,34 @@
     function readFile(file) {
       const reader = new FileReader();
       reader.onload = ev => {
-        document.getElementById('json-input').value = ev.target.result;
-        validateJson();
+        // Switch to paste panel and populate textarea so the unified flow works
+        if (inputMethod === 'file') {
+          // Show in a temporary read-only display (keep file panel, just process)
+          processRaw(ev.target.result);
+          // Also populate textarea in case user wants to switch view
+          document.getElementById('json-input').value = ev.target.result;
+        }
       };
       reader.readAsText(file);
     }
 
-    /* ── Clear ── */
-    function clearForm() {
+    /* ══════════════════════════════════════
+       CLEAR
+    ═══════════════════════════════════════ */
+    function clearForm(silent = false) {
       document.getElementById('json-input').value = '';
+      document.getElementById('file-input').value = '';
       parsedData = null;
       document.getElementById('feedback').className = 'hidden';
       document.getElementById('preview-box').classList.add('hidden');
+      document.getElementById('validation-box').classList.add('hidden');
       document.getElementById('save-btn').disabled = true;
       document.getElementById('save-btn').style.opacity = '.5';
     }
 
-    /* ── Analysis Validation ── */
-    function validateAnalysis() {
-      const raw = document.getElementById('analysis-input').value.trim();
-      const fb  = document.getElementById('analysis-feedback');
-      const btn = document.getElementById('analysis-save-btn');
-      if (!raw) { fb.className = 'hidden'; btn.disabled = true; btn.style.opacity = '.5'; return; }
-      try {
-        const d = JSON.parse(raw);
-        if (!d.analysis) throw new Error('Missing "analysis" key');
-        fb.className = 'import-feedback valid';
-        fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid analysis JSON';
-        btn.disabled = false; btn.style.opacity = '1';
-      } catch(e) {
-        fb.className = 'import-feedback invalid';
-        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> Invalid JSON: ${e.message}`;
-        btn.disabled = true; btn.style.opacity = '.5';
-      }
-    }
-
-    /* ── Save Analysis ── */
-    function saveAnalysis() {
-      const targetId = document.getElementById('target-novel').value;
-      if (!targetId) { alert('Please select a target novel.'); return; }
-      const raw = document.getElementById('analysis-input').value.trim();
-      try {
-        const d = JSON.parse(raw);
-        Store.mergeAnalysis(targetId, d);
-        location.href = `wiki.html?novel=${targetId}#analysis`;
-      } catch(e) { alert('Error: ' + e.message); }
-    }
-
-    /* ── Edit mode ── */
+    /* ══════════════════════════════════════
+       EDIT MODE (pre-populate)
+    ═══════════════════════════════════════ */
     const params = new URLSearchParams(location.search);
     if (params.get('edit')) {
       const existing = Store.getNovel(params.get('edit'));

@@ -6,8 +6,24 @@ const R = {
      UTILITIES
   ═══════════════════════════════════════ */
 
-  safe: (v, fallback = '—') => (v && String(v).trim()) ? v : fallback,
   arr: (v) => Array.isArray(v) ? v : [],
+  escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+  safe(v, fallback = '—') {
+    const normalized = v === null || v === undefined ? '' : String(v);
+    const value = normalized.trim() ? normalized : fallback;
+    return this.escapeHtml(value);
+  },
+  html(value, fallback = '—') {
+    const content = value === null || value === undefined || value === '' ? fallback : value;
+    return { __html: content };
+  },
 
   badge(text, cls) {
     if (!text) return '';
@@ -28,7 +44,7 @@ const R = {
       ancient: 'badge-ancient', s: 'badge-divine', 'ss': 'badge-ancient'
     };
     const cls = Object.keys(map).find(k => g.includes(k));
-    return `<span class="badge ${cls ? map[cls] : 'badge-muted'}">${grade}</span>`;
+    return `<span class="badge ${cls ? map[cls] : 'badge-muted'}">${this.safe(grade)}</span>`;
   },
 
   roleBadge(role) {
@@ -47,7 +63,7 @@ const R = {
   charLink(novel, id) {
     if (!id) return '';
     const name = Store.charName(novel, id);
-    return `<a class="link-tag" onclick="Router.go('characters/${id}')">${name}</a>`;
+    return `<a class="link-tag" onclick="Router.go('characters/${id}')">${this.safe(name)}</a>`;
   },
 
   charLinks(novel, ids) {
@@ -55,16 +71,16 @@ const R = {
   },
 
   navLink(hash, label) {
-    return `<a class="link-tag link-tag-neutral" onclick="Router.go('${hash}')">${label}</a>`;
+    return `<a class="link-tag link-tag-neutral" onclick="Router.go('${hash}')">${this.safe(label)}</a>`;
   },
 
   pills(items, cls = 'badge-muted') {
-    return this.arr(items).map(i => `<span class="badge ${cls}">${i}</span>`).join('');
+    return this.arr(items).map(i => `<span class="badge ${cls}">${this.safe(i)}</span>`).join('');
   },
 
   infoList(items, icon = 'bi-dot', cls = 'accent') {
     if (!items || !items.length) return '<span class="text-muted">—</span>';
-    return `<ul class="info-list">${this.arr(items).map(i => `<li class="info-list-item ${cls}"><i class="bi ${icon}"></i><span>${i}</span></li>`).join('')
+    return `<ul class="info-list">${this.arr(items).map(i => `<li class="info-list-item ${cls}"><i class="bi ${icon}"></i><span>${this.safe(i)}</span></li>`).join('')
       }</ul>`;
   },
 
@@ -94,7 +110,7 @@ const R = {
     const sels = selects.map(s =>
       `<select class="filter-select" id="${s.id}" onchange="${s.fn}">
         <option value="">All ${s.label}</option>
-        ${s.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+        ${s.options.map(o => `<option value="${this.safe(o)}">${this.safe(o)}</option>`).join('')}
       </select>`).join('');
     return `<div class="filter-bar">
       <div class="filter-search"><i class="bi bi-search"></i>
@@ -106,15 +122,30 @@ const R = {
   listFilter(inputId) {
     const q = document.getElementById(inputId).value.toLowerCase();
     document.querySelectorAll('[data-searchable]').forEach(el => {
-      el.style.display = el.dataset.searchable.toLowerCase().includes(q) ? '' : 'none';
+      const matchesQuery = el.dataset.searchable.toLowerCase().includes(q);
+      const filters = this.arr(el.dataset.filters?.split('|'));
+      const matchesFilters = filters.every(filterId => {
+        const control = document.getElementById(filterId);
+        if (!control || !control.value) return true;
+        const filterKey = 'filter' + filterId.replace(/(^|-)([a-z])/g, (_, __, char) => char.toUpperCase());
+        return (el.dataset[filterKey] || '').toLowerCase() === control.value.toLowerCase();
+      });
+      el.style.display = matchesQuery && matchesFilters ? '' : 'none';
     });
   },
 
   detail(rows) {
-    return `<table class="detail-table">${rows.filter(r => r[1]).map(r =>
-      `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`
+    return `<table class="detail-table">${rows.filter(r => r[1] !== null && r[1] !== undefined && r[1] !== '').map(r =>
+      `<tr><td>${this.safe(r[0])}</td><td>${this._detailValue(r[1])}</td></tr>`
     ).join('')
       }</table>`;
+  },
+
+  _detailValue(value) {
+    if (value && typeof value === 'object' && Object.prototype.hasOwnProperty.call(value, '__html')) {
+      return value.__html;
+    }
+    return this.safe(value);
   },
 
 
@@ -166,6 +197,9 @@ const R = {
       locations: 'locations', realms: 'realms_and_dimensions', factions: 'factions',
       events: 'battles_and_events', arcs: 'arcs', lore: 'prophecies_and_lore', glossary: 'terminology'
     };
+    if (id === 'floors') return (novel.power_system?.floor_records || []).length;
+    if (id === 'loops') return (novel.power_system?.regression_loops || []).length;
+    if (id === 'status') return this.arr(novel.characters).filter(c => c.system_stats).length;
     const key = map[id];
     return key ? (novel[key] || []).length : 0;
   },
@@ -182,7 +216,7 @@ const R = {
     const roles = [...new Set(chars.map(c => c.role).filter(Boolean))];
     const cards = chars.map(c => {
       const initials = (c.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-      return `<div class="card card-clickable" data-searchable="${c.name} ${(c.aliases || []).join(' ')} ${c.role}" onclick="Router.go('characters/${c.id}')">
+      return `<div class="card card-clickable" data-searchable="${this.safe(c.name)} ${this.safe((c.aliases || []).join(' '))} ${this.safe(c.role || '')}" data-filters="char-role" data-filterCharRole="${this.safe(c.role || '')}" onclick="Router.go('characters/${c.id}')">
         <div class="card-header">
           <div>
             <div class="card-title">${this.safe(c.name)}</div>
@@ -275,7 +309,7 @@ const R = {
       ['Gender', c.gender], ['Age', c.age],
       ['First Seen', c.first_appearance],
       ['Peak Power', c.current_power_level],
-      ['Factions', factions || '—'],
+      ['Factions', this.html(factions || '—')],
     ])}
         </div>
         ${progression ? `<div class="card">
@@ -436,7 +470,7 @@ const R = {
         ${this.detail([
       ['Minimum Rank', t.rank_required],
       ['Origin', t.origin],
-      ['Known Users', t.known_users?.length ? `<div class="tags-wrap">${this.charLinks(novel, t.known_users)}</div>` : null],
+      ['Known Users', t.known_users?.length ? this.html(`<div class="tags-wrap">${this.charLinks(novel, t.known_users)}</div>`) : null],
     ])}
       </div>
       <div class="grid-2 mb-16">
@@ -491,8 +525,8 @@ const R = {
         ${this.detail([
       ['Description', a.description],
       ['Origin', a.origin],
-      ['Current Owner', a.current_owner ? this.charLink(novel, a.current_owner) : '—'],
-      ['Previous Owners', prevOwners || '—'],
+      ['Current Owner', this.html(a.current_owner ? this.charLink(novel, a.current_owner) : '—')],
+      ['Previous Owners', this.html(prevOwners || '—')],
       ['Spirit Intelligence', a.spirit_intelligence],
     ])}
       </div>
@@ -607,7 +641,7 @@ const R = {
         ${this.detail([
       ['Description', b.description],
       ['Tameability', b.tame_difficulty],
-      ['Habitat', this.arr(b.habitat).map(lid => { const l = Store.findLocation(novel, lid); return l ? `<a class="link-tag link-tag-neutral" onclick="Router.go('locations/${lid}')">${l.name}</a>` : ''; }).join('') || '—'],
+      ['Habitat', this.html(this.arr(b.habitat).map(lid => { const l = Store.findLocation(novel, lid); return l ? `<a class="link-tag link-tag-neutral" onclick="Router.go('locations/${lid}')">${this.safe(l.name)}</a>` : ''; }).join('') || '—')],
       ['Drops', this.arr(b.drops).join(', ') || '—'],
     ])}
       </div>
@@ -729,10 +763,10 @@ const R = {
         </div>
         <p class="lore-text mb-12">${this.safe(f.description)}</p>
         ${this.detail([
-      ['Leader', f.leader ? this.charLink(novel, f.leader) : '—'],
-      ['Headquarters', hq ? `<a class="link-tag link-tag-neutral" onclick="Router.go('locations/${f.headquarters}')">${hq.name}</a>` : '—'],
-      ['Allies', this.arr(f.allied_factions).map(fid => { const fc = Store.findFaction(novel, fid); return fc ? `<a class="link-tag link-tag-neutral" onclick="Router.go('factions/${fid}')">${fc.name}</a>` : '' }).join('') || '—'],
-      ['Enemies', this.arr(f.enemy_factions).map(fid => { const fc = Store.findFaction(novel, fid); return fc ? `<a class="link-tag" onclick="Router.go('factions/${fid}')">${fc.name}</a>` : '' }).join('') || '—'],
+      ['Leader', this.html(f.leader ? this.charLink(novel, f.leader) : '—')],
+      ['Headquarters', this.html(hq ? `<a class="link-tag link-tag-neutral" onclick="Router.go('locations/${f.headquarters}')">${this.safe(hq.name)}</a>` : '—')],
+      ['Allies', this.html(this.arr(f.allied_factions).map(fid => { const fc = Store.findFaction(novel, fid); return fc ? `<a class="link-tag link-tag-neutral" onclick="Router.go('factions/${fid}')">${this.safe(fc.name)}</a>` : '' }).join('') || '—')],
+      ['Enemies', this.html(this.arr(f.enemy_factions).map(fid => { const fc = Store.findFaction(novel, fid); return fc ? `<a class="link-tag" onclick="Router.go('factions/${fid}')">${this.safe(fc.name)}</a>` : '' }).join('') || '—')],
     ])}
       </div>
       ${f.notable_members?.length ? this.section('Notable Members', 'bi-people', `<div class="tags-wrap">${this.charLinks(novel, f.notable_members)}</div>`) : ''}
@@ -1008,9 +1042,85 @@ const R = {
      SEARCH RESULTS
   ═══════════════════════════════════════ */
 
+  floorRecords(novel) {
+    const floors = this.arr(novel.power_system?.floor_records);
+    if (!floors.length) return this.emptyState('No Floor Records', 'No tower floor data was imported yet.', 'bi-layers');
+
+    const rows = floors.map(f => `<tr>
+      <td><strong>Floor ${this.safe(f.floor, '?')}</strong></td>
+      <td>${this.safe(f.boss_name)}</td>
+      <td class="text-sm">${this.safe(f.clear_method)}</td>
+      <td>${f.first_clear ? this.charLink(novel, f.first_clear) : '—'}</td>
+      <td class="text-sm">${this.safe(this.arr(f.notable_events).join('; '), '—')}</td>
+    </tr>`).join('');
+
+    return `<div class="fade-in">
+      <div class="page-title"><i class="bi bi-layers"></i>Floor Records</div>
+      <div class="page-subtitle">${floors.length} recorded floors</div>
+      <div class="table-wrapper">
+        <table class="wiki-table">
+          <thead><tr><th>Floor</th><th>Boss</th><th>Clear Method</th><th>First Clear</th><th>Notable Events</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  },
+
+  regressionLoops(novel) {
+    const loops = this.arr(novel.power_system?.regression_loops);
+    if (!loops.length) return this.emptyState('No Regression Loops', 'No regression loop data was imported yet.', 'bi-arrow-counterclockwise');
+
+    const rows = loops.map(l => `<tr>
+      <td><strong>Loop ${this.safe(l.loop_number, '?')}</strong></td>
+      <td class="text-sm">${this.safe(l.trigger)}</td>
+      <td>${this.infoList(l.key_changes, 'bi-arrow-right', 'accent')}</td>
+      <td class="text-sm">${this.safe(l.outcome)}</td>
+    </tr>`).join('');
+
+    return `<div class="fade-in">
+      <div class="page-title"><i class="bi bi-arrow-counterclockwise"></i>Regression Loops</div>
+      <div class="page-subtitle">${loops.length} loops recorded</div>
+      <div class="table-wrapper">
+        <table class="wiki-table">
+          <thead><tr><th>Loop</th><th>Trigger</th><th>Key Changes</th><th>Outcome</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  },
+
+  statusWindows(novel) {
+    const chars = this.arr(novel.characters).filter(c => c.system_stats);
+    if (!chars.length) return this.emptyState('No Status Windows', 'No character status-window data was imported yet.', 'bi-hdd-stack');
+
+    const cards = chars.map(c => {
+      const stats = c.system_stats?.stats || {};
+      return `<div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">${this.safe(c.name)}</div>
+            <div class="card-meta">${this.safe(c.system_stats?.class, 'Unknown Class')}</div>
+          </div>
+          <span class="badge badge-accent">Level ${this.safe(c.system_stats?.level, '?')}</span>
+        </div>
+        ${Object.keys(stats).length ? `<div class="stat-row mb-16">
+          ${Object.entries(stats).map(([key, value]) => `<div class="stat-box"><div class="stat-box-value">${this.safe(value)}</div><div class="stat-box-label">${this.safe(key)}</div></div>`).join('')}
+        </div>` : ''}
+        ${c.system_stats?.unique_skills?.length ? `<div class="tags-wrap">${this.pills(c.system_stats.unique_skills, 'badge-muted')}</div>` : '<span class="text-muted">No unique skills recorded.</span>'}
+      </div>`;
+    }).join('');
+
+    return `<div class="fade-in">
+      <div class="page-title"><i class="bi bi-hdd-stack"></i>Status Windows</div>
+      <div class="page-subtitle">${chars.length} characters with system stats</div>
+      <div class="grid-auto">${cards}</div>
+    </div>`;
+  },
+
   searchResults(novel, query) {
     const results = Search.query(query);
-    const groups = Search.group(results);
+    Search.setResults(results);
+    const groups = Search.group(results.map((item, index) => ({ ...item, __resultIndex: index })));
 
     if (!results.length) return `<div class="fade-in">
       <div class="page-title"><i class="bi bi-search"></i>Search Results</div>
@@ -1021,7 +1131,7 @@ const R = {
       <div class="search-result-group">
         <div class="search-result-type"><i class="bi ${g.icon}"></i>${type} (${g.items.length})</div>
         ${g.items.map(item => `
-          <div class="search-result-item" onclick="Search.navigate(${JSON.stringify(item)}, '${Store.getCurrentId()}')">
+          <div class="search-result-item" onclick="Search.navigateByIndex(${item.__resultIndex}, '${Store.getCurrentId()}')">
             <div class="search-result-title">${Search.highlight(item.name, query)}</div>
             <div class="search-result-snippet">${Search.highlight(item.snippet, query)}</div>
           </div>`).join('')}
