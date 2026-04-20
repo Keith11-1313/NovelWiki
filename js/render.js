@@ -159,17 +159,18 @@ const R = {
     const stats = {
       Characters: (novel.characters || []).length,
       Techniques: (novel.techniques || []).length,
-      Artifacts: (novel.artifacts || []).length,
-      Beasts: (novel.beasts_and_creatures || []).length,
-      Locations: (novel.locations || []).length,
-      Factions: (novel.factions || []).length,
-      Arcs: (novel.arcs || []).length,
-      Events: (novel.battles_and_events || []).length,
+      Artifacts:  (novel.artifacts  || []).length,
+      Beasts:     (novel.beasts_and_creatures || []).length,
+      Locations:  (novel.locations  || []).length,
+      Factions:   (novel.factions   || []).length,
+      Arcs:       (novel.arcs       || []).length,
+      Events:     (novel.battles_and_events || []).length,
     };
 
-    const statBoxes = Object.entries(stats).map(([k, v]) =>
-      `<div class="stat-box"><div class="stat-box-value">${v}</div><div class="stat-box-label">${k}</div></div>`
-    ).join('');
+    const statBoxes = Object.entries(stats)
+      .filter(([,v]) => v > 0)
+      .map(([k, v]) => `<div class="stat-box"><div class="stat-box-value">${v}</div><div class="stat-box-label">${k}</div></div>`)
+      .join('');
 
     const hubCards = modules.filter(m => m.id !== 'overview').map(m => {
       const count = this._moduleCount(novel, m.id);
@@ -180,12 +181,26 @@ const R = {
       </a>`;
     }).join('');
 
+    const genreTag = n.type ? `<span class="badge badge-accent" style="font-size:12px;padding:5px 12px">${this.safe(n.type).replace(/-/g,' ')}</span>` : '';
+    const themeTags = (n.themes || []).map(t => `<span class="badge badge-muted">${this.safe(t)}</span>`).join('');
+
     return `<div class="fade-in">
-      <div class="page-title"><i class="bi bi-book"></i>${this.safe(n.title, 'Novel')}</div>
-      <div class="page-subtitle">${this.safe(n.world_name, '')} ${n.world_name ? '·' : ''} ${this.safe(n.type, '').replace(/-/g, ' ')}</div>
-      <div class="stat-row mb-24">${statBoxes}</div>
-      ${n.summary ? `<div class="card mb-24"><div class="card-body">${n.summary}</div></div>` : ''}
-      ${n.themes?.length ? `<div class="mb-24"><div class="tags-wrap">${this.pills(n.themes, 'badge-accent')}</div></div>` : ''}
+      <!-- World hero banner -->
+      <div class="char-hero mb-24" style="background:radial-gradient(circle at top right,rgba(var(--accent-rgb),.18),transparent 36%),linear-gradient(180deg,rgba(15,19,29,.98),rgba(10,13,20,.95));padding:32px 28px;align-items:flex-start;gap:20px;flex-direction:column">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px">
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">
+              <i class="bi bi-globe2"></i>&nbsp;${this.safe(n.world_name, 'Unknown World')}
+            </div>
+            <div class="page-title" style="margin-bottom:8px">${this.safe(n.title, 'Novel')}</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${genreTag}${themeTags}</div>
+          </div>
+          <div class="stat-row" style="margin:0">${statBoxes}</div>
+        </div>
+        ${n.summary ? `<div style="font-size:14px;color:var(--text-secondary);line-height:1.8;max-width:820px;border-top:1px solid rgba(255,255,255,.06);padding-top:18px;margin-top:4px">${this.safe(n.summary)}</div>` : ''}
+      </div>
+
+      <div class="section-title"><i class="bi bi-compass"></i>Navigate the Wiki</div>
       <div class="hub-grid">${hubCards}</div>
     </div>`;
   },
@@ -276,49 +291,66 @@ const R = {
       <div class="card card-accent mb-16">
         <div class="section-title"><i class="bi bi-hdd-stack"></i>Status Window</div>
         ${this.detail([
-      ['Class', c.system_stats.class],
-      ['Level', c.system_stats.level],
-      ['Skills', this.arr(c.system_stats.unique_skills).join(', ')]
-    ])}
+          ['Class', c.system_stats.class],
+          ['Level', c.system_stats.level],
+          ['Skills', this.arr(c.system_stats.unique_skills).join(', ')]
+        ])}
         ${c.system_stats.stats ? `<div class="stat-row mt-16">
           ${Object.entries(c.system_stats.stats).map(([k, v]) =>
-      `<div class="stat-box"><div class="stat-box-value">${v}</div><div class="stat-box-label">${k}</div></div>`
-    ).join('')}
+            `<div class="stat-box"><div class="stat-box-value">${v}</div><div class="stat-box-label">${k}</div></div>`
+          ).join('')}
         </div>` : ''}
       </div>` : '';
 
-    return `<div class="fade-in">
-      <button class="back-btn" onclick="Router.go('characters')"><i class="bi bi-arrow-left"></i>Back to Characters</button>
-      <div class="char-hero">
-        <div class="char-avatar">${initials}</div>
-        <div class="char-info">
-          <div class="char-name">${this.safe(c.name)}</div>
-          <div class="char-aliases">${this.arr(c.aliases).join(' · ') || 'No aliases'}</div>
-          <div class="char-badges">
-            ${this.roleBadge(c.role)} ${this.statusBadge(c.status)}
-            ${c.cultivation_path ? `<span class="badge badge-accent">${c.cultivation_path}</span>` : ''}
-            ${this.arr(c.tags).map(t => `<span class="badge badge-muted">${t}</span>`).join('')}
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2 mb-24">
-        <div class="card">
-          <div class="section-title"><i class="bi bi-info-circle"></i>Profile</div>
-          ${this.detail([
-      ['Gender', c.gender], ['Age', c.age],
+    /* Infobox: avatar + attribute table side-by-side */
+    const infoboxRows = [
+      ['Role',       this._detailValue(this.roleBadge(c.role))],
+      ['Status',     this._detailValue(this.statusBadge(c.status))],
+      ['Gender',     c.gender],
+      ['Age',        c.age],
       ['First Seen', c.first_appearance],
       ['Peak Power', c.current_power_level],
-      ['Factions', this.html(factions || '—')],
-    ])}
+      ['Path',       c.cultivation_path],
+      ['Factions',   factions || null],
+    ].filter(r => r[1] !== null && r[1] !== undefined && r[1] !== '');
+
+    return `<div class="fade-in">
+      <button class="back-btn" onclick="Router.go('characters')"><i class="bi bi-arrow-left"></i>Back to Characters</button>
+
+      <!-- Fandom infobox -->
+      <div class="char-hero mb-24">
+        <!-- Avatar column -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0">
+          <div class="char-avatar">${initials}</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+            ${this.roleBadge(c.role)}
+            ${this.statusBadge(c.status)}
+          </div>
         </div>
-        ${progression ? `<div class="card">
-          <div class="section-title"><i class="bi bi-bar-chart-steps"></i>Power Progression</div>
-          <div class="progression">${progression}</div>
-        </div>` : '<div></div>'}
+        <!-- Info column -->
+        <div class="char-info" style="flex:1;min-width:0">
+          <div class="char-name">${this.safe(c.name)}</div>
+          ${this.arr(c.aliases).length ? `<div class="char-aliases"><i class="bi bi-quote"></i> ${this.arr(c.aliases).join(' &middot; ')}</div>` : ''}
+          <div class="char-badges mb-16">
+            ${c.cultivation_path ? `<span class="badge badge-accent"><i class="bi bi-fire"></i>${c.cultivation_path}</span>` : ''}
+            ${this.arr(c.tags).map(t => `<span class="badge badge-muted">${t}</span>`).join('')}
+          </div>
+          <!-- Attribute table -->
+          <table class="detail-table">
+            ${infoboxRows.map(r => `<tr>
+              <td>${this.safe(r[0])}</td>
+              <td>${typeof r[1] === 'string' && r[1].startsWith('<') ? r[1] : this.safe(r[1])}</td>
+            </tr>`).join('')}
+          </table>
+        </div>
       </div>
 
       ${systemStats}
+
+      ${progression ? `<div class="card mb-16">
+        <div class="section-title"><i class="bi bi-bar-chart-steps"></i>Power Progression</div>
+        <div class="progression">${progression}</div>
+      </div>` : ''}
 
       ${this.accordion('Background & Lore', 'bi-journal-text', `<div class="lore-text">${this.safe(c.background, 'No background recorded.')}</div><hr class="divider">${this.safe(c.personality, '')}`, true)}
       ${this.accordion('Special Abilities', 'bi-lightning', this.infoList(c.special_abilities, 'bi-lightning-charge', 'accent'))}

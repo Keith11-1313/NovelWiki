@@ -63,6 +63,9 @@
       <a href="import.html" class="btn btn-secondary btn-sm" title="Import / Update">
         <i class="bi bi-box-arrow-in-down"></i>
       </a>
+      <button class="btn btn-publish btn-sm" id="wiki-publish-btn" title="Publish to GitHub" onclick="openWikiPublish()" style="display:none">
+        <i class="bi bi-cloud-upload"></i>
+      </button>
     </header>
 
     <!-- Content -->
@@ -162,6 +165,7 @@
 
 <!-- ═══ SCRIPTS ═══ -->
 <script src="js/store.js"></script>
+<script src="js/github.js"></script>
 <script src="js/genre.js"></script>
 <script src="js/search.js"></script>
 <script src="js/render.js"></script>
@@ -402,6 +406,14 @@ document.addEventListener('click', e => {
 
   /* Start router */
   Router.init(novel);
+  /* Reveal publish button once novel is loaded */
+  const wpBtn = document.getElementById('wiki-publish-btn');
+  if (wpBtn && id) wpBtn.style.display = '';
+
+  function openWikiPublish() {
+    // Redirect to library page with publish modal pre-opened via URL param
+    location.href = `index.html?publish=${id}`;
+  }
 })();
 </script>
 

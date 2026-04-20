@@ -76,6 +76,43 @@
 
   </div>
 
+  <!-- ═══ GITHUB PUBLISH MODAL ═══ -->
+  <div class="publish-overlay" id="publish-overlay" onclick="handlePublishOverlayClick(event)">
+    <div class="publish-panel">
+      <div class="publish-header">
+        <div class="publish-title"><i class="bi bi-github"></i>Publish to GitHub</div>
+        <button class="publish-close" onclick="closePublish()"><i class="bi bi-x"></i></button>
+      </div>
+      <div class="publish-subtitle">Push this novel's JSON to a GitHub repository. Requires a Personal Access Token with <code>repo</code> scope.</div>
+
+      <div class="publish-row">
+        <div class="publish-field">
+          <div class="publish-field-label">GitHub Owner</div>
+          <input class="publish-input" id="pub-owner" placeholder="username or org" autocomplete="off">
+        </div>
+        <div class="publish-field">
+          <div class="publish-field-label">Repository</div>
+          <input class="publish-input" id="pub-repo" placeholder="my-wiki-repo" autocomplete="off">
+        </div>
+      </div>
+      <div class="publish-field-label">File Path in Repo</div>
+      <input class="publish-input" id="pub-path" placeholder="data/novel-name.json" autocomplete="off">
+      <div class="publish-field-label">Personal Access Token</div>
+      <input class="publish-input" id="pub-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+
+      <div class="publish-status idle" id="pub-status">
+        <i class="bi bi-info-circle"></i>
+        <span id="pub-status-text">Fill in the fields above to publish your novel's data to GitHub.</span>
+      </div>
+      <div class="publish-last hidden" id="pub-last"></div>
+
+      <div class="publish-actions">
+        <button class="btn btn-ghost" onclick="closePublish()"><i class="bi bi-x-circle"></i>Cancel</button>
+        <button class="btn btn-primary" id="pub-btn" onclick="doPublish()"><i class="bi bi-cloud-upload"></i>Publish</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ SETTINGS MODAL ═══ -->
   <div class="settings-overlay" id="settings-overlay" onclick="handleOverlayClick(event)">
     <div class="settings-panel">
@@ -157,6 +194,7 @@
   </div>
 
   <script src="js/store.js"></script>
+  <script src="js/github.js"></script>
   <script>
     function escapeHtml(value) {
       return String(value ?? '')
@@ -220,6 +258,9 @@
               <a href="wiki.html?novel=${n.id}" class="btn btn-secondary btn-sm" onclick="event.stopPropagation()">
                 <i class="bi bi-book-open"></i>Open Wiki
               </a>
+              <button class="btn btn-publish btn-sm" title="Publish to GitHub" onclick="event.stopPropagation(); openPublish('${n.id}', '${escapeHtml(n.title)}')">
+                <i class="bi bi-cloud-upload"></i>
+              </button>
               <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); editNovel('${n.id}')">
                 <i class="bi bi-pencil"></i>
               </button>
@@ -261,6 +302,101 @@
     /* Init */
     allNovels = Store.getNovels();
     renderLibrary(allNovels);
+
+    /* Auto-open publish modal if redirected from wiki */
+    (function() {
+      const params = new URLSearchParams(location.search);
+      const pubId = params.get('publish');
+      if (pubId) {
+        const novel = allNovels.find(n => n.id === pubId);
+        if (novel) setTimeout(() => openPublish(pubId, novel.title), 100);
+      }
+    })();
+
+    /* ══════════════════════════════════════
+       GITHUB PUBLISH
+    ═══════════════════════════════════════ */
+    let _publishNovelId = null;
+
+    function openPublish(novelId, novelTitle) {
+      _publishNovelId = novelId;
+      const cfg = Store.getPublishConfig(novelId);
+      document.getElementById('pub-owner').value = cfg.owner || '';
+      document.getElementById('pub-repo').value  = cfg.repo  || '';
+      document.getElementById('pub-path').value  = cfg.path  || `data/${novelTitle.replace(/\s+/g,'-').toLowerCase()}.json`;
+      document.getElementById('pub-token').value = cfg.token || '';
+      // Status
+      setPublishStatus('idle', 'Fill in the fields above to publish your novel\'s data to GitHub.');
+      // Last published
+      const lastEl = document.getElementById('pub-last');
+      if (cfg.lastPublished) {
+        const ts = new Date(cfg.lastPublished).toLocaleString();
+        lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${ts}` +
+          (cfg.lastUrl ? ` &nbsp;<a href="${cfg.lastUrl}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
+        lastEl.classList.remove('hidden');
+      } else {
+        lastEl.classList.add('hidden');
+      }
+      document.getElementById('publish-overlay').classList.add('open');
+    }
+
+    function closePublish() {
+      document.getElementById('publish-overlay').classList.remove('open');
+      _publishNovelId = null;
+    }
+    function handlePublishOverlayClick(e) {
+      if (e.target === document.getElementById('publish-overlay')) closePublish();
+    }
+
+    function setPublishStatus(state, msg) {
+      const el = document.getElementById('pub-status');
+      el.className = `publish-status ${state}`;
+      const iconMap = { idle:'bi-info-circle', loading:'bi-arrow-repeat', success:'bi-check-circle-fill', error:'bi-exclamation-triangle-fill' };
+      el.innerHTML = `<i class="bi ${iconMap[state]}"></i><span>${msg}</span>`;
+    }
+
+    async function doPublish() {
+      const owner = document.getElementById('pub-owner').value.trim();
+      const repo  = document.getElementById('pub-repo').value.trim();
+      const path  = document.getElementById('pub-path').value.trim();
+      const token = document.getElementById('pub-token').value.trim();
+
+      if (!owner || !repo || !path || !token) {
+        setPublishStatus('error', 'Please fill in all fields before publishing.');
+        return;
+      }
+
+      const btn = document.getElementById('pub-btn');
+      btn.disabled = true;
+      setPublishStatus('loading', 'Publishing to GitHub…');
+
+      const novelData = Store.getNovel(_publishNovelId);
+      if (!novelData) {
+        setPublishStatus('error', 'Novel data not found in local storage.');
+        btn.disabled = false; return;
+      }
+
+      const cfg = { owner, repo, path, token };
+      const result = await GitHub.publish(novelData, cfg);
+
+      btn.disabled = false;
+
+      if (result.ok) {
+        const now = Date.now();
+        const savedCfg = { ...cfg, lastPublished: now, lastUrl: result.url };
+        Store.savePublishConfig(_publishNovelId, savedCfg);
+        const ts = new Date(now).toLocaleString();
+        setPublishStatus('success', `Published successfully!`);
+        const lastEl = document.getElementById('pub-last');
+        lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${ts}` +
+          (result.url ? ` &nbsp;<a href="${result.url}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
+        lastEl.classList.remove('hidden');
+      } else {
+        setPublishStatus('error', `Publish failed: ${result.error}`);
+      }
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePublish(); });
   </script>
 
   <script>

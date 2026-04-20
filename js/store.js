@@ -117,5 +117,30 @@ const Store = {
   charName(novel, id) {
     const c = this.findCharacter(novel, id);
     return c ? c.name : id;
+  },
+
+  /* ── Export a novel as a JSON string (for download / GitHub publish) ── */
+  exportJSON(id) {
+    const data = this.getNovel(id);
+    if (!data) return null;
+    return JSON.stringify(data, null, 2);
+  },
+
+  /* ── GitHub publish config ── */
+  PUBLISH_KEY: 'wiki_publish_config',
+
+  getPublishConfig(novelId) {
+    try {
+      const all = JSON.parse(localStorage.getItem(this.PUBLISH_KEY) || '{}');
+      return all[novelId] || { owner: '', repo: '', path: '', token: '', lastPublished: null, lastUrl: null };
+    } catch { return { owner: '', repo: '', path: '', token: '', lastPublished: null, lastUrl: null }; }
+  },
+
+  savePublishConfig(novelId, cfg) {
+    try {
+      const all = JSON.parse(localStorage.getItem(this.PUBLISH_KEY) || '{}');
+      all[novelId] = cfg;
+      localStorage.setItem(this.PUBLISH_KEY, JSON.stringify(all));
+    } catch {}
   }
 };

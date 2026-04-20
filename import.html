@@ -124,6 +124,22 @@
 
   <div class="import-container">
 
+    <!-- STEP PROGRESS BAR -->
+    <div class="import-steps" id="import-steps">
+      <div class="import-step active" id="step-1">
+        <div class="step-num">1</div>
+        <span class="step-label">Paste or Upload</span>
+      </div>
+      <div class="import-step" id="step-2">
+        <div class="step-num">2</div>
+        <span class="step-label">Validate</span>
+      </div>
+      <div class="import-step" id="step-3">
+        <div class="step-num">3</div>
+        <span class="step-label">Save</span>
+      </div>
+    </div>
+
     <div style="margin-bottom:32px">
       <div class="page-title">
         <i class="bi bi-box-arrow-in-down"></i>
@@ -253,6 +269,11 @@
         fb.className = 'import-feedback valid';
         fb.innerHTML = '<i class="bi bi-check-circle-fill"></i> Valid JSON — running post-load check…';
 
+        /* Advance to step 2 */
+        document.getElementById('step-1').classList.remove('active');
+        document.getElementById('step-1').classList.add('done');
+        document.getElementById('step-2').classList.add('active');
+
         /* Run post-load checks */
         const issues = runPostLoadChecks(parsedData);
         renderValidation(issues);
@@ -290,6 +311,10 @@
         prev.classList.remove('hidden');
         btn.disabled = false; btn.style.opacity = '1';
 
+        /* Advance to step 3 */
+        document.getElementById('step-2').classList.add('done');
+        document.getElementById('step-3').classList.add('active');
+
       } catch (e) {
         parsedData = null;
         fb.className = 'import-feedback invalid';
@@ -297,6 +322,11 @@
         prev.classList.add('hidden');
         vbox.classList.add('hidden');
         btn.disabled = true; btn.style.opacity = '.5';
+        /* Reset to step 1 on error */
+        ['step-1','step-2','step-3'].forEach(s => {
+          document.getElementById(s).classList.remove('active','done');
+        });
+        document.getElementById('step-1').classList.add('active');
       }
     }
 
@@ -570,6 +600,11 @@
       document.getElementById('validation-box').classList.add('hidden');
       document.getElementById('save-btn').disabled = true;
       document.getElementById('save-btn').style.opacity = '.5';
+      /* Reset steps */
+      ['step-1','step-2','step-3'].forEach(s => {
+        document.getElementById(s).classList.remove('active','done');
+      });
+      document.getElementById('step-1').classList.add('active');
     }
 
     /* ══════════════════════════════════════
