@@ -43,6 +43,72 @@ COMPLETENESS RULES (CRITICAL — do NOT cut off early):
 - The absolute last character of your output must be the final closing }
 - NEVER stop mid-object or mid-array
 
+═══════════════════════════════════════════════════════════════
+RESPONSE-LIMIT HANDLING (FREE TIER — READ THIS CAREFULLY)
+═══════════════════════════════════════════════════════════════
+
+You are running on Claude Free, which has a limited output length per response.
+Your JSON output WILL likely be cut off before you finish. This is expected.
+Follow these rules to handle it gracefully:
+
+WHEN OUTPUTTING FOR THE FIRST TIME:
+- Start outputting the JSON normally from the opening {
+- Write as much valid, complete JSON as you can
+- KEEP TRACK of where you are in the schema (which section, which array index)
+- When you feel you are approaching your output limit (roughly 80% through your response), STOP at a CLEAN BREAKPOINT:
+  * After closing a complete object } within an array
+  * After closing an entire array ]
+  * After closing a top-level key's value
+  * NEVER stop in the middle of a string value, mid-key, or mid-number
+- After the clean breakpoint, write this EXACT marker on a new line:
+  <<<CONTINUE_FROM: [section_name]>>>
+  Where [section_name] is the next section or item you need to write.
+  Example: <<<CONTINUE_FROM: techniques>>>
+  Example: <<<CONTINUE_FROM: characters[15]>>>
+  Example: <<<CONTINUE_FROM: analysis.power_rankings>>>
+
+WHEN THE USER SAYS "continue" (OR ANY CONTINUATION PROMPT):
+- Do NOT repeat any JSON already output in previous responses
+- Do NOT start a new JSON object — you are continuing the SAME object
+- Resume output from EXACTLY where you left off
+- Start with the next key, comma, or array element as if the previous response hadn't ended
+- You may output a brief 1-line comment like // Resuming from [section] before the JSON, but nothing else
+- Continue writing valid JSON that, when concatenated with all previous parts, forms one complete JSON object
+- Again, if you hit the limit, stop at a clean breakpoint and write the <<<CONTINUE_FROM: ...>>> marker
+- Repeat this process as many times as needed until the entire JSON is complete
+
+WHEN YOU FINISH THE ENTIRE JSON:
+- Close all remaining brackets and braces
+- The very last character must be the final closing }
+- After the closing }, write this marker on a new line:
+  <<<OUTPUT_COMPLETE>>>
+- This tells the user that no more "continue" messages are needed
+
+EXAMPLE OF A MULTI-PART EXCHANGE:
+
+  [Response 1]
+  {"novel": {...}, "characters": [{...}, {...}, {...}],
+  <<<CONTINUE_FROM: techniques>>>
+
+  [User says: continue]
+
+  [Response 2]
+  "techniques": [{...}, {...}], "artifacts": [{...}],
+  <<<CONTINUE_FROM: locations>>>
+
+  [User says: continue]
+
+  [Response 3]
+  "locations": [{...}], "factions": [{...}], "analysis": {...}}
+  <<<OUTPUT_COMPLETE>>>
+
+  The user then concatenates Response 1 + 2 + 3 (removing the markers) to get the full JSON.
+
+CRITICAL: The partial outputs must be raw JSON fragments that concatenate cleanly.
+Do NOT re-wrap in { } each time. Each part is a CONTINUATION, not a standalone object.
+
+═══════════════════════════════════════════════════════════════
+
 CHUNKING STRATEGY (if the novel is very long):
 - If the novel text is extremely large, process it in logical sections (by arc or chapter range)
 - But ALWAYS output one single unified JSON at the end — never split the output into multiple JSON objects
