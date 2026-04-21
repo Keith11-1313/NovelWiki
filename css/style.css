@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* ===== CSS VARIABLES — Runway Palette ===== */
+/* ===== CSS VARIABLES — Dark Editorial Palette ===== */
 :root {
   /* Backgrounds */
   --bg-base:    #000000;
@@ -72,25 +72,25 @@ input, textarea, select { font-family: inherit; }
 /* ── Sidebar ── */
 #sidebar {
   width: var(--sidebar-width);
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg-base);
   border-right: 1px solid var(--border);
   position: fixed; top: 0; left: 0;
   display: flex; flex-direction: column;
-  z-index: 100; overflow-y: auto;
-  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  z-index: 100; overflow: hidden;
   transition: transform .3s ease;
 }
-.sidebar-logo { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.sidebar-logo { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .logo-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 22px; flex-shrink: 0; }
 .logo-text { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.08em; }
 .logo-sub  { font-size: 11px; color: var(--text-muted); font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; }
 
-.sidebar-novel-info { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.sidebar-novel-info { padding: 12px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .sidebar-novel-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-novel-genre { font-size: 11px; color: var(--accent); margin-top: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.35px; }
 
-.sidebar-nav { flex: 1; padding: 8px 0; }
+.sidebar-nav { flex: 1; padding: 8px 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.sidebar-bottom { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
 .sidebar-section-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.35px; color: var(--text-muted); padding: 12px 16px 4px; }
 
 .nav-item {
@@ -533,6 +533,29 @@ input, textarea, select { font-family: inherit; }
 
 .settings-actions { display:flex; gap:10px; margin-top:28px; }
 .settings-actions .btn { flex:1; justify-content:center; }
+
+/* ── Toggle Switch ── */
+.toggle-wrap { display:flex; align-items:center; cursor:pointer; flex-shrink:0; }
+.toggle-input { position:absolute; opacity:0; width:0; height:0; pointer-events:none; }
+.toggle-track {
+  position:relative; width:42px; height:23px;
+  background:var(--border); border-radius:12px;
+  transition:background 0.2s; display:block; flex-shrink:0;
+}
+.toggle-input:checked + .toggle-track { background:var(--accent); }
+.toggle-thumb {
+  position:absolute; top:3px; left:3px;
+  width:17px; height:17px; border-radius:50%;
+  background:#fff; transition:left 0.2s ease;
+  box-shadow:0 1px 3px rgba(0,0,0,0.3);
+}
+.toggle-input:checked + .toggle-track .toggle-thumb { left:22px; }
+.genre-chip {
+  display:inline-block; width:12px; height:12px;
+  border-radius:3px; vertical-align:middle; flex-shrink:0;
+  border:1px solid rgba(255,255,255,0.15);
+}
+.accent-row-disabled { opacity:0.38; pointer-events:none; transition:opacity 0.2s; }
 
 /* ===== GITHUB PUBLISH MODAL ===== */
 .publish-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:600; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.22s ease; }

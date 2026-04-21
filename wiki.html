@@ -104,8 +104,24 @@
     <div class="settings-section-label">Theme Presets</div>
     <div class="theme-presets" id="theme-presets"></div>
 
+    <div class="settings-section-label">Genre Accent</div>
+    <div class="settings-row" id="row-genre-accent">
+      <div>
+        <div class="settings-row-label" style="display:flex;align-items:center;gap:8px;">
+          Match Genre Color
+          <span class="genre-chip" id="genre-accent-chip"></span>
+          <span id="genre-accent-name" style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);"></span>
+        </div>
+        <div class="settings-row-sub">Auto-apply accent based on novel genre</div>
+      </div>
+      <label class="toggle-wrap" aria-label="Use genre accent color">
+        <input type="checkbox" id="toggle-genre-accent" class="toggle-input" onchange="onToggleGenreAccent(this.checked)">
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      </label>
+    </div>
+
     <div class="settings-section-label">Accent Color</div>
-    <div class="settings-row">
+    <div class="settings-row" id="row-custom-accent">
       <div>
         <div class="settings-row-label">Primary Accent</div>
         <div class="settings-row-sub">Used for highlights, links &amp; active states</div>
@@ -443,7 +459,7 @@ const SETTINGS_KEY = 'wiki_appearance';
 const THEMES = [
   {
     id: 'default',
-    name: 'Runway',
+    name: 'Dark Editorial',
     accent: '#ffffff',
     bgBase: '#000000',
     bgCard: '#1a1a1a',
@@ -451,6 +467,50 @@ const THEMES = [
     textSecondary: '#767d88',
     radius: 6,
     swatch: 'linear-gradient(135deg,#ffffff,#767d88)'
+  },
+  {
+    id: 'github',
+    name: 'GitHub',
+    accent: '#58a6ff',
+    bgBase: '#0d1117',
+    bgCard: '#161b22',
+    textPrimary: '#e6edf3',
+    textSecondary: '#8b949e',
+    radius: 6,
+    swatch: 'linear-gradient(135deg,#0d1117,#58a6ff)'
+  },
+  {
+    id: 'linear',
+    name: 'Linear',
+    accent: '#5e6ad2',
+    bgBase: '#08090c',
+    bgCard: '#111218',
+    textPrimary: '#f0f0f5',
+    textSecondary: '#9192a0',
+    radius: 8,
+    swatch: 'linear-gradient(135deg,#5e6ad2,#9b8def)'
+  },
+  {
+    id: 'vercel',
+    name: 'Vercel',
+    accent: '#ffffff',
+    bgBase: '#000000',
+    bgCard: '#111111',
+    textPrimary: '#ededed',
+    textSecondary: '#888888',
+    radius: 4,
+    swatch: 'linear-gradient(135deg,#111111,#444444)'
+  },
+  {
+    id: 'notion',
+    name: 'Notion Night',
+    accent: '#e9a84c',
+    bgBase: '#191919',
+    bgCard: '#222222',
+    textPrimary: '#ffffff',
+    textSecondary: '#9b9b9b',
+    radius: 4,
+    swatch: 'linear-gradient(135deg,#191919,#e9a84c)'
   },
   {
     id: 'slate',
@@ -464,17 +524,6 @@ const THEMES = [
     swatch: 'linear-gradient(135deg,#58a6ff,#3fd2ff)'
   },
   {
-    id: 'gold',
-    name: 'Cinematic',
-    accent: '#f0a500',
-    bgBase: '#000000',
-    bgCard: '#1a1a1a',
-    textPrimary: '#ffffff',
-    textSecondary: '#767d88',
-    radius: 6,
-    swatch: 'linear-gradient(135deg,#f0a500,#f78166)'
-  },
-  {
     id: 'violet',
     name: 'Violet',
     accent: '#bc8cff',
@@ -484,17 +533,6 @@ const THEMES = [
     textSecondary: '#7d848e',
     radius: 6,
     swatch: 'linear-gradient(135deg,#bc8cff,#db61a2)'
-  },
-  {
-    id: 'green',
-    name: 'Editorial',
-    accent: '#3fb950',
-    bgBase: '#000000',
-    bgCard: '#1a1a1a',
-    textPrimary: '#ffffff',
-    textSecondary: '#767d88',
-    radius: 6,
-    swatch: 'linear-gradient(135deg,#3fb950,#39d0d8)'
   }
 ];
 
@@ -514,6 +552,20 @@ function applySettings(s) {
   r.setProperty('--text-secondary', s.textSecondary);
   r.setProperty('--radius',         s.radius + 'px');
   r.setProperty('--radius-lg',      (s.radius + 2) + 'px');
+
+  /* If user overrides genre accent, write accent to body.style so it beats
+     the body[data-genre] CSS attribute selector (body inline > attr selector) */
+  if (s.useGenreAccent === false) {
+    document.body.style.setProperty('--accent',        s.accent);
+    document.body.style.setProperty('--accent-rgb',    `${ar},${ag},${ab}`);
+    document.body.style.setProperty('--accent-dim',    hexToRgba(s.accent, 0.10));
+    document.body.style.setProperty('--accent-border', hexToRgba(s.accent, 0.25));
+  } else {
+    document.body.style.removeProperty('--accent');
+    document.body.style.removeProperty('--accent-rgb');
+    document.body.style.removeProperty('--accent-dim');
+    document.body.style.removeProperty('--accent-border');
+  }
 }
 
 /* ── Persist settings to localStorage ── */
@@ -522,12 +574,13 @@ function saveSettings(s) {
 }
 
 /* ── Load & return settings (or defaults) ── */
+const SETTINGS_DEFAULTS = { useGenreAccent: true };
 function loadSettings() {
   try {
     const stored = localStorage.getItem(SETTINGS_KEY);
-    if (stored) return Object.assign({}, THEMES[0], JSON.parse(stored));
+    if (stored) return Object.assign({}, SETTINGS_DEFAULTS, THEMES[0], JSON.parse(stored));
   } catch(e) {}
-  return Object.assign({}, THEMES[0]);
+  return Object.assign({}, SETTINGS_DEFAULTS, THEMES[0]);
 }
 
 /* ── Hex "#rrggbb" → "rgba(r,g,b,a)" ── */
@@ -568,6 +621,30 @@ function markActivePreset(id) {
 /* Current in-memory settings */
 let _current = loadSettings();
 
+/* ── Genre color map (mirrors CSS) ── */
+const GENRE_COLORS = {
+  cultivation:'#f0a500', tower:'#58a6ff', regression:'#f78166',
+  system:'#3fb950', isekai:'#bc8cff', fantasy:'#db61a2',
+  'sci-fi':'#39d0d8', 'light-novel':'#8b949e', 'web-novel':'#8b949e', other:'#f0a500'
+};
+
+/* ── Update accent picker disabled state ── */
+function updateAccentPickerVisibility() {
+  const row = document.getElementById('row-custom-accent');
+  const isGenre = _current.useGenreAccent !== false;
+  if (row) row.classList.toggle('accent-row-disabled', isGenre);
+}
+
+/* ── Handle genre accent toggle ── */
+function onToggleGenreAccent(checked) {
+  _current.useGenreAccent = checked;
+  _current.id = 'custom';
+  markActivePreset('custom');
+  applySettings(_current);
+  saveSettings(_current);
+  updateAccentPickerVisibility();
+}
+
 /* ── Initialise settings panel UI ── */
 function initSettingsPanel() {
   /* Build preset swatches */
@@ -579,8 +656,25 @@ function initSettingsPanel() {
       ${t.name}
     </div>`).join('');
 
+  /* Genre chip + name */
+  const genre = document.body.dataset.genre || '';
+  const genreColor = GENRE_COLORS[genre] || '#ffffff';
+  const chip = document.getElementById('genre-accent-chip');
+  const nameEl = document.getElementById('genre-accent-name');
+  if (chip) chip.style.background = genreColor;
+  if (nameEl) nameEl.textContent = genre ? genre.charAt(0).toUpperCase() + genre.slice(1).replace(/-/g,' ') : '';
+
+  /* Show genre accent row only on wiki page (where genre is active) */
+  const genreRow = document.getElementById('row-genre-accent');
+  if (genreRow) genreRow.style.display = genre ? '' : 'none';
+
+  /* Sync toggle */
+  const toggle = document.getElementById('toggle-genre-accent');
+  if (toggle) toggle.checked = _current.useGenreAccent !== false;
+
   syncPickersToSettings(_current);
   markActivePreset(_current.id || 'custom');
+  updateAccentPickerVisibility();
 }
 
 /* ── Apply a named preset ── */
@@ -634,11 +728,14 @@ function onRadiusChange(val) {
 
 /* ── Reset to default ── */
 function resetSettings() {
-  _current = Object.assign({}, THEMES[0]);
+  _current = Object.assign({}, SETTINGS_DEFAULTS, THEMES[0]);
   applySettings(_current);
   saveSettings(_current);
   syncPickersToSettings(_current);
   markActivePreset('default');
+  const toggle = document.getElementById('toggle-genre-accent');
+  if (toggle) toggle.checked = true;
+  updateAccentPickerVisibility();
 }
 
 /* ── Open / close overlay ── */
@@ -655,6 +752,8 @@ function handleOverlayClick(e) {
 
 /* ── Boot: apply saved settings on page load ── */
 applySettings(_current);
+/* Also apply after genre data-attr is set by init() above */
+document.addEventListener('DOMContentLoaded', () => applySettings(_current));
 
 /* Keyboard shortcut: Esc closes panel */
 document.addEventListener('keydown', e => {
