@@ -1,6 +1,6 @@
 # Novel Wiki
 
-Static personal wiki for imported novel data and Qwen analysis output.
+Static personal wiki for imported novel data and AI-generated analysis output.
 
 ## Run
 

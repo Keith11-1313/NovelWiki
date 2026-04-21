@@ -47,7 +47,7 @@ COMPLETENESS RULES (CRITICAL — do NOT cut off early):
 RESPONSE-LIMIT HANDLING (FREE TIER — READ THIS CAREFULLY)
 ═══════════════════════════════════════════════════════════════
 
-You are running on Claude Free, which has a limited output length per response.
+You are running on a free-tier AI model, which has a limited output length per response.
 Your JSON output WILL likely be cut off before you finish. This is expected.
 Follow these rules to handle it gracefully:
 

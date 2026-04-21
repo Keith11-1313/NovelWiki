@@ -173,6 +173,9 @@
       <button id="btn-method-file" onclick="setMethod('file')">
         <i class="bi bi-file-earmark-arrow-down"></i>AI gave me a .json file
       </button>
+      <button id="btn-method-github" onclick="setMethod('github')">
+        <i class="bi bi-github"></i>Pull from GitHub
+      </button>
     </div>
 
     <!-- PASTE METHOD -->
@@ -190,6 +193,41 @@
         <p>Or click to browse — accepts .json files exported from your AI tool</p>
       </div>
       <input type="file" id="file-input" accept=".json" style="display:none">
+    </div>
+
+    <!-- GITHUB PULL METHOD -->
+    <div id="panel-github" class="hidden">
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div><div class="card-title"><i class="bi bi-github" style="color:var(--accent)"></i> Pull from GitHub</div><div class="card-meta">Download a published wiki JSON from a GitHub repository</div></div>
+        </div>
+        <div class="publish-row">
+          <div class="publish-field">
+            <div class="publish-field-label">GitHub Owner</div>
+            <input class="publish-input" id="gh-pull-owner" placeholder="username or org" autocomplete="off">
+          </div>
+          <div class="publish-field">
+            <div class="publish-field-label">Repository</div>
+            <input class="publish-input" id="gh-pull-repo" placeholder="my-wiki-repo" autocomplete="off">
+          </div>
+        </div>
+        <div class="publish-field-label">File Path in Repo</div>
+        <input class="publish-input" id="gh-pull-path" placeholder="data/novel-name.json" autocomplete="off">
+        <div class="publish-field-label">Personal Access Token <span style="color:var(--text-muted);font-size:10px">(optional for public repos)</span></div>
+        <input class="publish-input" id="gh-pull-token" type="password" placeholder="ghp_... (optional)" autocomplete="off">
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <button class="btn btn-primary" onclick="doPullFromGitHub()">
+            <i class="bi bi-cloud-download"></i>Pull JSON
+          </button>
+          <button class="btn btn-ghost" onclick="autofillFromUrl()">
+            <i class="bi bi-link-45deg"></i>Autofill from URL
+          </button>
+        </div>
+        <div id="gh-pull-status" class="publish-status idle" style="margin-top:14px;display:none">
+          <i class="bi bi-info-circle"></i><span></span>
+        </div>
+      </div>
+      <p class="text-sm text-muted">The raw file URL follows this pattern: https://raw.githubusercontent.com/{owner}/{repo}/main/{path}</p>
     </div>
 
     <!-- FEEDBACK -->
@@ -227,7 +265,9 @@
 
   </div>
 
+  <script src="js/utils.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/github.js"></script>
   <script>
     function escapeHtml(value) {
       return String(value ?? '')
@@ -243,11 +283,67 @@
     ═══════════════════════════════════════ */
     function setMethod(method) {
       inputMethod = method;
-      document.getElementById('panel-paste').classList.toggle('hidden', method !== 'paste');
-      document.getElementById('panel-file').classList.toggle('hidden',  method !== 'file');
-      document.getElementById('btn-method-paste').classList.toggle('active', method === 'paste');
-      document.getElementById('btn-method-file').classList.toggle('active',  method === 'file');
-      clearForm(true); // clear existing data when switching
+      document.getElementById('panel-paste').classList.toggle('hidden',  method !== 'paste');
+      document.getElementById('panel-file').classList.toggle('hidden',   method !== 'file');
+      document.getElementById('panel-github').classList.toggle('hidden', method !== 'github');
+      document.getElementById('btn-method-paste').classList.toggle('active',  method === 'paste');
+      document.getElementById('btn-method-file').classList.toggle('active',   method === 'file');
+      document.getElementById('btn-method-github').classList.toggle('active', method === 'github');
+      clearForm(true);
+    }
+
+    /* ══════════════════════════════════════
+       GITHUB PULL
+    ═══════════════════════════════════════ */
+    async function doPullFromGitHub() {
+      const owner = document.getElementById('gh-pull-owner').value.trim();
+      const repo  = document.getElementById('gh-pull-repo').value.trim();
+      const path  = document.getElementById('gh-pull-path').value.trim();
+      const token = document.getElementById('gh-pull-token').value.trim();
+      const statusEl = document.getElementById('gh-pull-status');
+      const statusMsg = statusEl.querySelector('span');
+
+      if (!owner || !repo || !path) {
+        statusEl.style.display = '';
+        statusEl.className = 'publish-status error';
+        statusMsg.textContent = 'Please fill in Owner, Repository, and File Path.';
+        return;
+      }
+
+      statusEl.style.display = '';
+      statusEl.className = 'publish-status loading';
+      statusMsg.textContent = 'Pulling data from GitHub…';
+
+      const result = await GitHub.pull({ owner, repo, path, token });
+
+      if (!result.ok) {
+        statusEl.className = 'publish-status error';
+        statusMsg.textContent = 'Pull failed: ' + result.error;
+        return;
+      }
+
+      statusEl.className = 'publish-status success';
+      statusMsg.textContent = 'Pulled successfully — validating…';
+
+      // Feed into the unified processRaw flow
+      const raw = JSON.stringify(result.data);
+      document.getElementById('json-input').value = raw;
+      processRaw(raw);
+    }
+
+    /* Autofill owner/repo/path from a GitHub raw or blob URL */
+    function autofillFromUrl() {
+      const url = prompt('Paste a GitHub raw or blob URL:');
+      if (!url) return;
+      // raw: https://raw.githubusercontent.com/{owner}/{repo}/main/{path}
+      const rawMatch = url.match(/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/[^\/]+\/(.+)/);
+      // blob: https://github.com/{owner}/{repo}/blob/main/{path}
+      const blobMatch = url.match(/github\.com\/([^\/]+)\/([^\/]+)\/blob\/[^\/]+\/(.+)/);
+      const m = rawMatch || blobMatch;
+      if (!m) { alert('Could not parse that URL. Try copying the raw file URL.'); return; }
+      document.getElementById('gh-pull-owner').value = m[1];
+      document.getElementById('gh-pull-repo').value  = m[2];
+      document.getElementById('gh-pull-path').value  = m[3];
     }
 
     /* ══════════════════════════════════════
@@ -565,9 +661,19 @@
     ═══════════════════════════════════════ */
     function saveNovel() {
       if (!parsedData) return;
-      const editId = new URLSearchParams(location.search).get('edit');
-      const id = Store.saveNovel(parsedData, editId);
-      location.href = `wiki.html?novel=${id}`;
+      try {
+        const editId = new URLSearchParams(location.search).get('edit');
+        const id = Store.saveNovel(parsedData, editId);
+        location.href = `wiki.html?novel=${id}`;
+      } catch (e) {
+        if (e.message === 'QUOTA_EXCEEDED') {
+          const fb = document.getElementById('feedback');
+          fb.className = 'import-feedback invalid';
+          fb.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Storage full! Export and delete older novels first, then try again.';
+        } else {
+          throw e;
+        }
+      }
     }
 
     /* ══════════════════════════════════════

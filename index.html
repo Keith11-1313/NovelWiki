@@ -5,24 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Novel Wiki — My Library</title>
   <meta name="description" content="Personal self-hosted fandom wiki for novels. Powered by AI extraction.">
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <!-- Open Graph -->
   <meta property="og:title" content="Novel Wiki — My Library">
   <meta property="og:description" content="Personal self-hosted fandom wiki for novels. Powered by AI extraction.">
   <meta property="og:type" content="website">
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Novel Wiki — My Library">
   <meta name="twitter:description" content="Personal self-hosted fandom wiki for novels. Powered by AI extraction.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Anti-FOUC: apply saved settings before paint -->
   <script>
-  (function(){var D={accent:'#ffffff',bgBase:'#000000',bgCard:'#1a1a1a',textPrimary:'#ffffff',textSecondary:'#767d88',radius:6};function rgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')';}try{var s=Object.assign({},D,JSON.parse(localStorage.getItem('wiki_appearance')||'{}'));var ar=parseInt(s.accent.slice(1,3),16),ag=parseInt(s.accent.slice(3,5),16),ab=parseInt(s.accent.slice(5,7),16);var r=document.documentElement.style;r.setProperty('--accent-rgb',ar+','+ag+','+ab);r.setProperty('--accent',s.accent);r.setProperty('--accent-dim',rgba(s.accent,.10));r.setProperty('--accent-border',rgba(s.accent,.25));r.setProperty('--bg-base',s.bgBase);r.setProperty('--bg-card',s.bgCard);r.setProperty('--text-primary',s.textPrimary);r.setProperty('--text-secondary',s.textSecondary);r.setProperty('--radius',s.radius+'px');r.setProperty('--radius-lg',(s.radius+2)+'px');}catch(e){}})()
+  (function(){var D={accent:'#ffffff',bgBase:'#000000',bgCard:'#1a1a1a',textPrimary:'#ffffff',textSecondary:'#767d88',radius:6};function rgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')';}try{var s=Object.assign({},D,JSON.parse(localStorage.getItem('wiki_appearance')||'{}'));var ar=parseInt(s.accent.slice(1,3),16),ag=parseInt(s.accent.slice(3,5),16),ab=parseInt(s.accent.slice(5,7),16);var r=document.documentElement.style;r.setProperty('--accent-rgb',ar+','+ag+','+ab);r.setProperty('--accent',s.accent);r.setProperty('--accent-dim',rgba(s.accent,.10));r.setProperty('--accent-border',rgba(s.accent,.25));r.setProperty('--bg-base',s.bgBase);r.setProperty('--bg-card',s.bgCard);r.setProperty('--text-primary',s.textPrimary);r.setProperty('--text-secondary',s.textSecondary);r.setProperty('--radius',s.radius+'px');r.setProperty('--radius-lg',(s.radius+2)+'px');}catch(e){}}())
   </script>
 </head>
 <body class="page-library">
   <div class="library-shell">
+
+    <!-- STORAGE WARNING -->
+    <div id="storage-warning" class="storage-warning" style="display:none"></div>
 
     <!-- LIBRARY HEADER -->
     <div class="library-header">
@@ -34,7 +35,6 @@
             </div>
             <div class="library-title">My Novel Library</div>
           </div>
-
         </div>
         <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
           <a href="import.html" class="btn btn-primary btn-lg">
@@ -46,6 +46,9 @@
         </div>
       </div>
     </div>
+
+    <!-- RECENTLY VIEWED -->
+    <div id="recently-viewed" class="recently-viewed" style="display:none"></div>
 
     <!-- TOOLBAR -->
     <div class="library-toolbar">
@@ -66,12 +69,15 @@
         <option value="web-novel">Web Novel</option>
         <option value="other">Other</option>
       </select>
+      <button class="btn btn-ghost btn-sm" id="cross-search-btn" onclick="toggleCrossSearch()" title="Search all novels" aria-label="Toggle cross-novel search">
+        <i class="bi bi-search-heart"></i>
+      </button>
       <span id="lib-count" class="text-muted text-sm"></span>
     </div>
 
     <!-- NOVEL GRID -->
     <div class="library-grid" id="novel-grid">
-      <!-- populated by JS -->
+      <!-- populated by library.js -->
     </div>
 
     <!-- EMPTY STATE -->
@@ -109,6 +115,10 @@
       <input class="publish-input" id="pub-path" placeholder="data/novel-name.json" autocomplete="off">
       <div class="publish-field-label">Personal Access Token</div>
       <input class="publish-input" id="pub-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+      <label class="remember-token-row">
+        <input type="checkbox" id="pub-remember">
+        <span>Remember token for this novel</span>
+      </label>
 
       <div class="publish-status idle" id="pub-status">
         <i class="bi bi-info-circle"></i>
@@ -135,7 +145,7 @@
       <div class="theme-presets" id="theme-presets"></div>
 
       <div class="settings-section-label">Accent Color</div>
-      <div class="settings-row">
+      <div class="settings-row" id="row-custom-accent">
         <div>
           <div class="settings-row-label">Primary Accent</div>
           <div class="settings-row-sub">Used for highlights, links &amp; active states</div>
@@ -191,8 +201,8 @@
           <div class="settings-row-sub">Corner rounding (px)</div>
         </div>
         <div class="range-wrap">
-          <input type="range" id="range-radius" min="0" max="32" step="2" value="18" oninput="onRadiusChange(this.value)">
-          <span class="range-value" id="range-radius-val">18px</span>
+          <input type="range" id="range-radius" min="0" max="32" step="2" value="6" oninput="onRadiusChange(this.value)">
+          <span class="range-value" id="range-radius-val">6px</span>
         </div>
       </div>
 
@@ -203,305 +213,10 @@
     </div>
   </div>
 
+  <script src="js/utils.js"></script>
   <script src="js/store.js"></script>
   <script src="js/github.js"></script>
-  <script>
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    /* Genre accent color map */
-    const genreColors = {
-      cultivation:'#f0a500', tower:'#58a6ff', regression:'#f78166',
-      system:'#3fb950', isekai:'#bc8cff', fantasy:'#db61a2',
-      'sci-fi':'#39d0d8', 'light-novel':'#8b949e', 'web-novel':'#8b949e', other:'#f0a500'
-    };
-
-    const genreIcons = {
-      cultivation:'bi-fire', tower:'bi-layers', regression:'bi-arrow-counterclockwise',
-      system:'bi-hdd-stack', isekai:'bi-globe2', fantasy:'bi-stars',
-      'sci-fi':'bi-cpu', 'light-novel':'bi-book', 'web-novel':'bi-book', other:'bi-collection'
-    };
-
-    let allNovels = [];
-
-    function renderLibrary(novels) {
-      const grid = document.getElementById('novel-grid');
-      const empty = document.getElementById('lib-empty');
-      document.getElementById('lib-count').textContent = `${novels.length} novel${novels.length !== 1 ? 's' : ''}`;
-
-      if (!novels.length) {
-        grid.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      grid.innerHTML = novels.map(n => {
-        const color  = genreColors[n.type] || '#f0a500';
-        const icon   = genreIcons[n.type]  || 'bi-book';
-        const s      = n.stats || {};
-        return `
-          <div class="novel-card" data-type="${escapeHtml(n.type || '')}" data-title="${escapeHtml(n.title || '')}" onclick="openNovel('${n.id}')">
-            <div class="novel-card-top" style="background:${color}"></div>
-            <div class="novel-card-body">
-              <div class="novel-card-title">${escapeHtml(n.title)}</div>
-              <div class="novel-card-genre">
-                <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">
-                  <i class="bi ${icon}"></i>${escapeHtml((n.type||'other').replace(/-/g,' '))}
-                </span>
-                ${(n.genre_tags||[]).slice(0,2).map(t=>`<span class="badge badge-muted">${escapeHtml(t)}</span>`).join('')}
-              </div>
-              <div class="novel-card-stats">
-                ${s.characters  ? `<span class="novel-stat"><i class="bi bi-people"></i>${s.characters} chars</span>` : ''}
-                ${s.arcs        ? `<span class="novel-stat"><i class="bi bi-diagram-3"></i>${s.arcs} arcs</span>` : ''}
-                ${s.techniques  ? `<span class="novel-stat"><i class="bi bi-lightning"></i>${s.techniques} techniques</span>` : ''}
-                ${s.locations   ? `<span class="novel-stat"><i class="bi bi-map"></i>${s.locations} locations</span>` : ''}
-              </div>
-            </div>
-            <div class="novel-card-actions">
-              <a href="wiki.html?novel=${n.id}" class="btn btn-secondary btn-sm" onclick="event.stopPropagation()">
-                <i class="bi bi-book-open"></i>Open Wiki
-              </a>
-              <button class="btn btn-publish btn-sm" title="Publish to GitHub" aria-label="Publish to GitHub" onclick="event.stopPropagation(); openPublish('${n.id}', '${escapeHtml(n.title)}')">
-                <i class="bi bi-cloud-upload" aria-hidden="true"></i>
-              </button>
-              <button class="btn btn-ghost btn-sm" title="Edit novel" aria-label="Edit novel" onclick="event.stopPropagation(); editNovel('${n.id}')">
-                <i class="bi bi-pencil" aria-hidden="true"></i>
-              </button>
-              <button class="btn btn-danger btn-sm" title="Delete novel" aria-label="Delete novel" onclick="event.stopPropagation(); deleteNovel('${n.id}', '${n.title}')">
-                <i class="bi bi-trash" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>`;
-      }).join('');
-    }
-
-    function filterLibrary() {
-      const q     = document.getElementById('lib-search').value.toLowerCase();
-      const genre = document.getElementById('lib-genre').value;
-      const filtered = allNovels.filter(n => {
-        const matchTitle = n.title.toLowerCase().includes(q);
-        const matchGenre = !genre || n.type === genre;
-        return matchTitle && matchGenre;
-      });
-      renderLibrary(filtered);
-    }
-
-    function openNovel(id) {
-      location.href = `wiki.html?novel=${id}`;
-    }
-
-    function editNovel(id) {
-      location.href = `import.html?edit=${id}`;
-    }
-
-    function deleteNovel(id, title) {
-      if (confirm(`Delete "${title}" from your library? This cannot be undone.`)) {
-        Store.deleteNovel(id);
-        allNovels = Store.getNovels();
-        filterLibrary();
-      }
-    }
-
-    /* Init */
-    allNovels = Store.getNovels();
-    renderLibrary(allNovels);
-
-    /* Auto-open publish modal if redirected from wiki */
-    (function() {
-      const params = new URLSearchParams(location.search);
-      const pubId = params.get('publish');
-      if (pubId) {
-        const novel = allNovels.find(n => n.id === pubId);
-        if (novel) setTimeout(() => openPublish(pubId, novel.title), 100);
-      }
-    })();
-
-    /* ══════════════════════════════════════
-       GITHUB PUBLISH
-    ═══════════════════════════════════════ */
-    let _publishNovelId = null;
-
-    function openPublish(novelId, novelTitle) {
-      _publishNovelId = novelId;
-      const cfg = Store.getPublishConfig(novelId);
-      document.getElementById('pub-owner').value = cfg.owner || '';
-      document.getElementById('pub-repo').value  = cfg.repo  || '';
-      document.getElementById('pub-path').value  = cfg.path  || `data/${novelTitle.replace(/\s+/g,'-').toLowerCase()}.json`;
-      document.getElementById('pub-token').value = cfg.token || '';
-      // Status
-      setPublishStatus('idle', 'Fill in the fields above to publish your novel\'s data to GitHub.');
-      // Last published
-      const lastEl = document.getElementById('pub-last');
-      if (cfg.lastPublished) {
-        const ts = new Date(cfg.lastPublished).toLocaleString();
-        lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${ts}` +
-          (cfg.lastUrl ? ` &nbsp;<a href="${cfg.lastUrl}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
-        lastEl.classList.remove('hidden');
-      } else {
-        lastEl.classList.add('hidden');
-      }
-      document.getElementById('publish-overlay').classList.add('open');
-    }
-
-    function closePublish() {
-      document.getElementById('publish-overlay').classList.remove('open');
-      _publishNovelId = null;
-    }
-    function handlePublishOverlayClick(e) {
-      if (e.target === document.getElementById('publish-overlay')) closePublish();
-    }
-
-    function setPublishStatus(state, msg) {
-      const el = document.getElementById('pub-status');
-      el.className = `publish-status ${state}`;
-      const iconMap = { idle:'bi-info-circle', loading:'bi-arrow-repeat', success:'bi-check-circle-fill', error:'bi-exclamation-triangle-fill' };
-      el.innerHTML = `<i class="bi ${iconMap[state]}"></i><span>${msg}</span>`;
-    }
-
-    async function doPublish() {
-      const owner = document.getElementById('pub-owner').value.trim();
-      const repo  = document.getElementById('pub-repo').value.trim();
-      const path  = document.getElementById('pub-path').value.trim();
-      const token = document.getElementById('pub-token').value.trim();
-
-      if (!owner || !repo || !path || !token) {
-        setPublishStatus('error', 'Please fill in all fields before publishing.');
-        return;
-      }
-
-      const btn = document.getElementById('pub-btn');
-      btn.disabled = true;
-      setPublishStatus('loading', 'Publishing to GitHub…');
-
-      const novelData = Store.getNovel(_publishNovelId);
-      if (!novelData) {
-        setPublishStatus('error', 'Novel data not found in local storage.');
-        btn.disabled = false; return;
-      }
-
-      const cfg = { owner, repo, path, token };
-      const result = await GitHub.publish(novelData, cfg);
-
-      btn.disabled = false;
-
-      if (result.ok) {
-        const now = Date.now();
-        const savedCfg = { ...cfg, lastPublished: now, lastUrl: result.url };
-        Store.savePublishConfig(_publishNovelId, savedCfg);
-        const ts = new Date(now).toLocaleString();
-        setPublishStatus('success', `Published successfully!`);
-        const lastEl = document.getElementById('pub-last');
-        lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${ts}` +
-          (result.url ? ` &nbsp;<a href="${result.url}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
-        lastEl.classList.remove('hidden');
-      } else {
-        setPublishStatus('error', `Publish failed: ${result.error}`);
-      }
-    }
-
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePublish(); });
-  </script>
-
-  <script>
-  /* ══════════════════════════════════════
-     SETTINGS / APPEARANCE
-  ═══════════════════════════════════════ */
-  const SETTINGS_KEY = 'wiki_appearance';
-
-  const THEMES = [
-    { id:'default', name:'Runway',     accent:'#ffffff', bgBase:'#000000', bgCard:'#1a1a1a', textPrimary:'#ffffff', textSecondary:'#767d88', radius:6, swatch:'linear-gradient(135deg,#ffffff,#767d88)' },
-    { id:'slate',   name:'Cool Slate', accent:'#58a6ff', bgBase:'#000000', bgCard:'#1a1a1a', textPrimary:'#ffffff', textSecondary:'#767d88', radius:6, swatch:'linear-gradient(135deg,#58a6ff,#3fd2ff)' },
-    { id:'gold',    name:'Cinematic',  accent:'#f0a500', bgBase:'#000000', bgCard:'#1a1a1a', textPrimary:'#ffffff', textSecondary:'#767d88', radius:6, swatch:'linear-gradient(135deg,#f0a500,#f78166)' },
-    { id:'violet',  name:'Violet',     accent:'#bc8cff', bgBase:'#000000', bgCard:'#1a1a1a', textPrimary:'#ffffff', textSecondary:'#7d848e', radius:6, swatch:'linear-gradient(135deg,#bc8cff,#db61a2)' },
-    { id:'green',   name:'Editorial',  accent:'#3fb950', bgBase:'#000000', bgCard:'#1a1a1a', textPrimary:'#ffffff', textSecondary:'#767d88', radius:6, swatch:'linear-gradient(135deg,#3fb950,#39d0d8)' }
-  ];
-
-  function applySettings(s) {
-    const r = document.documentElement.style;
-    const ar = parseInt(s.accent.slice(1,3),16);
-    const ag = parseInt(s.accent.slice(3,5),16);
-    const ab = parseInt(s.accent.slice(5,7),16);
-    r.setProperty('--accent-rgb',     `${ar},${ag},${ab}`);
-    r.setProperty('--accent',         s.accent);
-    r.setProperty('--accent-dim',     hexToRgba(s.accent, 0.10));
-    r.setProperty('--accent-border',  hexToRgba(s.accent, 0.25));
-    r.setProperty('--bg-base',        s.bgBase);
-    r.setProperty('--bg-card',        s.bgCard);
-    r.setProperty('--text-primary',   s.textPrimary);
-    r.setProperty('--text-secondary', s.textSecondary);
-    r.setProperty('--radius',         s.radius + 'px');
-    r.setProperty('--radius-lg',      (s.radius + 2) + 'px');
-  }
-
-  function saveSettings(s) { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }
-
-  function loadSettings() {
-    try { const stored = localStorage.getItem(SETTINGS_KEY); if (stored) return Object.assign({}, THEMES[0], JSON.parse(stored)); } catch(e) {}
-    return Object.assign({}, THEMES[0]);
-  }
-
-  function hexToRgba(hex, alpha) {
-    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
-    return `rgba(${r},${g},${b},${alpha})`;
-  }
-
-  function syncPickersToSettings(s) {
-    const set = (id, val) => { const cp = document.getElementById('cp-'+id); const hx = document.getElementById('hex-'+id); if(cp) cp.value=val; if(hx) hx.value=val; };
-    set('accent', s.accent); set('bg-base', s.bgBase); set('bg-card', s.bgCard);
-    set('text-primary', s.textPrimary); set('text-secondary', s.textSecondary);
-    const rng = document.getElementById('range-radius'); const lbl = document.getElementById('range-radius-val');
-    if(rng) rng.value = s.radius; if(lbl) lbl.textContent = s.radius + 'px';
-  }
-
-  function markActivePreset(id) { document.querySelectorAll('.theme-preset').forEach(el => el.classList.toggle('active', el.dataset.theme === id)); }
-
-  let _current = loadSettings();
-
-  function initSettingsPanel() {
-    const container = document.getElementById('theme-presets');
-    if (!container) return;
-    container.innerHTML = THEMES.map(t => `<div class="theme-preset" data-theme="${t.id}" onclick="applyPreset('${t.id}')"><div class="theme-preset-swatch" style="background:${t.swatch}"></div>${t.name}</div>`).join('');
-    syncPickersToSettings(_current);
-    markActivePreset(_current.id || 'custom');
-  }
-
-  function applyPreset(id) {
-    const t = THEMES.find(x => x.id === id); if (!t) return;
-    _current = Object.assign({}, t); applySettings(_current); saveSettings(_current); syncPickersToSettings(_current); markActivePreset(id);
-  }
-
-  function onColorPick(variable, value) { const h = document.getElementById('hex-'+variable); if(h) h.value=value; applyVariable(variable, value); }
-  function onHexInput(variable, value) { if(!/^#[0-9a-fA-F]{6}$/.test(value)) return; const cp = document.getElementById('cp-'+variable); if(cp) cp.value=value; applyVariable(variable, value); }
-
-  function applyVariable(variable, value) {
-    const keyMap = { 'accent':'accent', 'bg-base':'bgBase', 'bg-card':'bgCard', 'text-primary':'textPrimary', 'text-secondary':'textSecondary' };
-    const key = keyMap[variable]; if(key) _current[key] = value;
-    _current.id = 'custom'; markActivePreset('custom'); applySettings(_current); saveSettings(_current);
-  }
-
-  function onRadiusChange(val) {
-    document.getElementById('range-radius-val').textContent = val + 'px';
-    _current.radius = parseInt(val); _current.id = 'custom'; markActivePreset('custom'); applySettings(_current); saveSettings(_current);
-  }
-
-  function resetSettings() {
-    _current = Object.assign({}, THEMES[0]); applySettings(_current); saveSettings(_current); syncPickersToSettings(_current); markActivePreset('default');
-  }
-
-  function openSettings() { initSettingsPanel(); document.getElementById('settings-overlay').classList.add('open'); }
-  function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
-  function handleOverlayClick(e) { if(e.target === document.getElementById('settings-overlay')) closeSettings(); }
-
-  /* Boot */
-  applySettings(_current);
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSettings(); });
-  </script>
+  <script src="js/settings.js"></script>
+  <script src="js/library.js"></script>
 </body>
 </html>
