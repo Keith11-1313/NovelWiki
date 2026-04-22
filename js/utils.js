@@ -101,3 +101,12 @@ const Utils = {
     return toast;
   }
 };
+
+/* Redirect vertical wheel scroll to horizontal on badge-row-scroll elements */
+document.addEventListener('wheel', (e) => {
+  const row = e.target.closest('.badge-row-scroll');
+  if (!row) return;
+  if (row.scrollWidth <= row.clientWidth) return; // nothing to scroll
+  e.preventDefault();
+  row.scrollLeft += e.deltaY || e.deltaX;
+}, { passive: false });

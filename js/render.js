@@ -304,14 +304,14 @@ const R = {
 
     /* Infobox: avatar + attribute table side-by-side */
     const infoboxRows = [
-      ['Role',       this._detailValue(this.roleBadge(c.role))],
-      ['Status',     this._detailValue(this.statusBadge(c.status))],
+      ['Role',       this.html(this.roleBadge(c.role))],
+      ['Status',     this.html(this.statusBadge(c.status))],
       ['Gender',     c.gender],
       ['Age',        c.age],
       ['First Seen', c.first_appearance],
       ['Peak Power', c.current_power_level],
       ['Path',       c.cultivation_path],
-      ['Factions',   factions || null],
+      ['Factions',   factions ? this.html(factions) : null],
     ].filter(r => r[1] !== null && r[1] !== undefined && r[1] !== '');
 
     return `<div class="fade-in">
@@ -339,7 +339,7 @@ const R = {
           <table class="detail-table">
             ${infoboxRows.map(r => `<tr>
               <td>${this.safe(r[0])}</td>
-              <td>${typeof r[1] === 'string' && r[1].startsWith('<') ? r[1] : this.safe(r[1])}</td>
+              <td>${this._detailValue(r[1])}</td>
             </tr>`).join('')}
           </table>
         </div>
@@ -476,7 +476,7 @@ const R = {
           <div><div class="card-title">${this.safe(t.name)}</div><div class="card-meta">${this.safe(t.origin, 'Unknown origin')}</div></div>
           ${this.gradeBadge(t.tier)}
         </div>
-        <div class="flex gap-4 mb-8">${t.type ? `<span class="badge badge-accent">${t.type}</span>` : ''}${t.rank_required ? `<span class="badge badge-muted">${t.rank_required}</span>` : ''}</div>
+        <div class="badge-row-scroll mb-8">${t.type ? `<span class="badge badge-accent">${t.type}</span>` : ''}${t.rank_required ? `<span class="badge badge-muted">${t.rank_required}</span>` : ''}</div>
         <p class="card-body">${(t.description || '').slice(0, 100)}...</p>
         ${t.known_users?.length ? `<div class="tags-wrap mt-8">${this.charLinks(novel, t.known_users)}</div>` : ''}
       </div>`).join('');
@@ -583,7 +583,7 @@ const R = {
         </div>
         <div class="mb-8">${this.infoList(p.effects, 'bi-plus-circle', 'success')}</div>
         ${p.side_effects?.length ? `<div class="mb-8">${this.infoList(p.side_effects, 'bi-exclamation-triangle', 'danger')}</div>` : ''}
-        ${p.ingredients?.length ? `<div class="text-xs text-muted mb-4">Ingredients</div><div class="tags-wrap">${this.pills(p.ingredients, 'badge-muted')}</div>` : ''}
+        ${p.ingredients?.length ? `<div class="text-xs text-muted mb-4">Ingredients</div><div class="badge-row-scroll">${this.pills(p.ingredients, 'badge-muted')}</div>` : ''}
         ${p.used_by?.length ? `<div class="tags-wrap mt-8">${this.charLinks(novel, p.used_by)}</div>` : ''}
       </div>`).join('');
 
