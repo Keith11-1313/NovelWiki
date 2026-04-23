@@ -1,5 +1,5 @@
-/* library.js — Library page logic (extracted from index.html)
-   Requires: utils.js, store.js, github.js loaded before this file.
+/* library.js — Library page logic
+   Requires: utils.js, store.js loaded before this file.
 */
 
 /* ── Genre maps ── */
@@ -14,7 +14,8 @@ const genreIcons = {
   'sci-fi': 'bi-cpu', 'light-novel': 'bi-book', 'web-novel': 'bi-book', other: 'bi-collection'
 };
 
-let allNovels = [];
+let allNovels  = [];   // combined: data-folder + localStorage
+let _dataNovels = [];  // ids from data/ folder (to avoid duplicates)
 let _crossSearchMode = false;
 
 /* ── Render the recently-viewed chip strip ── */
@@ -50,12 +51,36 @@ function renderLibrary(novels) {
   empty.classList.add('hidden');
 
   grid.innerHTML = novels.map(n => {
-    const color = genreColors[n.type] || '#f0a500';
-    const icon  = genreIcons[n.type]  || 'bi-book';
-    const s     = n.stats || {};
+    const color    = genreColors[n.type] || '#f0a500';
+    const icon     = genreIcons[n.type]  || 'bi-book';
+    const s        = n.stats || {};
+    const id       = n.id;
+
+    /* Build multi-format fallback for cover image */
+    const fallbacks = Store.getCoverFallbacks(id);
+    const fb1 = fallbacks[1] || '';
+    const fb2 = fallbacks[2] || '';
+    const fb3 = fallbacks[3] || '';
+
+    const cardTop = `
+      <div class="novel-card-cover-wrap" style="position:relative;height:160px;overflow:hidden;background:${color}22">
+        <img
+          src="${fallbacks[0]}"
+          alt=""
+          onerror="
+            var f=['${fb1}','${fb2}','${fb3}'];
+            var i=this.dataset.fi=parseInt(this.dataset.fi||0)+1;
+            if(f[i-1])this.src=f[i-1];else this.style.display='none';
+          "
+          style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.7))"></div>
+        <div style="position:absolute;bottom:0;left:0;width:3px;height:100%;background:${color}"></div>
+      </div>`;
+
+
     return `
       <div class="novel-card" data-type="${Utils.escapeHtml(n.type || '')}" data-title="${Utils.escapeHtml(n.title || '')}" onclick="openNovel('${n.id}')">
-        <div class="novel-card-top" style="background:${color}"></div>
+        ${cardTop}
         <div class="novel-card-body">
           <div class="novel-card-title">${Utils.escapeHtml(n.title)}</div>
           <div class="novel-card-genre">
@@ -80,10 +105,7 @@ function renderLibrary(novels) {
             onclick="event.stopPropagation(); downloadNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
             <i class="bi bi-download" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-publish btn-sm" title="Publish to GitHub" aria-label="Publish to GitHub"
-            onclick="event.stopPropagation(); openPublish('${n.id}', '${Utils.escapeHtml(n.title)}')">
-            <i class="bi bi-cloud-upload" aria-hidden="true"></i>
-          </button>
+          ${!n._fromDataFolder ? `
           <button class="btn btn-ghost btn-sm" title="Edit novel" aria-label="Edit novel"
             onclick="event.stopPropagation(); editNovel('${n.id}')">
             <i class="bi bi-pencil" aria-hidden="true"></i>
@@ -91,7 +113,7 @@ function renderLibrary(novels) {
           <button class="btn btn-danger btn-sm" title="Delete novel" aria-label="Delete novel"
             onclick="event.stopPropagation(); deleteNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
             <i class="bi bi-trash" aria-hidden="true"></i>
-          </button>
+          </button>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -126,7 +148,6 @@ function searchAllNovels(q) {
       matched.push({ ...meta, _matchType: 'title' });
       return;
     }
-    // Deep search — load full novel data
     const data = Store.getNovel(meta.id);
     if (!data) return;
 
@@ -161,25 +182,23 @@ function openNovel(id) {
   Store.trackView(id);
   location.href = `wiki.html?novel=${id}`;
 }
-
 function editNovel(id) { location.href = `import.html?edit=${id}`; }
 
-/* ── Soft-delete with undo toast ── */
+/* ── Soft-delete with undo toast (only for localStorage novels) ── */
 function deleteNovel(id, title) {
   if (!Store.softDeleteNovel(id)) return;
-  allNovels = Store.getNovels();
+  allNovels = allNovels.filter(n => n.id !== id);
   filterLibrary();
   renderRecentlyViewed();
 
   Utils.showToast(`"${title}" deleted`, 'warning', 6000, () => {
     Store.undoDelete(id);
-    allNovels = Store.getNovels();
+    allNovels = [..._dataNovels, ...Store.getNovels()];
     filterLibrary();
     renderRecentlyViewed();
     Utils.showToast(`"${title}" restored`, 'success', 3000);
   });
 
-  // Permanently delete after 30 seconds if not undone
   setTimeout(() => {
     const check = Store.getAllNovelsRaw().find(n => n.id === id);
     if (check && check.__deleted) Store.deleteNovel(id);
@@ -188,8 +207,11 @@ function deleteNovel(id, title) {
 
 /* ── Export JSON download ── */
 function downloadNovel(id, title) {
-  const json = Store.exportJSON(id);
-  if (!json) { Utils.showToast('Export failed: novel not found', 'error'); return; }
+  // Try localStorage first, then data-folder
+  let json = Store.exportJSON(id);
+  if (!json) {
+    Utils.showToast('Export failed: novel not found', 'error'); return;
+  }
   const filename = title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.json';
   Utils.downloadFile(filename, json);
   Utils.showToast(`Exported "${title}"`, 'success', 3000);
@@ -197,7 +219,7 @@ function downloadNovel(id, title) {
 
 /* ── Storage quota warning ── */
 function checkStorageQuota() {
-  const usage = Store.getStorageUsage();
+  const usage  = Store.getStorageUsage();
   const banner = document.getElementById('storage-warning');
   if (!banner) return;
   if (usage.warning) {
@@ -213,107 +235,62 @@ function checkStorageQuota() {
   }
 }
 
-
-/* ════════════════════════════════════════
-   GITHUB PUBLISH
-═══════════════════════════════════════ */
-let _publishNovelId = null;
-
-function openPublish(novelId, novelTitle) {
-  _publishNovelId = novelId;
-  const cfg = Store.getPublishConfig(novelId);
-  document.getElementById('pub-owner').value = cfg.owner || '';
-  document.getElementById('pub-repo').value  = cfg.repo  || '';
-  document.getElementById('pub-path').value  = cfg.path  || `data/${novelTitle.replace(/\s+/g, '-').toLowerCase()}.json`;
-  document.getElementById('pub-token').value = cfg.token || Store.getRememberedToken(novelId) || '';
-  const rememberEl = document.getElementById('pub-remember');
-  if (rememberEl) rememberEl.checked = !!Store.getRememberedToken(novelId);
-  setPublishStatus('idle', "Fill in the fields above to publish your novel's data to GitHub.");
-  const lastEl = document.getElementById('pub-last');
-  if (cfg.lastPublished) {
-    lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${Utils.formatDate(cfg.lastPublished)}` +
-      (cfg.lastUrl ? ` &nbsp;<a href="${cfg.lastUrl}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
-    lastEl.classList.remove('hidden');
-  } else {
-    lastEl.classList.add('hidden');
-  }
-  document.getElementById('publish-overlay').classList.add('open');
-}
-
-function closePublish() {
-  document.getElementById('publish-overlay').classList.remove('open');
-  _publishNovelId = null;
-}
-
-function handlePublishOverlayClick(e) {
-  if (e.target === document.getElementById('publish-overlay')) closePublish();
-}
-
-function setPublishStatus(state, msg) {
-  const el = document.getElementById('pub-status');
-  el.className = `publish-status ${state}`;
-  const iconMap = { idle: 'bi-info-circle', loading: 'bi-arrow-repeat', success: 'bi-check-circle-fill', error: 'bi-exclamation-triangle-fill' };
-  el.innerHTML = `<i class="bi ${iconMap[state]}"></i><span>${msg}</span>`;
-}
-
-async function doPublish() {
-  const owner  = document.getElementById('pub-owner').value.trim();
-  const repo   = document.getElementById('pub-repo').value.trim();
-  const path   = document.getElementById('pub-path').value.trim();
-  const token  = document.getElementById('pub-token').value.trim();
-  const remember = document.getElementById('pub-remember')?.checked || false;
-
-  if (!owner || !repo || !path || !token) {
-    setPublishStatus('error', 'Please fill in all fields before publishing.'); return;
-  }
-
-  const btn = document.getElementById('pub-btn');
-  btn.disabled = true;
-  setPublishStatus('loading', 'Publishing to GitHub…');
-
-  const novelData = Store.getNovel(_publishNovelId);
-  if (!novelData) {
-    setPublishStatus('error', 'Novel data not found in local storage.');
-    btn.disabled = false; return;
-  }
-
-  const cfg    = { owner, repo, path, token, rememberToken: remember };
-  const result = await GitHub.publish(novelData, cfg);
-  btn.disabled = false;
-
-  if (result.ok) {
-    const now      = Date.now();
-    const savedCfg = { ...cfg, lastPublished: now, lastUrl: result.url };
-    Store.savePublishConfig(_publishNovelId, savedCfg);
-    setPublishStatus('success', 'Published successfully!');
-    const lastEl = document.getElementById('pub-last');
-    lastEl.innerHTML = `<i class="bi bi-clock"></i> Last published: ${Utils.formatDate(now)}` +
-      (result.url ? ` &nbsp;<a href="${result.url}" target="_blank" rel="noopener">View on GitHub <i class="bi bi-box-arrow-up-right"></i></a>` : '');
-    lastEl.classList.remove('hidden');
-  } else {
-    setPublishStatus('error', `Publish failed: ${result.error}`);
-  }
-}
-
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closePublish(); closeSettings(); }
+  if (e.key === 'Escape') closeSettings();
 });
 
-
 /* ════════════════════════════════════════
-   INIT
+   INIT (async — loads data/ folder first)
 ═══════════════════════════════════════ */
-(function init() {
-  allNovels = Store.getNovels();
+(async function init() {
+  /* Show loading state */
+  const grid = document.getElementById('novel-grid');
+  if (grid) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <i class="bi bi-hourglass-split"></i>
+      <h3>Loading library…</h3>
+    </div>`;
+  }
+
+  /* 1. Fetch data-folder novels */
+  const fetched = await Store.fetchDataFolderNovels();
+  _dataNovels = fetched.map(({ manifest, data }) => {
+    const novel = data.novel || {};
+    const id    = manifest.id;
+
+    /* Save full data to localStorage so wiki.js can load it by id */
+    Store.saveNovel(data, id);
+
+    return {
+      id,
+      title:      novel.title      || id,
+      type:       novel.type       || 'other',
+      genre_tags: novel.genre_tags || [],
+      summary:    novel.summary    || '',
+      world_name: novel.world_name || '',
+      stats: {
+        characters: (data.characters          || []).length,
+        techniques: (data.techniques          || []).length,
+        artifacts:  (data.artifacts           || []).length,
+        locations:  (data.locations           || []).length,
+        factions:   (data.factions            || []).length,
+        beasts:     (data.beasts_and_creatures || []).length,
+        arcs:       (data.arcs                || []).length,
+        events:     (data.battles_and_events  || []).length,
+      },
+      _fromDataFolder: true,
+      _coverUrl: Store.getCoverUrl(id),
+      _sourceUrl: Store.getNovelUpdatesUrl(novel.title, manifest.source_url),
+    };
+  });
+
+  /* 2. Merge with localStorage novels (skip any already loaded from data/) */
+  const dataIds    = new Set(_dataNovels.map(n => n.id));
+  const localNovels = Store.getNovels().filter(n => !dataIds.has(n.id));
+
+  allNovels = [..._dataNovels, ...localNovels];
+
   renderLibrary(allNovels);
   renderRecentlyViewed();
   checkStorageQuota();
-
-  /* Auto-open publish modal if redirected from wiki */
-  const params = new URLSearchParams(location.search);
-  const pubId  = params.get('publish');
-  if (pubId) {
-    const novel = allNovels.find(n => n.id === pubId);
-    if (novel) setTimeout(() => openPublish(pubId, novel.title), 100);
-  }
 })();

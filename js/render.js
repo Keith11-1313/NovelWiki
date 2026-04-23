@@ -184,25 +184,66 @@ const R = {
     const genreTag = n.type ? `<span class="badge badge-accent" style="font-size:12px;padding:5px 12px">${this.safe(n.type).replace(/-/g,' ')}</span>` : '';
     const themeTags = (n.themes || []).map(t => `<span class="badge badge-muted">${this.safe(t)}</span>`).join('');
 
+    /* Cover image + NovelUpdates link */
+    const novelId  = novel.__meta?.id || '';
+    const coverUrl = novel.__meta?._coverUrl || null;
+    const fallbacks = novelId ? Store.getCoverFallbacks(novelId) : [];
+    const nuUrl    = Store.getNovelUpdatesUrl(n.title, novel.__meta?._sourceUrl);
+
+    const imgSrc = coverUrl || (fallbacks[0] || '');
+
+    /* Build onerror chain for the hidden loader img: updates the hero bg on each fallback */
+    const heroId = 'overview-hero-' + (novelId || 'main');
+    const buildFallbackChain = (idx) => {
+      if (idx >= fallbacks.length) return `document.getElementById('${heroId}').style.backgroundImage=''`;
+      return `(function(){var el=document.getElementById('${heroId}');el.style.backgroundImage='url('+JSON.stringify('${fallbacks[idx]}')+')';this.src='${fallbacks[idx]}';this.onerror=function(){${buildFallbackChain(idx+1)}};})()`;
+    };
+    const loaderOnError = fallbacks.length > 1
+      ? `(function(){var el=document.getElementById('${heroId}');el.style.backgroundImage='url('+JSON.stringify('${fallbacks[1]}')+')';this.src='${fallbacks[1]}';this.onerror=function(){${buildFallbackChain(2)}};}).call(this)`
+      : `document.getElementById('${heroId}').style.backgroundImage=''`;
+
+    const heroBgStyle = imgSrc
+      ? `background-image:url('${imgSrc.replace(/'/g,"\\'")}');background-size:cover;background-position:center top;`
+      : '';
+
+    /* Hidden img just to drive fallback chain */
+    const loaderImg = imgSrc ? `<img src="${imgSrc}" alt="" aria-hidden="true" onerror="${loaderOnError}" style="display:none;position:absolute">` : '';
+
+    const nuBtn = nuUrl ? `
+      <a href="${nuUrl}" target="_blank" rel="noopener noreferrer"
+         class="btn btn-secondary btn-sm" style="margin-top:12px;width:fit-content">
+        <i class="bi bi-book-half"></i> Read this Novel
+      </a>` : '';
+
     return `<div class="fade-in">
       <!-- World hero banner -->
-      <div class="char-hero mb-24" style="background:radial-gradient(circle at top right,rgba(var(--accent-rgb),.18),transparent 36%),linear-gradient(180deg,rgba(15,19,29,.98),rgba(10,13,20,.95));padding:32px 28px;align-items:flex-start;gap:20px;flex-direction:column">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px">
-          <div>
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">
-              <i class="bi bi-globe2"></i>&nbsp;${this.safe(n.world_name, 'Unknown World')}
+      <div id="${heroId}" class="char-hero mb-24" style="position:relative;overflow:hidden;padding:0;${heroBgStyle}align-items:stretch;flex-direction:column;min-height:260px;">
+        ${loaderImg}
+        <!-- Dark overlay -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,15,.45) 0%,rgba(5,7,15,.82) 55%,rgba(5,7,15,.97) 100%),radial-gradient(circle at top right,rgba(var(--accent-rgb),.22),transparent 55%);pointer-events:none"></div>
+        <!-- Content -->
+        <div style="position:relative;z-index:1;padding:36px 32px;display:flex;flex-direction:column;gap:16px;width:100%;box-sizing:border-box">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px">
+            <div>
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">
+                <i class="bi bi-globe2"></i>&nbsp;${this.safe(n.world_name, 'Unknown World')}
+              </div>
+              <div class="page-title" style="margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.7)">${this.safe(n.title, 'Novel')}</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${genreTag}${themeTags}</div>
+              ${nuBtn}
             </div>
-            <div class="page-title" style="margin-bottom:8px">${this.safe(n.title, 'Novel')}</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${genreTag}${themeTags}</div>
+            <div class="stat-row" style="margin:0">${statBoxes}</div>
           </div>
-          <div class="stat-row" style="margin:0">${statBoxes}</div>
+          ${n.summary ? `<div style="font-size:14px;color:var(--text-secondary);line-height:1.8;max-width:820px;border-top:1px solid rgba(255,255,255,.08);padding-top:18px">${this.safe(n.summary)}</div>` : ''}
         </div>
-        ${n.summary ? `<div style="font-size:14px;color:var(--text-secondary);line-height:1.8;max-width:820px;border-top:1px solid rgba(255,255,255,.06);padding-top:18px;margin-top:4px">${this.safe(n.summary)}</div>` : ''}
       </div>
 
       <div class="section-title"><i class="bi bi-compass"></i>Navigate the Wiki</div>
       <div class="hub-grid">${hubCards}</div>
     </div>`;
+
+
+
   },
 
   _moduleCount(novel, id) {

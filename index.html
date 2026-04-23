@@ -92,46 +92,6 @@
 
   </div>
 
-  <!-- ═══ GITHUB PUBLISH MODAL ═══ -->
-  <div class="publish-overlay" id="publish-overlay" onclick="handlePublishOverlayClick(event)">
-    <div class="publish-panel">
-      <div class="publish-header">
-        <div class="publish-title"><i class="bi bi-github"></i>Publish to GitHub</div>
-        <button class="publish-close" onclick="closePublish()" aria-label="Close publish dialog"><i class="bi bi-x" aria-hidden="true"></i></button>
-      </div>
-      <div class="publish-subtitle">Push this novel's JSON to a GitHub repository. Requires a Personal Access Token with <code>repo</code> scope.</div>
-
-      <div class="publish-row">
-        <div class="publish-field">
-          <div class="publish-field-label">GitHub Owner</div>
-          <input class="publish-input" id="pub-owner" placeholder="username or org" autocomplete="off">
-        </div>
-        <div class="publish-field">
-          <div class="publish-field-label">Repository</div>
-          <input class="publish-input" id="pub-repo" placeholder="my-wiki-repo" autocomplete="off">
-        </div>
-      </div>
-      <div class="publish-field-label">File Path in Repo</div>
-      <input class="publish-input" id="pub-path" placeholder="data/novel-name.json" autocomplete="off">
-      <div class="publish-field-label">Personal Access Token</div>
-      <input class="publish-input" id="pub-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-      <label class="remember-token-row">
-        <input type="checkbox" id="pub-remember">
-        <span>Remember token for this novel</span>
-      </label>
-
-      <div class="publish-status idle" id="pub-status">
-        <i class="bi bi-info-circle"></i>
-        <span id="pub-status-text">Fill in the fields above to publish your novel's data to GitHub.</span>
-      </div>
-      <div class="publish-last hidden" id="pub-last"></div>
-
-      <div class="publish-actions">
-        <button class="btn btn-ghost" onclick="closePublish()"><i class="bi bi-x-circle"></i>Cancel</button>
-        <button class="btn btn-primary" id="pub-btn" onclick="doPublish()"><i class="bi bi-cloud-upload"></i>Publish</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ═══ SETTINGS MODAL ═══ -->
   <div class="settings-overlay" id="settings-overlay" onclick="handleOverlayClick(event)">
@@ -215,7 +175,6 @@
 
   <script src="js/utils.js"></script>
   <script src="js/store.js"></script>
-  <script src="js/github.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/library.js"></script>
 </body>

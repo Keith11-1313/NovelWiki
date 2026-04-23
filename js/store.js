@@ -1,4 +1,4 @@
-/* store.js — localStorage data manager (enhanced) */
+/* store.js — localStorage data manager + data-folder loader */
 
 const Store = {
 
@@ -149,6 +149,108 @@ const Store = {
     return JSON.stringify(data, null, 2);
   },
 
+  /* ── Data-folder: fetch manifest + all novels ── */
+  async fetchDataFolderNovels() {
+    try {
+      const base = this._dataBase();
+      const resp = await fetch(`${base}data/index.json`);
+      if (!resp.ok) return [];
+      const manifest = await resp.json();
+      if (!Array.isArray(manifest)) return [];
+
+      const results = [];
+      for (const entry of manifest) {
+        try {
+          const nr = await fetch(`${base}data/${entry.file}`);
+          if (!nr.ok) continue;
+          const novelData = await nr.json();
+          results.push({ manifest: entry, data: novelData });
+        } catch (_) { /* skip bad files */ }
+      }
+      return results;
+    } catch (_) { return []; }
+  },
+
+  /* ── Return best cover URL (tries jpeg, jpg, png, webp) ──
+     Returns the first URL to try; the img tag chains onerror for fallbacks */
+  getCoverUrl(id) {
+    const base = this._dataBase();
+    return `${base}data/${id}.jpeg`;
+  },
+
+  /* Returns the full list of cover candidates in order */
+  getCoverFallbacks(id) {
+    const base = this._dataBase();
+    return [
+      `${base}data/${id}.jpeg`,
+      `${base}data/${id}.jpg`,
+      `${base}data/${id}.png`,
+      `${base}data/${id}.webp`,
+    ];
+  },
+
+  /* ── Extract dominant accent color from a cover image via Canvas ── */
+  extractAccentFromImage(imgUrl) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const SIZE = 64; // downsample for speed
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, SIZE, SIZE);
+          const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+
+          // Find the most saturated, non-very-dark color
+          let bestR = 255, bestG = 80, bestB = 80, bestScore = -1;
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+            if (a < 200) continue;
+            const brightness = (r + g + b) / 3;
+            if (brightness < 30 || brightness > 235) continue; // skip too dark/light
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            const saturation = max === 0 ? 0 : (max - min) / max;
+            const score = saturation * (1 - Math.abs(brightness - 128) / 128);
+            if (score > bestScore) {
+              bestScore = score;
+              bestR = r; bestG = g; bestB = b;
+            }
+          }
+          resolve({ r: bestR, g: bestG, b: bestB });
+        } catch (_) { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = imgUrl;
+    });
+  },
+
+  /* ── Build NovelUpdates URL from novel title ── */
+  getNovelUpdatesUrl(title, overrideUrl) {
+    if (overrideUrl) return overrideUrl;
+    if (!title) return null;
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+    return `https://www.novelupdates.com/series/${slug}/`;
+  },
+
+  /* ── Detect base path (handles sub-directory deploy) ── */
+  _dataBase() {
+    // Works whether served from root or a sub-path
+    const scripts = document.querySelectorAll('script[src]');
+    for (const s of scripts) {
+      const m = s.src.match(/^(.*\/)js\/store\.js/);
+      if (m) return m[1];
+    }
+    return './';
+  },
+
   /* ── Storage usage estimation ── */
   getStorageUsage() {
     try {
@@ -222,40 +324,4 @@ const Store = {
     } catch { return []; }
   },
 
-  /* ── GitHub publish config (token now session-only by default) ── */
-  getPublishConfig(novelId) {
-    try {
-      const all = JSON.parse(localStorage.getItem(this.PUBLISH_KEY) || '{}');
-      const cfg = all[novelId] || { owner: '', repo: '', path: '', lastPublished: null, lastUrl: null };
-      // Token lives in sessionStorage (cleared on tab close)
-      cfg.token = sessionStorage.getItem('wiki_pub_token_' + novelId) || '';
-      return cfg;
-    } catch { return { owner: '', repo: '', path: '', token: '', lastPublished: null, lastUrl: null }; }
-  },
-
-  savePublishConfig(novelId, cfg) {
-    try {
-      const { token, rememberToken, ...rest } = cfg;
-      const all = JSON.parse(localStorage.getItem(this.PUBLISH_KEY) || '{}');
-      all[novelId] = rest;
-      localStorage.setItem(this.PUBLISH_KEY, JSON.stringify(all));
-      // Store token in session (always) and optionally in localStorage
-      if (token) {
-        sessionStorage.setItem('wiki_pub_token_' + novelId, token);
-        if (rememberToken) {
-          const tokenStore = JSON.parse(localStorage.getItem('wiki_pub_tokens') || '{}');
-          tokenStore[novelId] = token;
-          localStorage.setItem('wiki_pub_tokens', JSON.stringify(tokenStore));
-        }
-      }
-    } catch {}
-  },
-
-  /* Retrieve remembered token from localStorage */
-  getRememberedToken(novelId) {
-    try {
-      const all = JSON.parse(localStorage.getItem('wiki_pub_tokens') || '{}');
-      return all[novelId] || '';
-    } catch { return ''; }
-  }
 };

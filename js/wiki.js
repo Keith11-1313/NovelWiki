@@ -359,22 +359,28 @@ document.getElementById('chapter-modal')?.addEventListener('click', e => {
 function printPage() { window.print(); }
 
 
-/* ════════════════════════════════════════
-   PUBLISH (redirect to library w/ modal)
-═══════════════════════════════════════ */
-function openWikiPublish() {
-  location.href = `index.html?publish=${window._currentNovelId}`;
-}
-
 
 /* ════════════════════════════════════════
-   INIT
+   INIT (async — supports data-folder fallback)
 ═══════════════════════════════════════ */
-(function init() {
+(async function init() {
   const id = Store.getCurrentId();
   if (!id) { location.href = 'index.html'; return; }
 
-  const novel = Store.getNovel(id);
+  /* Try localStorage first, then fall back to data/ folder */
+  let novel = Store.getNovel(id);
+  if (!novel) {
+    try {
+      const base = Store._dataBase();
+      const resp = await fetch(`${base}data/${id}.json`);
+      if (resp.ok) {
+        const data = await resp.json();
+        Store.saveNovel(data, id);
+        novel = Store.getNovel(id);
+      }
+    } catch (_) {}
+  }
+
   if (!novel) {
     document.getElementById('content').innerHTML = `
       <div class="empty-state">
@@ -389,10 +395,15 @@ function openWikiPublish() {
   _currentNovelId_wiki    = id;
   window._currentNovelId  = id;
 
+  /* Attach meta so render.js can read cover/source info */
+  const fallbacks = Store.getCoverFallbacks(id);
+  const nuUrl     = Store.getNovelUpdatesUrl(novel.novel?.title);
+  novel.__meta = { id, _sourceUrl: nuUrl };
+
   /* Track this view */
   Store.trackView(id);
 
-  /* Apply genre accent */
+  /* Apply genre accent first (will be overridden by image color if found) */
   Genre.applyAccent(novel.novel?.type);
 
   /* Sidebar info */
@@ -415,14 +426,39 @@ function openWikiPublish() {
   /* Start router */
   Router.init(novel);
 
-  /* Show publish button */
-  const wpBtn = document.getElementById('wiki-publish-btn');
-  if (wpBtn) wpBtn.style.display = '';
-
   /* Show chapter tracker progress badge if data exists */
   const progress = Store.getProgress(id);
   if (progress.chapter) {
     const chBtn = document.getElementById('wiki-chapter-btn');
     if (chBtn) chBtn.title = `Reading: ${progress.chapter}`;
   }
+
+  /* ── Async: find working cover URL, then extract accent color ── */
+  (async () => {
+    let workingCover = null;
+    for (const url of fallbacks) {
+      try {
+        const r = await fetch(url, { method: 'HEAD' });
+        if (r.ok) { workingCover = url; break; }
+      } catch (_) {}
+    }
+    if (!workingCover) return;
+
+    /* Attach found cover to __meta so router can re-render overview with correct URL */
+    novel.__meta._coverUrl = workingCover;
+
+    const color = await Store.extractAccentFromImage(workingCover);
+    if (!color) return;
+
+    /* Apply dynamic accent */
+    const root = document.documentElement;
+    root.style.setProperty('--accent', `rgb(${color.r},${color.g},${color.b})`);
+    root.style.setProperty('--accent-rgb', `${color.r},${color.g},${color.b}`);
+    root.style.setProperty('--accent-hover', `rgb(${Math.min(color.r+30,255)},${Math.min(color.g+30,255)},${Math.min(color.b+30,255)})`);
+
+    /* Re-render current page to pick up the new accent */
+    if (typeof Router !== 'undefined' && Router.current) {
+      Router.go(Router.current, true);
+    }
+  })();
 })();

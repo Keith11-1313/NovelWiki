@@ -135,7 +135,18 @@
 
   <div class="import-container">
 
-    <!-- STEP PROGRESS BAR -->
+  
+  <!-- BROWSER-ONLY NOTICE -->
+  <div class="import-notice" id="browser-notice" role="alert">
+    <i class="bi bi-info-circle-fill"></i>
+    <div>
+      <strong>Your data stays in your browser.</strong>
+      Novels you import here are saved to your browser's local storage only — they are visible to you on this device and may be lost if you clear your browser data.
+      Use the <strong>Export</strong> button to save a backup copy.
+    </div>
+  </div>
+
+  <!-- STEP PROGRESS BAR -->
     <div class="import-steps" id="import-steps">
       <div class="import-step active" id="step-1">
         <div class="step-num">1</div>
@@ -173,9 +184,6 @@
       <button id="btn-method-file" onclick="setMethod('file')">
         <i class="bi bi-file-earmark-arrow-down"></i>AI gave me a .json file
       </button>
-      <button id="btn-method-github" onclick="setMethod('github')">
-        <i class="bi bi-github"></i>Pull from GitHub
-      </button>
     </div>
 
     <!-- PASTE METHOD -->
@@ -195,40 +203,6 @@
       <input type="file" id="file-input" accept=".json" style="display:none">
     </div>
 
-    <!-- GITHUB PULL METHOD -->
-    <div id="panel-github" class="hidden">
-      <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div><div class="card-title"><i class="bi bi-github" style="color:var(--accent)"></i> Pull from GitHub</div><div class="card-meta">Download a published wiki JSON from a GitHub repository</div></div>
-        </div>
-        <div class="publish-row">
-          <div class="publish-field">
-            <div class="publish-field-label">GitHub Owner</div>
-            <input class="publish-input" id="gh-pull-owner" placeholder="username or org" autocomplete="off">
-          </div>
-          <div class="publish-field">
-            <div class="publish-field-label">Repository</div>
-            <input class="publish-input" id="gh-pull-repo" placeholder="my-wiki-repo" autocomplete="off">
-          </div>
-        </div>
-        <div class="publish-field-label">File Path in Repo</div>
-        <input class="publish-input" id="gh-pull-path" placeholder="data/novel-name.json" autocomplete="off">
-        <div class="publish-field-label">Personal Access Token <span style="color:var(--text-muted);font-size:10px">(optional for public repos)</span></div>
-        <input class="publish-input" id="gh-pull-token" type="password" placeholder="ghp_... (optional)" autocomplete="off">
-        <div style="display:flex;gap:10px;margin-top:4px">
-          <button class="btn btn-primary" onclick="doPullFromGitHub()">
-            <i class="bi bi-cloud-download"></i>Pull JSON
-          </button>
-          <button class="btn btn-ghost" onclick="autofillFromUrl()">
-            <i class="bi bi-link-45deg"></i>Autofill from URL
-          </button>
-        </div>
-        <div id="gh-pull-status" class="publish-status idle" style="margin-top:14px;display:none">
-          <i class="bi bi-info-circle"></i><span></span>
-        </div>
-      </div>
-      <p class="text-sm text-muted">The raw file URL follows this pattern: https://raw.githubusercontent.com/{owner}/{repo}/main/{path}</p>
-    </div>
 
     <!-- FEEDBACK -->
     <div id="feedback" class="hidden"></div>
@@ -267,7 +241,6 @@
 
   <script src="js/utils.js"></script>
   <script src="js/store.js"></script>
-  <script src="js/github.js"></script>
   <script>
     function escapeHtml(value) {
       return String(value ?? '')

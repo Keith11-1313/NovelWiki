@@ -19,8 +19,10 @@
 
   /* Accent — defaults to cool white; overridden by genre + settings */
   --accent:        #ffffff;
+  --accent-rgb:    255,255,255;
   --accent-dim:    rgba(255,255,255,0.08);
   --accent-border: rgba(255,255,255,0.18);
+  --accent-hover:  #ffffff;
 
   /* Grade colors */
   --grade-common:    #6e7681;
@@ -396,6 +398,19 @@ input, textarea, select { font-family: inherit; }
 .novel-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer; transition:var(--transition); }
 .novel-card:hover { border-color:var(--accent-border); }
 .novel-card-top { height:3px; background:var(--accent); }
+.novel-card-cover {
+  height:160px;
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  position:relative;
+}
+.novel-card-cover::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7));
+}
 .novel-card-body { padding:20px; }
 .novel-card-title { font-size:20px; font-weight:400; letter-spacing:-0.9px; line-height:1.0; margin-bottom:10px; }
 .novel-card-genre { margin-bottom:14px; }
@@ -406,6 +421,17 @@ input, textarea, select { font-family: inherit; }
 
 /* ===== IMPORT PAGE ===== */
 .import-container { max-width:800px; margin:48px auto; padding:0 24px; }
+
+/* Browser-only notice */
+.import-notice {
+  display:flex; align-items:flex-start; gap:12px;
+  background:rgba(88,166,255,.06); border:1px solid rgba(88,166,255,.2);
+  border-radius:var(--radius); padding:14px 16px;
+  font-size:13px; color:var(--text-secondary); line-height:1.5;
+  margin-bottom:24px;
+}
+.import-notice i { color:#58a6ff; font-size:16px; flex-shrink:0; margin-top:1px; }
+.import-notice strong { color:var(--text-primary); }
 .import-zone { background:var(--bg-card); border:1px solid var(--accent-border); border-radius:var(--radius-lg); padding:48px 32px; text-align:center; cursor:pointer; transition:var(--transition); margin-bottom:16px; }
 .import-zone:hover, .import-zone.dragover { border-color:var(--accent); background:var(--accent-dim); }
 .import-zone i { font-size:32px; color:var(--accent); margin-bottom:12px; display:block; }
