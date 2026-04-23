@@ -667,7 +667,9 @@ input, textarea, select { font-family: inherit; }
 
   /* Library page */
   .library-header, .library-toolbar, .library-grid { padding-left:20px; padding-right:20px; }
-  .library-hero-row { flex-direction:column; align-items:flex-start; }
+  .library-hero-row { flex-direction:column; align-items:stretch; }
+  /* Make the action button row fill the width — Import Novel left, Settings right */
+  .library-hero-row > *:last-child { display:flex; align-items:center; justify-content:space-between; width:100%; gap:0; }
   .library-title { font-size:36px; }
 
   /* Content area */
@@ -718,13 +720,13 @@ input, textarea, select { font-family: inherit; }
   /* Import step progress */
   .step-label { display:none; }
 
-  /* Import page */
-  .import-container { padding:0 16px; margin-top:24px; }
+  /* Import page (container + textarea base styles are above responsive, so work here) */
+  .import-container { padding:0 24px; margin-top:24px; }
   .import-textarea  { min-height:180px; }
-  .input-method-toggle { width:100%; }
-  .input-method-toggle button { flex:1; padding:10px 12px; font-size:12px; }
-  .download-row { flex-direction:column; }
-  .btn-download  { flex:none; }
+  /* Import steps centering when labels hidden */
+  .import-steps { justify-content:space-between; padding-top:16px; margin-bottom:24px; }
+  .import-step { flex:0; gap:0; }
+  .import-step:not(:last-child)::after { flex:1; margin:0 8px; }
 
   /* Analysis tabs */
   .analysis-tabs { overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
@@ -796,6 +798,7 @@ input, textarea, select { font-family: inherit; }
 
   /* Import */
   .import-container { padding:0 12px; }
+  .import-topbar { padding:0 12px; gap:10px; }
   .import-steps { gap:4px; }
   .step-num { width:26px; height:26px; font-size:11px; }
 
@@ -989,7 +992,22 @@ input, textarea, select { font-family: inherit; }
 /* ===== IMPORT PAGE — ANALYSIS BADGE ===== */
 .analysis-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px; background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent-border); margin-left:8px; vertical-align:middle; }
 
-/* ===== PRINT STYLES ===== */
+/* ===== IMPORT PAGE — RESPONSIVE =====
+   These rules MUST come after the base import styles above so cascade works. */
+@media (max-width:600px) {
+  .page-import { overflow-x:hidden; }
+  .input-method-toggle { width:100%; overflow:visible; }
+  .input-method-toggle button { flex:1; min-width:0; padding:10px 10px; font-size:12px; white-space:normal; text-align:center; justify-content:center; gap:5px; }
+  .download-row { flex-direction:column; }
+  .btn-download  { flex:none; width:100%; }
+  .page-import .btn-lg { flex:1; min-width:0; justify-content:center; }
+}
+@media (max-width:480px) {
+  .import-zone { padding:32px 16px; }
+  .import-notice { font-size:12px; padding:12px 12px; }
+  .page-import .btn-lg { padding:10px 12px; font-size:12px; }
+}
+
 @media print {
   #sidebar, #header, .settings-overlay, .publish-overlay, .note-modal, .chapter-modal, #sidebar-backdrop, .wiki-toast { display:none!important; }
   #main { margin-left:0!important; }
