@@ -1,32 +1,35 @@
-/* store.js — localStorage data manager + data-folder loader */
+// handles all localStorage operations and loading novels from the data folder
+// basically the database layer of this whole project
 
 const Store = {
 
   NOVELS_KEY:  'wiki_novels',
   PUBLISH_KEY: 'wiki_publish_config',
 
-  /* ── Get all novels (metadata list) ── */
+  // returns list of all novels that aren't deleted
   getNovels() {
     try {
       return JSON.parse(localStorage.getItem(this.NOVELS_KEY) || '[]')
-        .filter(n => !n.__deleted);          // hide soft-deleted entries
+        .filter(n => !n.__deleted);
     } catch { return []; }
   },
 
-  /* ── Get all novel metadata including soft-deleted ── */
+  // same as getNovels but includes soft-deleted ones too
+  // needed for the undo delete feature
   getAllNovelsRaw() {
     try { return JSON.parse(localStorage.getItem(this.NOVELS_KEY) || '[]'); }
     catch { return []; }
   },
 
-  /* ── Get full novel data by id ── */
+  // gets the full novel data by id
   getNovel(id) {
     try {
       return JSON.parse(localStorage.getItem('wiki_novel_' + id) || 'null');
     } catch { return null; }
   },
 
-  /* ── Save a novel (full JSON from AI extraction) ── */
+  // saves a novel's full json to localStorage
+  // also updates the metadata list that the library page uses
   saveNovel(data, preferredId = null) {
     const id = preferredId || data?.__meta?.id || this._createId();
     const novels  = this.getAllNovelsRaw();
@@ -37,6 +40,7 @@ const Store = {
       __meta: { ...(data.__meta || {}), id, savedAt }
     };
 
+    // metadata summary for the library grid (lighter than storing the whole novel twice)
     const meta = {
       id,
       title:      data.novel.title,
@@ -72,7 +76,8 @@ const Store = {
     return id;
   },
 
-  /* ── Soft-delete: marks novel as deleted but keeps data for undo ── */
+  // marks a novel as deleted without actually removing it
+  // lets us show an undo toast before permanently deleting
   softDeleteNovel(id) {
     const novels = this.getAllNovelsRaw();
     const idx    = novels.findIndex(n => n.id === id);
@@ -83,7 +88,7 @@ const Store = {
     return true;
   },
 
-  /* ── Undo soft-delete ── */
+  // reverses a soft delete, used by the undo button in the toast
   undoDelete(id) {
     const novels = this.getAllNovelsRaw();
     const idx    = novels.findIndex(n => n.id === id);
@@ -94,7 +99,7 @@ const Store = {
     return true;
   },
 
-  /* ── Permanently remove a novel ── */
+  // permanently removes a novel and all its related data from localStorage
   deleteNovel(id) {
     const novels = this.getAllNovelsRaw().filter(n => n.id !== id);
     localStorage.setItem(this.NOVELS_KEY, JSON.stringify(novels));
@@ -103,7 +108,7 @@ const Store = {
     localStorage.removeItem('wiki_progress_' + id);
   },
 
-  /* ── Merge analysis JSON into existing novel ── */
+  // merges an analysis object into an existing novel entry
   mergeAnalysis(novelId, analysisData) {
     const novel = this.getNovel(novelId);
     if (!novel) return false;
@@ -112,24 +117,25 @@ const Store = {
     return true;
   },
 
-  /* ── Get current novel id from URL ── */
+  // reads the ?novel= param from the current url
   getCurrentId() {
     const params = new URLSearchParams(location.search);
     return params.get('novel');
   },
 
-  /* ── Get current novel data ── */
+  // convenience function to get the current novel from the url
   getCurrentNovel() {
     const id = this.getCurrentId();
     return id ? this.getNovel(id) : null;
   },
 
-  /* ── Helpers ── */
+  // generates a unique id for new novels
   _createId() {
     if (window.crypto?.randomUUID) return window.crypto.randomUUID();
     return 'novel-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
   },
 
+  // find helpers for each entity type, used by render.js a lot
   findCharacter(novel, id) { return (novel.characters        || []).find(c => c.id === id) || null; },
   findTechnique(novel, id) { return (novel.techniques        || []).find(t => t.id === id) || null; },
   findArtifact(novel, id)  { return (novel.artifacts         || []).find(a => a.id === id) || null; },
@@ -137,19 +143,21 @@ const Store = {
   findFaction(novel, id)   { return (novel.factions          || []).find(f => f.id === id) || null; },
   findBeast(novel, id)     { return (novel.beasts_and_creatures || []).find(b => b.id === id) || null; },
 
+  // returns a character's name from id, or just the id if not found
   charName(novel, id) {
     const c = this.findCharacter(novel, id);
     return c ? c.name : id;
   },
 
-  /* ── Export a novel as a JSON string ── */
+  // serializes a novel to a json string for downloading
   exportJSON(id) {
     const data = this.getNovel(id);
     if (!data) return null;
     return JSON.stringify(data, null, 2);
   },
 
-  /* ── Data-folder: fetch manifest + all novels ── */
+  // loads novels from the data/ folder by reading data/index.json first
+  // this is how pre-made novels get loaded without needing to import them manually
   async fetchDataFolderNovels() {
     try {
       const base = this._dataBase();
@@ -165,20 +173,21 @@ const Store = {
           if (!nr.ok) continue;
           const novelData = await nr.json();
           results.push({ manifest: entry, data: novelData });
-        } catch (_) { /* skip bad files */ }
+        } catch (_) { /* skip files that fail to load */ }
       }
       return results;
     } catch (_) { return []; }
   },
 
-  /* ── Return best cover URL (tries jpeg, jpg, png, webp) ──
-     Returns the first URL to try; the img tag chains onerror for fallbacks */
+  // returns the first cover url to try (jpeg)
+  // the img tag handles the rest of the fallbacks via onerror
   getCoverUrl(id) {
     const base = this._dataBase();
     return `${base}data/${id}.jpeg`;
   },
 
-  /* Returns the full list of cover candidates in order */
+  // returns all cover image urls to try in order
+  // supports jpeg, jpg, png, webp so basically any common format works
   getCoverFallbacks(id) {
     const base = this._dataBase();
     return [
@@ -189,7 +198,8 @@ const Store = {
     ];
   },
 
-  /* ── Extract dominant accent color from a cover image via Canvas ── */
+  // extracts the most vivid/saturated color from a cover image using canvas
+  // used to set the accent color dynamically based on the novel's cover
   extractAccentFromImage(imgUrl) {
     return new Promise((resolve) => {
       const img = new Image();
@@ -197,20 +207,20 @@ const Store = {
       img.onload = () => {
         try {
           const canvas = document.createElement('canvas');
-          const SIZE = 64; // downsample for speed
+          const SIZE = 64; // smaller = faster, good enough for color sampling
           canvas.width = SIZE;
           canvas.height = SIZE;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, SIZE, SIZE);
           const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
 
-          // Find the most saturated, non-very-dark color
+          // find the most saturated pixel that isnt too dark or too bright
           let bestR = 255, bestG = 80, bestB = 80, bestScore = -1;
           for (let i = 0; i < data.length; i += 4) {
             const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
             if (a < 200) continue;
             const brightness = (r + g + b) / 3;
-            if (brightness < 30 || brightness > 235) continue; // skip too dark/light
+            if (brightness < 30 || brightness > 235) continue;
             const max = Math.max(r, g, b);
             const min = Math.min(r, g, b);
             const saturation = max === 0 ? 0 : (max - min) / max;
@@ -228,7 +238,8 @@ const Store = {
     });
   },
 
-  /* ── Build NovelUpdates URL from novel title ── */
+  // builds a novelupdates.com url from the novel title
+  // can be overridden if the manifest already has a source_url
   getNovelUpdatesUrl(title, overrideUrl) {
     if (overrideUrl) return overrideUrl;
     if (!title) return null;
@@ -240,9 +251,9 @@ const Store = {
     return `https://www.novelupdates.com/series/${slug}/`;
   },
 
-  /* ── Detect base path (handles sub-directory deploy) ── */
+  // figures out the base path of the project
+  // needed so the data/ folder works even if the site is hosted in a subdirectory
   _dataBase() {
-    // Works whether served from root or a sub-path
     const scripts = document.querySelectorAll('script[src]');
     for (const s of scripts) {
       const m = s.src.match(/^(.*\/)js\/store\.js/);
@@ -251,7 +262,8 @@ const Store = {
     return './';
   },
 
-  /* ── Storage usage estimation ── */
+  // estimates how much localStorage space is being used
+  // shows a warning if its getting close to the 5mb browser limit
   getStorageUsage() {
     try {
       let used = 0;
@@ -259,15 +271,17 @@ const Store = {
         const key = localStorage.key(i);
         used += (key.length + (localStorage.getItem(key) || '').length) * 2; // UTF-16 bytes
       }
-      const total   = 5 * 1024 * 1024; // 5 MB typical limit
+      const total   = 5 * 1024 * 1024; // typical 5mb limit
       const percent = Math.round((used / total) * 100);
       return { usedBytes: used, total, percent, warning: percent >= 70 };
     } catch { return { usedBytes: 0, total: 5242880, percent: 0, warning: false }; }
   },
 
-  /* ── Notes per entity (stored per novel) ── */
+  // --- per-entity notes (saved per novel) ---
+
   _notesKey(novelId) { return 'wiki_notes_' + novelId; },
 
+  // returns the saved note for a specific entity, empty string if none
   getNote(novelId, entityId) {
     try {
       const all = JSON.parse(localStorage.getItem(this._notesKey(novelId)) || '{}');
@@ -275,6 +289,8 @@ const Store = {
     } catch { return ''; }
   },
 
+  // saves or deletes a note for an entity
+  // deletes if the text is empty so we dont store blank notes
   saveNote(novelId, entityId, text) {
     try {
       const all = JSON.parse(localStorage.getItem(this._notesKey(novelId)) || '{}');
@@ -284,25 +300,30 @@ const Store = {
     } catch {}
   },
 
-  /* ── Reading progress tracker ── */
+  // --- reading progress tracker ---
+
   _progressKey(novelId) { return 'wiki_progress_' + novelId; },
 
+  // loads saved reading progress (chapter + notes)
   getProgress(novelId) {
     try {
       return JSON.parse(localStorage.getItem(this._progressKey(novelId)) || 'null') || { chapter: '', notes: '', updatedAt: null };
     } catch { return { chapter: '', notes: '', updatedAt: null }; }
   },
 
+  // saves current reading progress with a timestamp
   saveProgress(novelId, data) {
     try {
       localStorage.setItem(this._progressKey(novelId), JSON.stringify({ ...data, updatedAt: Date.now() }));
     } catch {}
   },
 
-  /* ── Recently viewed tracker ── */
-  RECENT_KEY: 'wiki_recently_viewed',
-  RECENT_MAX: 5,
+  // --- recently viewed tracker ---
 
+  RECENT_KEY: 'wiki_recently_viewed',
+  RECENT_MAX: 5, // only keep the last 5 so the list doesnt get too long
+
+  // records that a novel was just opened
   trackView(novelId) {
     try {
       const novels  = this.getNovels();
@@ -316,6 +337,7 @@ const Store = {
     } catch {}
   },
 
+  // returns recently viewed novels, but filters out any that were deleted
   getRecentViews() {
     try {
       const liveIds = new Set(this.getNovels().map(n => n.id));

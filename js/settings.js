@@ -1,9 +1,8 @@
-/* settings.js — shared appearance/settings system for all pages
-   Handles theme presets, color pickers, and CSS variable application.
-   Must be loaded AFTER utils.js.
-*/
+// manages the appearance/theme settings panel that shows on all pages
+// loads saved preferences from localStorage and applies them as css variables
+// must be loaded after utils.js since it depends on Utils.hexToRgba
 
-/* ── Theme preset definitions ── */
+// all available theme presets
 const SETTINGS_KEY = 'wiki_appearance';
 
 const THEMES = [
@@ -97,17 +96,17 @@ const THEMES = [
   }
 ];
 
-/* Genre → accent color map (mirrors genre.js) */
+// maps genre types to their colors (copied from genre.js so settings.js can use it standalone)
 const GENRE_COLORS = {
   cultivation: '#f0a500', tower: '#58a6ff', regression: '#f78166',
   system: '#3fb950', isekai: '#bc8cff', fantasy: '#db61a2',
   'sci-fi': '#39d0d8', 'light-novel': '#8b949e', 'web-novel': '#8b949e', other: '#f0a500'
 };
 
-/* Settings defaults */
+// default extra settings that arent tied to a theme preset
 const SETTINGS_DEFAULTS = { useGenreAccent: true };
 
-/* ── Apply a settings object to :root CSS variables ── */
+// applies a settings object to the root css variables so the whole ui updates instantly
 function applySettings(s) {
   const r  = document.documentElement.style;
   const ar = parseInt(s.accent.slice(1, 3), 16);
@@ -124,8 +123,8 @@ function applySettings(s) {
   r.setProperty('--radius',         s.radius + 'px');
   r.setProperty('--radius-lg',      (s.radius + 2) + 'px');
 
-  /* Genre accent override: if user disabled it, pin accent on body so body
-     inline style wins over body[data-genre] attribute selector */
+  // if genre accent is disabled, pin the user's chosen accent on the body
+  // so it overrides the genre-based css selector
   if (s.useGenreAccent === false) {
     document.body.style.setProperty('--accent',        s.accent);
     document.body.style.setProperty('--accent-rgb',    `${ar},${ag},${ab}`);
@@ -139,12 +138,12 @@ function applySettings(s) {
   }
 }
 
-/* ── Persist settings to localStorage ── */
+// saves settings to localStorage
 function saveSettings(s) {
   try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (e) {}
 }
 
-/* ── Load & merge with defaults ── */
+// loads saved settings and merges with defaults so missing fields dont break anything
 function loadSettings() {
   try {
     const stored = localStorage.getItem(SETTINGS_KEY);
@@ -153,7 +152,7 @@ function loadSettings() {
   return Object.assign({}, SETTINGS_DEFAULTS, THEMES[0]);
 }
 
-/* ── Sync picker UI inputs to a settings object ── */
+// syncs the settings panel inputs to match a given settings object
 function syncPickersToSettings(s) {
   const set = (id, val) => {
     const cp  = document.getElementById('cp-' + id);
@@ -173,24 +172,24 @@ function syncPickersToSettings(s) {
   if (lbl) lbl.textContent   = s.radius + 'px';
 }
 
-/* ── Mark the active theme preset chip ── */
+// highlights the currently active theme chip in the settings panel
 function markActivePreset(id) {
   document.querySelectorAll('.theme-preset').forEach(el => {
     el.classList.toggle('active', el.dataset.theme === id);
   });
 }
 
-/* ── Update disabled state of the custom accent row ── */
+// grays out the custom accent row when genre accent is enabled
 function updateAccentPickerVisibility() {
   const row    = document.getElementById('row-custom-accent');
   const isGenre = _current.useGenreAccent !== false;
   if (row) row.classList.toggle('accent-row-disabled', isGenre);
 }
 
-/* Current in-memory settings (module-level singleton) */
+// current settings kept in memory so we dont have to re-read localStorage constantly
 let _current = loadSettings();
 
-/* ── Initialise the settings panel UI (called on open) ── */
+// builds the settings panel html and syncs all inputs when the panel opens
 function initSettingsPanel() {
   const container = document.getElementById('theme-presets');
   if (!container) return;
@@ -201,7 +200,7 @@ function initSettingsPanel() {
       ${t.name}
     </div>`).join('');
 
-  /* Genre chip — only relevant on wiki page */
+  // genre chip only shows up on the wiki page since thats the only one with a genre
   const genre    = document.body.dataset.genre || '';
   const genreColor = GENRE_COLORS[genre] || '#ffffff';
   const chip     = document.getElementById('genre-accent-chip');
@@ -211,7 +210,6 @@ function initSettingsPanel() {
     ? genre.charAt(0).toUpperCase() + genre.slice(1).replace(/-/g, ' ')
     : '';
 
-  /* Show genre-accent row only when on wiki page */
   const genreRow = document.getElementById('row-genre-accent');
   if (genreRow) genreRow.style.display = genre ? '' : 'none';
 
@@ -223,7 +221,7 @@ function initSettingsPanel() {
   updateAccentPickerVisibility();
 }
 
-/* ── Apply a named preset ── */
+// applies a named theme preset and updates everything
 function applyPreset(id) {
   const t = THEMES.find(x => x.id === id);
   if (!t) return;
@@ -234,14 +232,15 @@ function applyPreset(id) {
   markActivePreset(id);
 }
 
-/* ── Color picker live update ── */
+// called when a color picker changes value
 function onColorPick(variable, value) {
   const hexInput = document.getElementById('hex-' + variable);
   if (hexInput) hexInput.value = value;
   applyVariable(variable, value);
 }
 
-/* ── Hex text input update ── */
+// called when the hex text input changes
+// validates that it's a proper hex color before applying
 function onHexInput(variable, value) {
   if (!/^#[0-9a-fA-F]{6}$/.test(value)) return;
   const cp = document.getElementById('cp-' + variable);
@@ -249,6 +248,7 @@ function onHexInput(variable, value) {
   applyVariable(variable, value);
 }
 
+// updates the in-memory settings and saves when any color changes
 function applyVariable(variable, value) {
   const keyMap = {
     'accent': 'accent', 'bg-base': 'bgBase', 'bg-card': 'bgCard',
@@ -262,7 +262,7 @@ function applyVariable(variable, value) {
   saveSettings(_current);
 }
 
-/* ── Border radius slider ── */
+// handles the border radius slider
 function onRadiusChange(val) {
   const lbl = document.getElementById('range-radius-val');
   if (lbl) lbl.textContent = val + 'px';
@@ -273,7 +273,7 @@ function onRadiusChange(val) {
   saveSettings(_current);
 }
 
-/* ── Genre accent toggle (wiki only) ── */
+// handles the genre accent toggle (wiki page only)
 function onToggleGenreAccent(checked) {
   _current.useGenreAccent = checked;
   _current.id = 'custom';
@@ -283,7 +283,7 @@ function onToggleGenreAccent(checked) {
   updateAccentPickerVisibility();
 }
 
-/* ── Reset to default theme ── */
+// resets everything back to the default dark editorial theme
 function resetSettings() {
   _current = Object.assign({}, SETTINGS_DEFAULTS, THEMES[0]);
   applySettings(_current);
@@ -295,7 +295,7 @@ function resetSettings() {
   updateAccentPickerVisibility();
 }
 
-/* ── Open / close overlay ── */
+// opens and closes the settings overlay
 function openSettings() {
   initSettingsPanel();
   document.getElementById('settings-overlay').classList.add('open');
@@ -307,11 +307,11 @@ function handleOverlayClick(e) {
   if (e.target === document.getElementById('settings-overlay')) closeSettings();
 }
 
-/* ── Boot: apply saved settings on page load ── */
+// apply saved settings right away on load so there's no flash of unstyled content
 applySettings(_current);
 document.addEventListener('DOMContentLoaded', () => applySettings(_current));
 
-/* Keyboard shortcut: Esc closes settings panel */
+// press Esc to close the settings panel
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSettings();
 });

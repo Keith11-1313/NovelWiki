@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* ===== CSS VARIABLES — Dark Editorial Palette ===== */
+/* css variables — dark editorial palette (defaults, overridden by settings) */
 :root {
   /* Backgrounds */
   --bg-base:    #000000;

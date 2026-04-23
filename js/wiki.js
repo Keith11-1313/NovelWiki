@@ -1,11 +1,10 @@
-/* wiki.js — Wiki SPA logic (extracted from wiki.html)
-   Requires: utils.js, store.js, github.js, genre.js, search.js, render.js loaded before this.
-   DOMPurify must also be loaded (from CDN).
-*/
+// the main logic for the wiki page (wiki.html)
+// handles routing between sections, the sidebar, search, notes, and chapter tracking
+// requires utils.js, store.js, genre.js, search.js, and render.js to be loaded first
+// DOMPurify also needs to be loaded from CDN for the html sanitizer
 
-/* ════════════════════════════════════════
-   HTML SANITIZER (uses DOMPurify)
-═══════════════════════════════════════ */
+// sanitizes rendered html before inserting it into the dom
+// uses dompurify if available, falls back to a basic manual filter
 function sanitizeHtml(html) {
   if (typeof DOMPurify !== 'undefined') {
     return DOMPurify.sanitize(html, {
@@ -15,7 +14,7 @@ function sanitizeHtml(html) {
       FORCE_BODY: false
     });
   }
-  /* Fallback (no DOMPurify): strip scripts and dangerous attributes */
+  // manual fallback: strips script tags and dangerous event attributes
   const template = document.createElement('template');
   template.innerHTML = html;
   template.content.querySelectorAll('script, iframe, object, embed').forEach(n => n.remove());
@@ -38,20 +37,23 @@ function sanitizeHtml(html) {
 }
 
 
-/* ════════════════════════════════════════
-   ROUTER
-═══════════════════════════════════════ */
+// ----- ROUTER -----
+// handles hash-based navigation between wiki sections
+// e.g. #characters, #characters/some-character-id
 const Router = {
   novel: null,
 
+  // sets up the hash listener and resolves the initial route
   init(novel) {
     this.novel = novel;
     window.addEventListener('hashchange', () => this._resolve());
     this._resolve();
   },
 
+  // navigates to a section by setting the url hash
   go(hash) { location.hash = hash; },
 
+  // reads the current hash and renders the matching page
   _resolve() {
     const raw   = location.hash.replace('#', '') || 'overview';
     const parts = raw.split('/');
@@ -62,6 +64,7 @@ const Router = {
     this._setBreadcrumb(page, id);
     this._render(page, id);
 
+    // close the sidebar on mobile when navigating
     if (window.innerWidth <= 900) {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('sidebar-backdrop')?.classList.remove('open');
@@ -70,11 +73,11 @@ const Router = {
     closeSearchDropdown();
   },
 
+  // calls the right render function from render.js based on the page name
   _render(page, id) {
     const n   = this.novel;
     const out = document.getElementById('content');
 
-    /* Fade out */
     out.classList.remove('content-visible');
 
     try {
@@ -112,16 +115,17 @@ const Router = {
       console.error('Render error on page:', page, e);
     }
 
-    /* Fade in */
     requestAnimationFrame(() => out.classList.add('content-visible'));
   },
 
+  // highlights the active nav item in the sidebar
   _setActive(page) {
     document.querySelectorAll('.nav-item').forEach(el => {
       el.classList.toggle('active', el.dataset.page === page);
     });
   },
 
+  // updates the breadcrumb header and document title when the page changes
   _setBreadcrumb(page, id) {
     const novel  = this.novel.novel || {};
     const labels = {
@@ -141,9 +145,8 @@ const Router = {
 };
 
 
-/* ════════════════════════════════════════
-   SIDEBAR BUILDER
-═══════════════════════════════════════ */
+// ----- SIDEBAR -----
+// builds the sidebar navigation based on which modules apply to the current genre
 function buildSidebar(novel) {
   const type    = novel.novel?.type || 'other';
   const modules = Genre.getModules(type);
@@ -163,6 +166,7 @@ function buildSidebar(novel) {
     grouped[m.section].push(m);
   });
 
+  // maps module ids to the novel data keys so we can show counts on the nav items
   const countMap = {
     characters: 'characters', techniques: 'techniques', artifacts: 'artifacts',
     pills: 'pills_and_resources', bloodlines: 'bloodlines', bestiary: 'beasts_and_creatures',
@@ -192,11 +196,11 @@ function buildSidebar(novel) {
 }
 
 
-/* ════════════════════════════════════════
-   SEARCH — live autocomplete
-═══════════════════════════════════════ */
+// ----- SEARCH -----
+// live search dropdown that shows as the user types in the search box
 let _searchDropdownOpen = false;
 
+// debounced so it doesnt hit the search index on every single keypress
 const _doLiveSearch = Utils.debounce((q) => {
   if (!q || q.length < 2) { closeSearchDropdown(); return; }
   const results = Search.query(q).slice(0, 8);
@@ -215,7 +219,7 @@ const _doLiveSearch = Utils.debounce((q) => {
       <span class="search-drop-type">${r.type}</span>
     </div>`).join('');
 
-  /* Store result set for keyboard navigation */
+  // store results so keyboard navigation can reference them by index
   Search.setResults(results);
 
   dropdown.classList.add('open');
@@ -226,6 +230,7 @@ function handleSearchInput(e) {
   _doLiveSearch(e.target.value.trim());
 }
 
+// pressing enter goes to the full search results page
 function handleSearch(e) {
   if (e.key === 'Enter') {
     const q = e.target.value.trim();
@@ -240,7 +245,7 @@ function closeSearchDropdown() {
   _searchDropdownOpen = false;
 }
 
-/* Close dropdown on outside click */
+// closes dropdown when clicking anywhere outside the search area
 document.addEventListener('click', e => {
   if (!e.target.closest('#search-input') && !e.target.closest('#search-dropdown')) {
     closeSearchDropdown();
@@ -248,9 +253,8 @@ document.addEventListener('click', e => {
 });
 
 
-/* ════════════════════════════════════════
-   MOBILE SIDEBAR
-═══════════════════════════════════════ */
+// ----- MOBILE SIDEBAR -----
+// toggles the sidebar slide-in on small screens
 function toggleSidebar() {
   const sb  = document.getElementById('sidebar');
   const bd  = document.getElementById('sidebar-backdrop');
@@ -258,23 +262,21 @@ function toggleSidebar() {
   bd?.classList.toggle('open', open);
 }
 
-/* Close sidebar when clicking backdrop */
+// tapping the backdrop closes the sidebar
 document.getElementById('sidebar-backdrop')?.addEventListener('click', () => {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-backdrop').classList.remove('open');
 });
 
 
-/* ════════════════════════════════════════
-   KEYBOARD SHORTCUTS
-═══════════════════════════════════════ */
+// ----- KEYBOARD SHORTCUTS -----
 document.addEventListener('keydown', e => {
-  /* / focuses search bar */
+  // press / to focus the search bar (common wiki shortcut)
   if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
     e.preventDefault();
     document.getElementById('search-input')?.focus();
   }
-  /* Esc closes modals */
+  // esc closes any open modal or panel
   if (e.key === 'Escape') {
     closeSettings();
     closeSearchDropdown();
@@ -284,11 +286,10 @@ document.addEventListener('keydown', e => {
 });
 
 
-/* ════════════════════════════════════════
-   NOTES PER ENTITY
-═══════════════════════════════════════ */
+// ----- NOTES PER ENTITY -----
+// lets users save personal notes on any character, technique, etc.
 let _noteEntityId  = null;
-let _currentNovelId_wiki = null; // set by init()
+let _currentNovelId_wiki = null; // set during init
 
 function openNoteModal(entityId, entityName) {
   _noteEntityId = entityId;
@@ -316,14 +317,14 @@ function closeNoteModal() {
   _noteEntityId = null;
 }
 
+// close the note modal when clicking outside it
 document.getElementById('note-modal')?.addEventListener('click', e => {
   if (e.target === document.getElementById('note-modal')) closeNoteModal();
 });
 
 
-/* ════════════════════════════════════════
-   CHAPTER TRACKER
-═══════════════════════════════════════ */
+// ----- CHAPTER TRACKER -----
+// saves what chapter the user is currently reading
 function openChapterModal() {
   const progress = Store.getProgress(_currentNovelId_wiki);
   const modal    = document.getElementById('chapter-modal');
@@ -353,21 +354,18 @@ document.getElementById('chapter-modal')?.addEventListener('click', e => {
 });
 
 
-/* ════════════════════════════════════════
-   PRINT PAGE
-═══════════════════════════════════════ */
+// ----- PRINT -----
 function printPage() { window.print(); }
 
 
-
-/* ════════════════════════════════════════
-   INIT (async — supports data-folder fallback)
-═══════════════════════════════════════ */
+// ----- INIT -----
+// loads the novel and sets everything up
+// falls back to the data/ folder if the novel isnt in localStorage
 (async function init() {
   const id = Store.getCurrentId();
   if (!id) { location.href = 'index.html'; return; }
 
-  /* Try localStorage first, then fall back to data/ folder */
+  // try localStorage first, then fetch from data/ folder
   let novel = Store.getNovel(id);
   if (!novel) {
     try {
@@ -395,45 +393,39 @@ function printPage() { window.print(); }
   _currentNovelId_wiki    = id;
   window._currentNovelId  = id;
 
-  /* Attach meta so render.js can read cover/source info */
+  // attach meta info so render.js can read the cover and source url
   const fallbacks = Store.getCoverFallbacks(id);
   const nuUrl     = Store.getNovelUpdatesUrl(novel.novel?.title);
   novel.__meta = { id, _sourceUrl: nuUrl };
 
-  /* Track this view */
   Store.trackView(id);
 
-  /* Apply genre accent first (will be overridden by image color if found) */
+  // apply the genre accent color first (may be overridden later by the cover image color)
   Genre.applyAccent(novel.novel?.type);
 
-  /* Sidebar info */
+  // populate the sidebar header text
   document.getElementById('sb-title').textContent = novel.novel?.title || 'Novel';
   document.getElementById('sb-genre').textContent = (novel.novel?.type || '').replace(/-/g, ' ');
 
-  /* Build sidebar nav */
   buildSidebar(novel);
-
-  /* Build search index */
   Search.build(novel);
 
-  /* Hook up live search input */
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
     searchInput.addEventListener('input', handleSearchInput);
     searchInput.addEventListener('keydown', handleSearch);
   }
 
-  /* Start router */
   Router.init(novel);
 
-  /* Show chapter tracker progress badge if data exists */
+  // show the chapter in the tooltip if user has progress saved
   const progress = Store.getProgress(id);
   if (progress.chapter) {
     const chBtn = document.getElementById('wiki-chapter-btn');
     if (chBtn) chBtn.title = `Reading: ${progress.chapter}`;
   }
 
-  /* ── Async: find working cover URL, then extract accent color ── */
+  // async: find the working cover url and extract the accent color from it
   (async () => {
     let workingCover = null;
     for (const url of fallbacks) {
@@ -444,19 +436,19 @@ function printPage() { window.print(); }
     }
     if (!workingCover) return;
 
-    /* Attach found cover to __meta so router can re-render overview with correct URL */
+    // store the cover url so the overview page can reference it
     novel.__meta._coverUrl = workingCover;
 
     const color = await Store.extractAccentFromImage(workingCover);
     if (!color) return;
 
-    /* Apply dynamic accent */
+    // override the genre accent with a color pulled from the actual cover image
     const root = document.documentElement;
     root.style.setProperty('--accent', `rgb(${color.r},${color.g},${color.b})`);
     root.style.setProperty('--accent-rgb', `${color.r},${color.g},${color.b}`);
     root.style.setProperty('--accent-hover', `rgb(${Math.min(color.r+30,255)},${Math.min(color.g+30,255)},${Math.min(color.b+30,255)})`);
 
-    /* Re-render current page to pick up the new accent */
+    // re-render the current section so it picks up the new accent color
     if (typeof Router !== 'undefined' && Router.current) {
       Router.go(Router.current, true);
     }

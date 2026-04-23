@@ -1,8 +1,9 @@
-/* genre.js — genre-adaptive module visibility */
+// controls which sidebar modules show up based on the novel's genre
+// also maps genre types to their accent colors
 
 const Genre = {
 
-  /* Accent color per genre (mirrors CSS) */
+  // accent color for each genre type (mirrors the css variables)
   accent: {
     cultivation:  '#f0a500',
     tower:        '#58a6ff',
@@ -16,7 +17,8 @@ const Genre = {
     other:        '#f0a500'
   },
 
-  /* All possible sidebar modules */
+  // full list of all possible sidebar modules
+  // genre-specific ones have a genre field that limits when they appear
   allModules: [
     { id: 'overview',    label: 'Overview',           icon: 'bi-book',                  section: 'novel'    },
     { id: 'characters',  label: 'Characters',          icon: 'bi-people',                section: 'world'    },
@@ -34,13 +36,14 @@ const Genre = {
     { id: 'lore',        label: 'Lore & Prophecies',   icon: 'bi-journal-text',          section: 'story'    },
     { id: 'glossary',    label: 'Glossary',            icon: 'bi-alphabet',              section: 'story'    },
     { id: 'analysis',    label: 'AI Analysis',         icon: 'bi-cpu',                   section: 'analysis' },
-    /* Genre-locked */
+    // genre-exclusive modules
     { id: 'floors',      label: 'Floor Records',       icon: 'bi-layers',                section: 'genre', genre: 'tower'      },
     { id: 'loops',       label: 'Regression Loops',    icon: 'bi-arrow-counterclockwise', section: 'genre', genre: 'regression' },
     { id: 'status',      label: 'Status Windows',      icon: 'bi-hdd-stack',             section: 'genre', genre: ['system','isekai'] },
   ],
 
-  /* Get label override for genre-specific terms */
+  // renames the "Power System" label depending on the novel type
+  // tower novels call it floor system, system novels call it level & stats, etc.
   powerLabel(type) {
     const map = {
       tower:      'Floor System',
@@ -52,7 +55,7 @@ const Genre = {
     return map[type] || 'Power System';
   },
 
-  /* Return visible modules for a novel type */
+  // filters the module list to only include ones that match the current genre
   getModules(type) {
     return this.allModules.filter(m => {
       if (!m.genre) return true;
@@ -61,7 +64,7 @@ const Genre = {
     });
   },
 
-  /* Apply genre accent to body */
+  // applies the genre type to the body so css can pick up the right accent color
   applyAccent(type) {
     document.body.dataset.genre = type || 'other';
   }

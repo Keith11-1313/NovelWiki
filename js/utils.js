@@ -1,8 +1,9 @@
-/* utils.js — shared utility functions used across all pages */
+// shared helper functions that basically every page uses
+// just put everything reusable here so i dont repeat myself
 
 const Utils = {
 
-  /* Escape HTML entities */
+  // replaces special html characters so they wont break the layout
   escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -12,7 +13,7 @@ const Utils = {
       .replace(/'/g, '&#39;');
   },
 
-  /* Convert hex color to rgba string */
+  // converts a hex color like #ff304f into rgba() so i can control opacity
   hexToRgba(hex, alpha) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -20,13 +21,14 @@ const Utils = {
     return `rgba(${r},${g},${b},${alpha})`;
   },
 
-  /* Format a timestamp (ms) to a human-readable string */
+  // formats a unix timestamp into a readable date string
+  // returns a dash if theres no timestamp
   formatDate(ts) {
     if (!ts) return '—';
     return new Date(ts).toLocaleString();
   },
 
-  /* Format a timestamp as relative time ("2 hours ago") */
+  // shows how long ago something happened like "2h ago" or "just now"
   timeAgo(ts) {
     if (!ts) return '';
     const diff = Date.now() - ts;
@@ -39,7 +41,8 @@ const Utils = {
     return `${days}d ago`;
   },
 
-  /* Debounce a function call */
+  // wraps a function so it only runs after the user stops typing for a bit
+  // helped a lot with the search input lag
   debounce(fn, delay = 200) {
     let timer;
     return (...args) => {
@@ -48,7 +51,8 @@ const Utils = {
     };
   },
 
-  /* Download a string as a file */
+  // triggers a file download in the browser
+  // used for exporting novel data as json
   downloadFile(filename, content, mimeType = 'application/json') {
     const blob = new Blob([content], { type: mimeType });
     const url  = URL.createObjectURL(blob);
@@ -59,9 +63,11 @@ const Utils = {
     URL.revokeObjectURL(url);
   },
 
-  /* Show a toast notification */
+  // shows a popup notification at the bottom of the screen
+  // supports info, success, warning, and error types
+  // optionally shows an undo button if you pass a callback
   showToast(message, type = 'info', duration = 4000, onUndo = null) {
-    // Remove any existing toast of the same class
+    // remove any toast thats already showing
     document.querySelectorAll('.wiki-toast').forEach(t => t.remove());
 
     const toast = document.createElement('div');
@@ -77,7 +83,7 @@ const Utils = {
 
     document.body.appendChild(toast);
 
-    // Animate in
+    // fade it in
     requestAnimationFrame(() => toast.classList.add('visible'));
 
     let hideTimer = setTimeout(() => toast.classList.remove('visible'), duration);
@@ -102,7 +108,8 @@ const Utils = {
   }
 };
 
-/* Redirect vertical wheel scroll to horizontal on badge-row-scroll elements */
+// makes badge rows scroll sideways when the user scrolls vertically on them
+// needed this because horizontal scroll on mobile is annoying otherwise
 document.addEventListener('wheel', (e) => {
   const row = e.target.closest('.badge-row-scroll');
   if (!row) return;

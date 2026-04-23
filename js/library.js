@@ -1,8 +1,8 @@
-/* library.js — Library page logic
-   Requires: utils.js, store.js loaded before this file.
-*/
+// powers the main library page (index.html)
+// loads novels from both the data/ folder and localStorage then renders them as cards
+// requires utils.js and store.js to be loaded first
 
-/* ── Genre maps ── */
+// color and icon for each genre type, used on the novel cards
 const genreColors = {
   cultivation: '#f0a500', tower: '#58a6ff', regression: '#f78166',
   system: '#3fb950', isekai: '#bc8cff', fantasy: '#db61a2',
@@ -14,11 +14,11 @@ const genreIcons = {
   'sci-fi': 'bi-cpu', 'light-novel': 'bi-book', 'web-novel': 'bi-book', other: 'bi-collection'
 };
 
-let allNovels  = [];   // combined: data-folder + localStorage
-let _dataNovels = [];  // ids from data/ folder (to avoid duplicates)
+let allNovels  = [];   // combined list from data folder + localStorage
+let _dataNovels = [];  // tracks which novels came from the data/ folder
 let _crossSearchMode = false;
 
-/* ── Render the recently-viewed chip strip ── */
+// renders the "recently opened" chip strip above the library grid
 function renderRecentlyViewed() {
   const container = document.getElementById('recently-viewed');
   if (!container) return;
@@ -37,7 +37,7 @@ function renderRecentlyViewed() {
     </div>`;
 }
 
-/* ── Render the novel grid ── */
+// renders the novel cards in the grid
 function renderLibrary(novels) {
   const grid  = document.getElementById('novel-grid');
   const empty = document.getElementById('lib-empty');
@@ -56,7 +56,7 @@ function renderLibrary(novels) {
     const s        = n.stats || {};
     const id       = n.id;
 
-    /* Build multi-format fallback for cover image */
+    // build cover image with multiple format fallbacks so it works with jpeg, jpg, png, webp
     const fallbacks = Store.getCoverFallbacks(id);
     const fb1 = fallbacks[1] || '';
     const fb2 = fallbacks[2] || '';
@@ -119,11 +119,12 @@ function renderLibrary(novels) {
   }).join('');
 }
 
-/* ── Filter by search + genre ── */
+// filters the grid by search text and selected genre
 function filterLibrary() {
   const q     = document.getElementById('lib-search').value.toLowerCase().trim();
   const genre = document.getElementById('lib-genre').value;
 
+  // if cross-search mode is on and there's enough text, do a deep content search instead
   if (_crossSearchMode && q.length >= 2) {
     searchAllNovels(q);
     return;
@@ -137,7 +138,8 @@ function filterLibrary() {
   renderLibrary(filtered);
 }
 
-/* ── Cross-novel full-text search ── */
+// searches across all novels' full content, not just titles
+// this is the slow mode since it reads full novel data from localStorage for each
 function searchAllNovels(q) {
   if (!q || q.length < 2) { renderLibrary(allNovels); return; }
   const term    = q.toLowerCase();
@@ -166,7 +168,7 @@ function searchAllNovels(q) {
   renderLibrary(matched);
 }
 
-/* ── Toggle cross-novel search mode ── */
+// toggles the cross-novel search mode on/off
 function toggleCrossSearch() {
   _crossSearchMode = !_crossSearchMode;
   const btn = document.getElementById('cross-search-btn');
@@ -177,14 +179,15 @@ function toggleCrossSearch() {
   filterLibrary();
 }
 
-/* ── Navigation helpers ── */
+// navigation helpers
 function openNovel(id) {
   Store.trackView(id);
   location.href = `wiki.html?novel=${id}`;
 }
 function editNovel(id) { location.href = `import.html?edit=${id}`; }
 
-/* ── Soft-delete with undo toast (only for localStorage novels) ── */
+// soft-deletes and shows an undo toast for 6 seconds
+// after that it permanently removes the novel
 function deleteNovel(id, title) {
   if (!Store.softDeleteNovel(id)) return;
   allNovels = allNovels.filter(n => n.id !== id);
@@ -199,15 +202,15 @@ function deleteNovel(id, title) {
     Utils.showToast(`"${title}" restored`, 'success', 3000);
   });
 
+  // permanently delete after the toast timeout if undo wasnt clicked
   setTimeout(() => {
     const check = Store.getAllNovelsRaw().find(n => n.id === id);
     if (check && check.__deleted) Store.deleteNovel(id);
   }, 30000);
 }
 
-/* ── Export JSON download ── */
+// exports the novel as a downloadable json file
 function downloadNovel(id, title) {
-  // Try localStorage first, then data-folder
   let json = Store.exportJSON(id);
   if (!json) {
     Utils.showToast('Export failed: novel not found', 'error'); return;
@@ -217,7 +220,7 @@ function downloadNovel(id, title) {
   Utils.showToast(`Exported "${title}"`, 'success', 3000);
 }
 
-/* ── Storage quota warning ── */
+// checks if localStorage is getting full and shows a warning banner
 function checkStorageQuota() {
   const usage  = Store.getStorageUsage();
   const banner = document.getElementById('storage-warning');
@@ -239,11 +242,9 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSettings();
 });
 
-/* ════════════════════════════════════════
-   INIT (async — loads data/ folder first)
-═══════════════════════════════════════ */
+// loads everything when the page opens
+// fetches data folder novels first, then merges with localStorage novels
 (async function init() {
-  /* Show loading state */
   const grid = document.getElementById('novel-grid');
   if (grid) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
@@ -252,13 +253,13 @@ document.addEventListener('keydown', e => {
     </div>`;
   }
 
-  /* 1. Fetch data-folder novels */
+  // load novels from the data/ folder (pre-made ones that ship with the project)
   const fetched = await Store.fetchDataFolderNovels();
   _dataNovels = fetched.map(({ manifest, data }) => {
     const novel = data.novel || {};
     const id    = manifest.id;
 
-    /* Save full data to localStorage so wiki.js can load it by id */
+    // save to localStorage so wiki.js can load it later by id
     Store.saveNovel(data, id);
 
     return {
@@ -284,7 +285,7 @@ document.addEventListener('keydown', e => {
     };
   });
 
-  /* 2. Merge with localStorage novels (skip any already loaded from data/) */
+  // combine with localStorage novels, skip any that were already loaded from the data folder
   const dataIds    = new Set(_dataNovels.map(n => n.id));
   const localNovels = Store.getNovels().filter(n => !dataIds.has(n.id));
 

@@ -1,10 +1,12 @@
-/* search.js — full-text search across all wiki data */
+// handles full-text search across all the wiki data for a single novel
+// builds an index on load and searches through it on every keystroke
 
 const Search = {
 
-  _index: [],
-  _lastResults: [],
+  _index: [],         // flattened list of all searchable entries
+  _lastResults: [],   // stored so we can navigate to a result by index
 
+  // same html escape as utils but local copy since search.js loads standalone sometimes
   escapeHtml(text) {
     return String(text ?? '')
       .replace(/&/g, '&amp;')
@@ -14,7 +16,8 @@ const Search = {
       .replace(/'/g, '&#39;');
   },
 
-  /* Build flat search index from novel data */
+  // creates a flat array of all searchable items from the novel data
+  // each entry has a type, icon, id, name, and a short snippet
   build(novel) {
     this._index = [];
     const n = novel;
@@ -71,7 +74,8 @@ const Search = {
         (t.definition || '').slice(0, 120)));
   },
 
-  /* Query the index */
+  // searches the index for entries that match the query string
+  // requires at least 2 characters to avoid noisy results
   query(q) {
     if (!q || q.length < 2) return [];
     const term = q.toLowerCase();
@@ -81,7 +85,7 @@ const Search = {
     );
   },
 
-  /* Highlight matching term in text */
+  // wraps the matching part of the text in a highlight span
   highlight(text, q) {
     if (!text) return '';
     const escaped = this.escapeHtml(text);
@@ -90,11 +94,13 @@ const Search = {
     return escaped.replace(re, '<span class="search-highlight">$1</span>');
   },
 
+  // saves results so they can be accessed by index (for keyboard navigation)
   setResults(results) {
     this._lastResults = Array.isArray(results) ? results : [];
   },
 
-  /* Group results by type */
+  // groups results by their type (Character, Technique, etc.)
+  // makes it easier to render them in sections
   group(results) {
     const groups = {};
     results.forEach(r => {
@@ -104,7 +110,7 @@ const Search = {
     return groups;
   },
 
-  /* Route to the right page from a search result */
+  // figures out where to link based on result type and navigates there
   navigate(result, novelId) {
     const base = `wiki.html?novel=${novelId}`;
     const routes = {
@@ -124,6 +130,8 @@ const Search = {
     location.href = routes[result.type] || base;
   },
 
+  // navigates to a result by its position in the last result set
+  // used by the dropdown items which just pass their index
   navigateByIndex(index, novelId) {
     const result = this._lastResults[index];
     if (result) this.navigate(result, novelId);

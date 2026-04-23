@@ -1,3 +1,8 @@
+<!--
+  the import/upload page for adding new novels to the wiki
+  also handles edit mode (pre-fills the textarea when ?edit=id is in the url)
+  inline script handles all the validation and save logic since its pretty self-contained
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +23,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script>
-  /* ── Boot: apply saved appearance before first paint ── */
+  // apply saved settings before the page renders to avoid flash of unstyled content
   (function(){
     var D={accent:'#ffffff',bgBase:'#000000',bgCard:'#1a1a1a',textPrimary:'#ffffff',textSecondary:'#767d88',radius:6};
     function rgba(hex,a){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return'rgba('+r+','+g+','+b+','+a+')';}
@@ -194,9 +199,7 @@
     let parsedData = null;
     let inputMethod = 'paste'; // 'paste' | 'file'
 
-    /* ══════════════════════════════════════
-       INPUT METHOD TOGGLE
-    ═══════════════════════════════════════ */
+    // --- input method toggle (paste vs file upload) ---
     function setMethod(method) {
       inputMethod = method;
       document.getElementById('panel-paste').classList.toggle('hidden',  method !== 'paste');
@@ -206,9 +209,7 @@
       clearForm(true);
     }
 
-    /* ══════════════════════════════════════
-       DOWNLOAD PROJECT FILES
-    ═══════════════════════════════════════ */
+    // --- download instruction.txt and combined_schema.json for setup ---
     function downloadProjectFile(filename) {
       const a = document.createElement('a');
       a.href = 'project files/' + encodeURIComponent(filename);
@@ -218,63 +219,7 @@
       document.body.removeChild(a);
     }
 
-    /* ══════════════════════════════════════
-       GITHUB PULL
-    ═══════════════════════════════════════ */
-    async function doPullFromGitHub() {
-      const owner = document.getElementById('gh-pull-owner').value.trim();
-      const repo  = document.getElementById('gh-pull-repo').value.trim();
-      const path  = document.getElementById('gh-pull-path').value.trim();
-      const token = document.getElementById('gh-pull-token').value.trim();
-      const statusEl = document.getElementById('gh-pull-status');
-      const statusMsg = statusEl.querySelector('span');
-
-      if (!owner || !repo || !path) {
-        statusEl.style.display = '';
-        statusEl.className = 'publish-status error';
-        statusMsg.textContent = 'Please fill in Owner, Repository, and File Path.';
-        return;
-      }
-
-      statusEl.style.display = '';
-      statusEl.className = 'publish-status loading';
-      statusMsg.textContent = 'Pulling data from GitHub…';
-
-      const result = await GitHub.pull({ owner, repo, path, token });
-
-      if (!result.ok) {
-        statusEl.className = 'publish-status error';
-        statusMsg.textContent = 'Pull failed: ' + result.error;
-        return;
-      }
-
-      statusEl.className = 'publish-status success';
-      statusMsg.textContent = 'Pulled successfully — validating…';
-
-      // Feed into the unified processRaw flow
-      const raw = JSON.stringify(result.data);
-      document.getElementById('json-input').value = raw;
-      processRaw(raw);
-    }
-
-    /* Autofill owner/repo/path from a GitHub raw or blob URL */
-    function autofillFromUrl() {
-      const url = prompt('Paste a GitHub raw or blob URL:');
-      if (!url) return;
-      // raw: https://raw.githubusercontent.com/{owner}/{repo}/main/{path}
-      const rawMatch = url.match(/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/[^\/]+\/(.+)/);
-      // blob: https://github.com/{owner}/{repo}/blob/main/{path}
-      const blobMatch = url.match(/github\.com\/([^\/]+)\/([^\/]+)\/blob\/[^\/]+\/(.+)/);
-      const m = rawMatch || blobMatch;
-      if (!m) { alert('Could not parse that URL. Try copying the raw file URL.'); return; }
-      document.getElementById('gh-pull-owner').value = m[1];
-      document.getElementById('gh-pull-repo').value  = m[2];
-      document.getElementById('gh-pull-path').value  = m[3];
-    }
-
-    /* ══════════════════════════════════════
-       JSON VALIDATION + POST-LOAD CHECK
-    ═══════════════════════════════════════ */
+    // --- validates the pasted/uploaded json and shows a preview ---
     function validateJson() {
       const raw = document.getElementById('json-input').value.trim();
       processRaw(raw);
@@ -363,9 +308,7 @@
       }
     }
 
-    /* ══════════════════════════════════════
-       POST-LOAD CHECK RULES
-    ═══════════════════════════════════════ */
+    // --- post-load validation rules (checks for missing fields and broken slug refs) ---
     function runPostLoadChecks(data) {
       const issues = [];
 
@@ -582,9 +525,7 @@
       vbox.classList.remove('hidden');
     }
 
-    /* ══════════════════════════════════════
-       SAVE
-    ═══════════════════════════════════════ */
+    // --- saves the parsed novel to localStorage and redirects to the wiki ---
     function saveNovel() {
       if (!parsedData) return;
       try {
@@ -602,9 +543,7 @@
       }
     }
 
-    /* ══════════════════════════════════════
-       FILE UPLOAD / DRAG & DROP
-    ═══════════════════════════════════════ */
+    // --- file upload and drag & drop handling ---
     const dropZone = document.getElementById('drop-zone');
     dropZone.addEventListener('dragover',  e => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -631,9 +570,7 @@
       reader.readAsText(file);
     }
 
-    /* ══════════════════════════════════════
-       CLEAR
-    ═══════════════════════════════════════ */
+    // --- resets the form back to its initial state ---
     function clearForm(silent = false) {
       document.getElementById('json-input').value = '';
       document.getElementById('file-input').value = '';
@@ -650,9 +587,7 @@
       document.getElementById('step-1').classList.add('active');
     }
 
-    /* ══════════════════════════════════════
-       EDIT MODE (pre-populate)
-    ═══════════════════════════════════════ */
+    // --- edit mode: if ?edit=id is in the url, pre-fill the textarea with existing data ---
     const params = new URLSearchParams(location.search);
     if (params.get('edit')) {
       const existing = Store.getNovel(params.get('edit'));
