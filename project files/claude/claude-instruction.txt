@@ -29,10 +29,12 @@ SLUG REFERENCE RULES (CRITICAL — broken slugs break the wiki):
 - Parenthetical notes like "(gifted to X)" or "(temporary)" do NOT belong in slug IDs. Put those in a notes or description field.
 
 OUTPUT RULES:
-- Output ONE single JSON object combining both extraction and analysis
+- Output ONE single JSON file combining both extraction and analysis
 - The JSON must match combined_schema.json exactly
-- Output ONLY valid JSON. No markdown. No explanation. No code fences.
+- Output as a downloadable .json file (use the file attachment/artifact feature if available)
+- If file output is not supported, output ONLY valid JSON. No markdown. No explanation. No code fences.
 - Do NOT wrap in ```json``` code blocks. Start directly with { and end with }
+- The output filename should follow the pattern: [novel-slug].json (e.g., world-turned-game.json)
 
 COMPLETENESS RULES (CRITICAL — do NOT cut off early):
 - You MUST output the ENTIRE JSON from opening { to closing }

@@ -215,8 +215,11 @@ const Store = {
   },
 
   getRecentViews() {
-    try { return JSON.parse(localStorage.getItem(this.RECENT_KEY) || '[]'); }
-    catch { return []; }
+    try {
+      const liveIds = new Set(this.getNovels().map(n => n.id));
+      return JSON.parse(localStorage.getItem(this.RECENT_KEY) || '[]')
+        .filter(r => liveIds.has(r.id));
+    } catch { return []; }
   },
 
   /* ── GitHub publish config (token now session-only by default) ── */
