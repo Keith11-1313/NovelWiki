@@ -190,11 +190,6 @@
   <script src="js/utils.js"></script>
   <script src="js/store.js"></script>
   <script>
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
 
     let parsedData = null;
     let inputMethod = 'paste'; // 'paste' | 'file'
@@ -296,7 +291,7 @@
       } catch (e) {
         parsedData = null;
         fb.className = 'import-feedback invalid';
-        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> ${escapeHtml(e.message)}`;
+        fb.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> ${Utils.escapeHtml(e.message)}`;
         prev.classList.add('hidden');
         vbox.classList.add('hidden');
         btn.disabled = true; btn.style.opacity = '.5';
@@ -519,7 +514,7 @@
       const colorMap = { error: 'v-error', warning: 'v-warning', info: '', ok: 'v-ok' };
 
       vlist.innerHTML = issues.map(issue =>
-        `<li><span class="${colorMap[issue.level]}">${iconMap[issue.level]} ${escapeHtml(issue.msg)}</span></li>`
+        `<li><span class="${colorMap[issue.level]}">${iconMap[issue.level]} ${Utils.escapeHtml(issue.msg)}</span></li>`
       ).join('');
 
       vbox.classList.remove('hidden');

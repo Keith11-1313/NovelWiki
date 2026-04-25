@@ -447,9 +447,5 @@ function printPage() { window.print(); }
     root.style.setProperty('--accent-rgb', `${color.r},${color.g},${color.b}`);
     root.style.setProperty('--accent-hover', `rgb(${Math.min(color.r+30,255)},${Math.min(color.g+30,255)},${Math.min(color.b+30,255)})`);
 
-    // re-render the current section so it picks up the new accent color
-    if (typeof Router !== 'undefined' && Router.current) {
-      Router.go(Router.current, true);
-    }
   })();
 })();
