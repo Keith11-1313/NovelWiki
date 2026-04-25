@@ -1,0 +1,3101 @@
+{
+  "novel": {
+    "title": "The Perfect Run",
+    "type": "regression",
+    "genre_tags": ["superhero", "post-apocalyptic", "time-loop", "sci-fi", "dark-comedy", "action"],
+    "summary": "Ryan Romano, alias Quicksave, is a Genome with the power to create save points and stop time. After years of lonely wandering in a post-apocalyptic Europe ravaged by the Genome Wars, he arrives in New Rome—a megacity controlled by corporations and crime syndicates—searching for his childhood best friend Len (Eleonora Sabino). Over countless loops, Ryan navigates the warring factions of the Augusti crime family, the Meta-Gang Psychos, the corporate heroes of Il Migliore, and the Carnival vigilantes, all while uncovering a conspiracy involving Mechron's doomsday bunker, a Bloodstream pandemic threat, and Dynamis' exploitation of Len's Genius. His quest culminates in engineering a 'Perfect Run'—a loop where Len's memories survive the reset via a brain-transfer device—finally breaking his centuries-long isolation.",
+    "themes": ["loneliness and connection", "the cost of power", "moral compromise", "found family", "trauma and healing", "the ethics of violence", "corporate exploitation", "the value of life"],
+    "world_name": "Post-Genome Wars Earth",
+    "status": "completed"
+  },
+  "characters": [
+    {
+      "id": "ryan-romano",
+      "name": "Ryan Romano",
+      "aliases": ["Quicksave", "Cesare", "Mr. President", "Riri"],
+      "role": "protagonist",
+      "gender": "male",
+      "age": "appears mid-20s biologically; centuries old functionally due to loops",
+      "description": "Handsome young man with black hair. Wears a metal mouthless mask with two rounded glass eyes, a black top hat, navy blue trench coat, purple shirt, blue pants, black gloves, and boots. Later upgraded to a dark purple cashmere suit with a violet-pink scarf bearing clock symbols, a bowler hat, and skull-patterned socks. Adopts a presidential costume in later arcs.",
+      "personality": "Irreverently humorous, deeply empathetic beneath layers of sarcasm, driven by an overwhelming love for Len, prone to loneliness-induced recklessness. Fiercely protective of children. Genuinely enjoys chaos and style. Philosophically comfortable with uncertainty. Despite his jokes, carries immense hidden grief from centuries of isolation.",
+      "background": "Orphaned young. Grew up with Len under the care of Bloodstream (Freddie Sabino), a Psycho with blood manipulation powers. Was present when the Carnival hunted Bloodstream down, resulting in Len fleeing and their separation. Spent years wandering post-apocalyptic Europe as a courier, searching for Len. Gained his Elixir (Violet) at some point prior to the story, giving him the ability to stop time and create save points. Has lived through countless loops across centuries of subjective time.",
+      "current_power_level": "Violet Genome (Save Point / Time Stop); informally Genius-level through accumulated loop knowledge",
+      "power_progression": [
+        {"stage": "Basic Violet Genome", "chapter": "Ch. 1"},
+        {"stage": "Mastery of timestop precision and knife-throwing via loop training", "chapter": "Ch. 4"},
+        {"stage": "Discovery of Rampage drug augmentation", "chapter": "Ch. 47"},
+        {"stage": "Presidential armor with full Genius-level gadgetry", "chapter": "Ch. 78"}
+      ],
+      "cultivation_path": "Violet Genome / Save Point Chronokinetic",
+      "special_abilities": [
+        "Quicksave: Creates a temporal save point at a chosen moment; upon death, reverts to that point with full memory",
+        "Time Stop: Freezes all observable time temporarily; duration scales with experience and Rampage enhancement",
+        "Enhanced Timing Sense: After experiencing a sequence once, can anticipate events with superhuman reaction",
+        "Autopilot Mode: Can replay memorized sequences of actions on autopilot while thinking of other things",
+        "Purple World perception: Partially perceives the Violet dimension during time-stop"
+      ],
+      "owned_artifacts": ["plymouth-fury", "fisty-brothers", "the-plushie", "chronoradio", "coil-gun", "laser-blade", "a-bomb", "mechron-scorpion-mech"],
+      "faction_ids": ["meta-gang-president", "il-migliore"],
+      "relationships": [
+        {"character_id": "len-sabino", "type": "love-interest"},
+        {"character_id": "felix-manada", "type": "ally"},
+        {"character_id": "vulcan-sharif", "type": "ally"},
+        {"character_id": "psyshock", "type": "enemy"},
+        {"character_id": "adam-the-ogre", "type": "enemy"},
+        {"character_id": "zanbato-jamie", "type": "ally"},
+        {"character_id": "lanka-sphere", "type": "ally"},
+        {"character_id": "ki-jung-chitter", "type": "ally"},
+        {"character_id": "livia-augusti", "type": "ally"},
+        {"character_id": "mathias-shroud", "type": "ally"},
+        {"character_id": "leo-hargraves", "type": "ally"},
+        {"character_id": "wyvern-nora", "type": "rival"},
+        {"character_id": "augustus", "type": "enemy"},
+        {"character_id": "timmy-panda", "type": "ally"},
+        {"character_id": "wardrobe-yukiko", "type": "rival"},
+        {"character_id": "pluto", "type": "rival"},
+        {"character_id": "bloodstream", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 1",
+      "status": "alive",
+      "tags": ["time-loop", "courier", "immortal", "humor", "found-family", "gadgeteer"]
+    },
+    {
+      "id": "len-sabino",
+      "name": "Eleonora Sabino",
+      "aliases": ["Len", "Shortie", "The Underdiver"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "late 20s",
+      "description": "Petite young woman with short black hair and bright blue eyes. Wears a large JIM-style diving armor she built herself, crimson-painted and rugged in design. In casual settings, appears pale and exhausted from depression and medication overuse.",
+      "personality": "Deeply empathetic, passionate about justice and protecting the weak, politically communist (Marxist-Leninist). Struggles with severe depression and social withdrawal without heavy medication. Brilliant engineer. Can be stubborn and self-sacrificing. Has difficulty trusting others due to traumatic upbringing under Bloodstream. Possesses a quietly warm love for Ryan that she finds difficult to express.",
+      "background": "Daughter of Freddie Sabino (Bloodstream). Ryan's childhood companion. Fled to New Rome after the Carnival hunted Bloodstream and began selling her Genius inventions as 'The Underdiver.' Was captured by Dynamis' Private Security after attacking a Dynamis chemical plant. Eventually lives in an undersea habitat she built near Ischia. Took her Elixir at some point, becoming a Genius with water-manipulation powers. Dynamis wanted her for her ability to refine Elixir processing.",
+      "current_power_level": "Genius-level Hydrokinetic / Elixir Refinement Specialist",
+      "power_progression": [
+        {"stage": "Genius inventor (pre-Elixir)", "chapter": "Ch. 7"},
+        {"stage": "Hydrokinetic Genome + full Genius", "chapter": "Ch. 23"}
+      ],
+      "cultivation_path": "Genius (Blue/Hydrokinetic)",
+      "special_abilities": [
+        "Hydrokinesis: Control and manipulation of water with extreme precision; can form water prisons, projectiles, and shields",
+        "Genius-level intellect: Specializes in submarine engineering, materials science, Elixir refinement, and brain-computer interfaces",
+        "Elixir Refinement: Able to synthesize and improve Elixir compounds far beyond standard production"
+      ],
+      "owned_artifacts": ["underdiver-armor", "bathyspheres", "laika-submarine", "undersea-habitat"],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "love-interest"},
+        {"character_id": "bloodstream", "type": "family"},
+        {"character_id": "sarah-orphan", "type": "family"}
+      ],
+      "first_appearance": "Ch. 23",
+      "status": "alive",
+      "tags": ["genius", "hydrokinetic", "depression", "communist", "inventor", "key-character"]
+    },
+    {
+      "id": "felix-manada",
+      "name": "Felix Manada",
+      "aliases": ["Atom Cat", "Atom Kitten", "Hello Kitty"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "early 20s",
+      "description": "Young, well-built man who grew up in the Patrician district. Has an electricity-themed power. Dresses in a practical but unstylish hero outfit until Wardrobe redesigns it.",
+      "personality": "Earnest, idealistic, physically brave. Has a chip on his shoulder about his privileged upbringing. Deeply loyal once trust is established. Easily annoyed by Ryan's jokes but grows to genuinely care for him.",
+      "background": "Former member of the Augusti organization who left because he couldn't stomach their crimes. Joined Il Migliore to try to make a difference, but found Dynamis too passive. Becomes Ryan's sidekick and eventually a full partner. His family includes sisters Fortuna and Narcinia, and parents aligned with the Augusti.",
+      "current_power_level": "Orange/Red Genome - Explosive Charge ability",
+      "power_progression": [
+        {"stage": "Basic touch-based explosion charge", "chapter": "Ch. 13"},
+        {"stage": "Modulated charges: delayed detonation, thrown objects", "chapter": "Ch. 55"}
+      ],
+      "cultivation_path": "Orange Genome / Explosive Touch",
+      "special_abilities": [
+        "Explosive Charge: Charges any solid matter with energy on touch, causing detonation after a delay",
+        "Modulated Blast: Learned to control charge size, timing, and throw charged objects as grenades"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["il-migliore"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "fortuna-manada", "type": "family"},
+        {"character_id": "narcinia-manada", "type": "family"},
+        {"character_id": "wyvern-nora", "type": "ally"},
+        {"character_id": "wardrobe-yukiko", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 13",
+      "status": "alive",
+      "tags": ["hero", "explosive", "sidekick", "il-migliore"]
+    },
+    {
+      "id": "vulcan-sharif",
+      "name": "Jasmine Sharif",
+      "aliases": ["Vulcan", "Urban Guerilla"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "18-19 biologically",
+      "description": "Petite, barely 1.6m tall. Olive skin, sharp black eyes, dark hair bound in a bun by a pencil. Dresses casually in a black shirt, dirtied pants, and unlaced shoes. Pilots an enormous gold-plated power armor nearly 5 meters tall with plasma beams, rockets, cannons, and a fusion reactor.",
+      "personality": "Fierce, intensely proud, deeply passionate about engineering and explosions. Has a height complex and responds to insults about it with death threats. Became a romantic partner to Ryan across multiple loops. Her sacrifice in certain loops haunts Ryan deeply.",
+      "background": "A prodigious Genius who once worked as Wyvern's sidekick 'Urban Guerilla' before joining the Augusti. Runs the Augusti's weapons foundry. Controls her power armor via a neural interface (cranial implant).",
+      "current_power_level": "Blue Genius / Advanced Weapons Engineer",
+      "power_progression": [
+        {"stage": "Genius weapons designer with basic armor", "chapter": "Ch. 12"},
+        {"stage": "Full gold-plated power armor with fusion reactor, plasma beams, neural interface", "chapter": "Ch. 19"}
+      ],
+      "cultivation_path": "Blue Genome / Weapons Genius",
+      "special_abilities": [
+        "Genius-level engineering specializing in weapons, robotics, and power systems",
+        "Neural Interface: Controls her power armor remotely via a cranial implant",
+        "Power Armor: Nearly 5m tall gold-plated suit with plasma beams, rockets, cannons, and miniaturized fusion reactor"
+      ],
+      "owned_artifacts": ["vulcan-power-armor"],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "zanbato-jamie", "type": "ally"},
+        {"character_id": "wyvern-nora", "type": "rival"},
+        {"character_id": "augustus", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["genius", "weapons", "power-armor", "capo", "love-interest", "augusti"]
+    },
+    {
+      "id": "zanbato-jamie",
+      "name": "Jamie",
+      "aliases": ["Zanbato"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "30s",
+      "description": "Large, calm man with the bearing of a samurai. Manifests a katana of solid crimson light.",
+      "personality": "Philosophical, measured, loyal to the Augusti hierarchy. Dry wit and takes his duties seriously. Romantically involved with Ki-jung.",
+      "background": "High-ranking Augusti enforcer and capo. Manages the supply operations division.",
+      "current_power_level": "Red Genome / Energy Sword manifestation",
+      "cultivation_path": "Red Genome / Crimson Light Sword",
+      "special_abilities": [
+        "Energy Katana: Manifests a perfect replica of a katana made of solid crimson light"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "ki-jung-chitter", "type": "love-interest"},
+        {"character_id": "vulcan-sharif", "type": "ally"},
+        {"character_id": "lanka-sphere", "type": "ally"},
+        {"character_id": "augustus", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 3",
+      "status": "alive",
+      "tags": ["capo", "samurai", "red-genome", "augusti"]
+    },
+    {
+      "id": "ki-jung-chitter",
+      "name": "Ki-jung",
+      "aliases": ["Chitter"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "20s",
+      "description": "Korean woman with a pet rat on her shoulder. Carries a complement of trained rats for combat and reconnaissance.",
+      "personality": "Sharp, perceptive, quietly warm. Deeply loyal to Jamie.",
+      "background": "Augusti operative and rat-controlling Genome. Romantically involved with Zanbato.",
+      "current_power_level": "Green Genome / Rat Control",
+      "cultivation_path": "Green Genome / Rat Swarm Controller",
+      "special_abilities": [
+        "Rat Control: Commands a large number of rats with precision for combat, espionage, and retrieval"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "zanbato-jamie", "type": "love-interest"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["green-genome", "rat-control", "augusti"]
+    },
+    {
+      "id": "lanka-sphere",
+      "name": "Lanka",
+      "aliases": ["Sphere"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "30s",
+      "description": "Tough, tattooed woman. Has a snake tattoo on her arm she covers with others—a sign of former bandit affiliation. Carries a Beretta 76.",
+      "personality": "Blunt, pragmatic, occasionally mercenary. Won't harm children, dislikes cruelty to animals. Dry sense of humor.",
+      "background": "Former member of a savage bandit group (snake tattoo). Now an Augusti operative with an orange sphere-launching power.",
+      "current_power_level": "Orange Genome / Sphere Launcher",
+      "cultivation_path": "Orange Genome / Energy Sphere",
+      "special_abilities": [
+        "Sphere: Fires concentrated orange spheres of energy from joined fingers, causing paralysis or explosive force on impact"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "zanbato-jamie", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["orange-genome", "former-bandit", "augusti"]
+    },
+    {
+      "id": "luigi-crypto",
+      "name": "Luigi",
+      "aliases": ["Crypto"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "18-19",
+      "description": "African-Italian man, tall, fit, fashionably dressed. Smokes joints casually.",
+      "personality": "Suspicious, sharp, uses his truth-compelling power liberally. Strong bullshit filter—literally.",
+      "background": "The Augusti's supply coordinator. Manages logistics. Has a truth-compelling power making him a valuable interrogator.",
+      "current_power_level": "Blue Genome / Compulsive Truth-telling Aura",
+      "cultivation_path": "Blue Genome / Veritas (Truth Compulsion)",
+      "special_abilities": [
+        "Truth Compulsion: When someone is speaking to him, they cannot lie or stop telling the truth"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "zanbato-jamie", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 4",
+      "status": "alive",
+      "tags": ["blue-genome", "truth-compulsion", "supply", "augusti"]
+    },
+    {
+      "id": "wyvern-nora",
+      "name": "Nora",
+      "aliases": ["Wyvern", "Dragon Mom"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "mid-to-late 20s",
+      "description": "Amazon-like woman with shoulder-length black hair and sharp greyish eyes. Wears a sleeveless white bodysuit with Dynamis' D-logo. Can grow translucent dragonfly wings and transform into a full draconic form.",
+      "personality": "Principled, determined, genuinely heroic within the constraints of her corporate situation. Takes her role as New Rome's protector seriously.",
+      "background": "Il Migliore's premier superheroine and the face of Dynamis' superhero brand. Formerly had Vulcan as a sidekick before the latter went rogue. Becomes genuinely moved when shown proof of Dynamis' corruption.",
+      "current_power_level": "Green Genome / Draconic Transformation",
+      "cultivation_path": "Green Genome / Dragon Shapeshifter",
+      "special_abilities": [
+        "Dragonfly Wings: Translucent wings allowing silent hovering and supersonic flight",
+        "Draconic Transformation: Full transformation into a large dragon",
+        "Enhanced Strength: Can bench press a school bus in partial transformation"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["il-migliore"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "rival"},
+        {"character_id": "vulcan-sharif", "type": "rival"},
+        {"character_id": "felix-manada", "type": "ally"},
+        {"character_id": "enrique-manada", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 2",
+      "status": "alive",
+      "tags": ["green-genome", "hero", "dragon", "il-migliore", "dynamis"]
+    },
+    {
+      "id": "augustus",
+      "name": "Jupiter Augustus",
+      "aliases": ["Lightning Butt", "Mob Zeus"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "middle-aged",
+      "description": "Striking ivory-skinned man near 2 meters tall, with a long beard and a golden laurel crown. Wears a white toga. His entire body is an unnatural ivory alloy. His eyes radiate a crimson glow that can blast lightning.",
+      "personality": "Supremely arrogant, cold-blooded, contemptuous of normal humans. Considers himself a god. Is dying of cancer. Plans to secure his daughter Livia's succession by destroying all opposition.",
+      "background": "Near-invincible crime lord who controls most of New Rome's underworld through the Augusti crime syndicate. Ruled the region for decades using Bliss drug production. Has a unique genetic quirk allowing two powers without Psycho side effects. Is dying of cancer.",
+      "current_power_level": "Unique Dual Genome: Lightning Manifestation + Physical Transcendence (near-invulnerable ivory body)",
+      "power_progression": [
+        {"stage": "Dual Genome at full power (established before novel's events)", "chapter": "Ch. 6"}
+      ],
+      "cultivation_path": "Unique Dual Genome (no side effects)",
+      "special_abilities": [
+        "Lightning Blasts: Can project devastating crimson lightning from his eyes and body",
+        "Ivory Body: Transformed his body into an extremely hard alloy, making him near-invulnerable",
+        "Superhuman Strength: Can cleave through human bodies with a casual backhand"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "pluto", "type": "family"},
+        {"character_id": "livia-augusti", "type": "family"},
+        {"character_id": "ryan-romano", "type": "enemy"},
+        {"character_id": "leo-hargraves", "type": "enemy"},
+        {"character_id": "vulcan-sharif", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 6",
+      "status": "alive",
+      "tags": ["dual-genome", "crime-lord", "near-invincible", "antagonist", "cancer", "dying"]
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "aliases": ["Pluto"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "mature",
+      "description": "Deathly pale skin. Long bright blue hair. Wears a black Greek chiton dress as her costume, with sandals, a shark-tooth necklace, and skull-shaped earrings.",
+      "personality": "Utterly composed, intimidating, deeply perceptive. Vaguely amused by Ryan's antics.",
+      "background": "Augustus's sister and underboss of the Augusti crime family. Her power to will a person to die makes her one of the most feared individuals in New Rome.",
+      "current_power_level": "Violet Genome / Death Touch",
+      "cultivation_path": "Violet Genome / Instantaneous Death",
+      "special_abilities": [
+        "Death Will: Can instantly kill any target she wills to die",
+        "Age Sensing: Can perceive a being's metaphysical 'age'—detected Ryan's centuries of accumulated temporal weight"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "augustus", "type": "family"},
+        {"character_id": "ryan-romano", "type": "rival"},
+        {"character_id": "minerva", "type": "family"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["violet-genome", "underboss", "death-power", "augusti"]
+    },
+    {
+      "id": "livia-augusti",
+      "name": "Livia Augusti",
+      "aliases": ["Livia"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "early 20s",
+      "description": "Platinum-haired woman. Wears sleeveless black dresses and elegant white hats.",
+      "personality": "Conflicted between loyalty to her father and her own moral instincts. Has genuine precognitive visions of the future. Ultimately chooses compassion over family loyalty.",
+      "background": "Daughter of Augustus and heir to the Augusti empire. Has a Violet power allowing her to skip time forward. Works to moderate her father and prevent New Rome from being destroyed.",
+      "current_power_level": "Violet Genome / Time Skip",
+      "cultivation_path": "Violet Genome / Temporal Perception / Time Skip",
+      "special_abilities": [
+        "Time Skip: Can fast-forward time in her vicinity, causing targets to experience a jump forward",
+        "Precognition: Receives visions of possible futures, though limited and imprecise"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "augustus", "type": "family"},
+        {"character_id": "fortuna-manada", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "felix-manada", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["violet-genome", "time-skip", "heir", "augusti", "precognition"]
+    },
+    {
+      "id": "adam-the-ogre",
+      "name": "Adam",
+      "aliases": ["Hannifat Lecter", "The Ogre", "Big Fat Adam"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "40s",
+      "description": "Enormous, obese man whose skin transforms into a shell of hardened carbon. Cheerful, sociable demeanor that masks complete sociopathy.",
+      "personality": "Cheerful, charismatic, utterly without empathy. Treats mass murder as entertainment. When facing his own mortality, decides to take everyone down with him.",
+      "background": "Leader of the Meta-Gang. Has taken Elixirs for 15 years and is dying as his powers begin to destabilize. Brought his gang to New Rome to access Mechron's bunker. When Ryan killed Psyshock, Adam fired the Bahamut orbital laser at New Rome in a rage.",
+      "current_power_level": "Dual Psycho: Carbon Skin + unknown second power",
+      "cultivation_path": "Psycho (dual Elixir) / Carbonite Hardening",
+      "special_abilities": [
+        "Carbon Skin: Covers his body in a shell of hardened carbon as armor",
+        "Unknown second power (unstable due to Psycho condition)"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "psyshock", "type": "ally"},
+        {"character_id": "acid-rain-helen", "type": "ally"},
+        {"character_id": "sarin", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 3",
+      "status": "dead",
+      "tags": ["psycho", "meta-gang", "leader", "villain", "sociopath"]
+    },
+    {
+      "id": "psyshock",
+      "name": "Psyshock",
+      "aliases": ["Psypsy", "Lightbulb", "the Squid"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Tall, slender figure who looks like a shambling doll mimicking a man. Wears heavy black overcoat, hat, scarf, and sunglasses to hide that he is a mass of wires, vestigial flesh, and a skull-like head. Electricity comes from his gloves.",
+      "personality": "Calculating, cold, possesses a veneer of clinical politeness masking sadistic cruelty. Obsessed with extracting Genius brains. Has known Ryan since before his Elixir days.",
+      "background": "Adam's second-in-command. A body-jumping telepath who transfers his consciousness between hosts via electrical connection. Known Ryan and Len from their pre-Elixir lives under Bloodstream. Was eventually defeated permanently when Ryan trapped him somewhere he could not jump.",
+      "current_power_level": "Dual Psycho: Telepathy/Body Jumping + Electrokinesis",
+      "cultivation_path": "Psycho (dual Elixir) / Brainjacker",
+      "special_abilities": [
+        "Body Jumping/Possession: Transfers consciousness to another host via electrical connection",
+        "Electrokinesis: Generates and manipulates electricity through his gloves and wire body",
+        "Brainwave Recognition: Can identify individuals by their unique neural patterns after one connection",
+        "Wire Body: Physical form made of wires and vestigial flesh that can extend as tentacles"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "enemy"},
+        {"character_id": "len-sabino", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 14",
+      "status": "dead",
+      "tags": ["psycho", "meta-gang", "telepath", "body-jumper", "electrokinetic", "major-villain"]
+    },
+    {
+      "id": "ghoul",
+      "name": "Ghoul",
+      "aliases": ["Ghoul"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Walking, skinless skeleton with vestigial muscles and frozen eyes. An unnatural chilling mist comes from his mouth and nasal cavities, transforming into ice weapons.",
+      "personality": "Volatile, aggressive, foul-mouthed. Holds grudges intensely.",
+      "background": "Meta-Gang Psycho with cryokinesis. First encountered attacking Renesco's bar. Repeatedly beaten by Ryan and eventually contained by Dynamis.",
+      "current_power_level": "Dual Psycho: Cryokinesis + undead appearance",
+      "cultivation_path": "Psycho / Cryokinetic",
+      "special_abilities": [
+        "Cryokinesis: Creates ice shards, spears, armor, and bridges from ambient moisture",
+        "Chill Aura: Releases unnatural mist that drops temperature dramatically"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"},
+        {"character_id": "ryan-romano", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 1",
+      "status": "alive",
+      "tags": ["psycho", "cryokinetic", "meta-gang"]
+    },
+    {
+      "id": "acid-rain-helen",
+      "name": "Helen",
+      "aliases": ["Acid Rain"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "20s",
+      "description": "Bleached white skin, short golden hair, bloodshot crimson eyes. Sleeveless white shirt and tight shorts. After treatment: shy, apologetic, gentle.",
+      "personality": "Before treatment: violently insane, obsessed with the 'Purple World,' murderous. After treatment: shy, apologetic, gentle.",
+      "background": "Meta-Gang Psycho who can summon acid rain and teleport by switching places with raindrops. Her power draws from the Violet dimension. After Alchemo treats her Psycho condition using Mechron's research, she becomes Helen—a quiet, gentle person.",
+      "current_power_level": "Dual Psycho: Acid Rain / Teleportation (pre-treatment); diminished post-treatment",
+      "cultivation_path": "Psycho / Acid Summoner + Teleporter",
+      "special_abilities": [
+        "Acid Summoning: Calls up acid rain clouds capable of corroding metal and dissolving flesh",
+        "Teleportation: Switches her position with nearby raindrops at high speed within her acid cloud radius",
+        "Purple World Perception: Can perceive and enter the Violet dimension, interfering with Ryan's timestop"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 18",
+      "status": "alive",
+      "tags": ["psycho", "acid", "teleporter", "violet-genome", "reformed", "meta-gang"]
+    },
+    {
+      "id": "sarin",
+      "name": "Sarin",
+      "aliases": ["Hazmat Girl", "Miss Gasshole"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "20s",
+      "description": "Wears a black hazmat suit and gas mask at all times. Gauntlets that can release compressed gas and shockwaves.",
+      "personality": "Pragmatic, sarcastic toward Ryan's mood swings, occasionally loyal. Becomes Ryan's VP in his 'Meta-Gang President' arc.",
+      "background": "Meta-Gang Psycho who can project compressed air and toxic gas. Becomes one of Ryan's primary allies when he takes control of the Meta-Gang.",
+      "current_power_level": "Dual Psycho: Aerokinesis + Gas Projection",
+      "cultivation_path": "Psycho / Aerokinetic Gas Projector",
+      "special_abilities": [
+        "Compressed Air Propulsion: Can fire shockwaves of compressed air",
+        "Toxic Gas: Releases harmful chemical gas from her suit"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 4",
+      "status": "alive",
+      "tags": ["psycho", "gas", "aerokinetic", "meta-gang", "ally"]
+    },
+    {
+      "id": "leo-hargraves",
+      "name": "Leonard Hargraves",
+      "aliases": ["The Living Sun", "Leo"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "40s-50s",
+      "description": "Can transform into a pure stellar plasma form. Broad and physically imposing in human form, with a warm and earnest demeanor.",
+      "personality": "Noble, idealistic, deeply moral. Prefers to offer enemies a chance to stand down. Feels tremendous guilt over lives lost in the Genome Wars.",
+      "background": "Founder and leader of the Carnival, a wandering pro-bono superhero group. Originally a London firefighter. One of the most powerful beings on Earth. Played a key role in defeating Mechron and tracked down and destroyed Bloodstream.",
+      "current_power_level": "Red Genome / Living Sun — plasma manipulation, flight, gravity control, extreme durability",
+      "cultivation_path": "Red Genome / Stellar Plasma Manifestation",
+      "special_abilities": [
+        "Plasma Projection: Can fire devastating plasma beams equivalent to a stellar flare",
+        "Solar Transformation: Transforms his body into a living sun, becoming a nearly invulnerable stellar entity",
+        "Flight: Moves at fighter-jet and beyond speeds",
+        "Gravity Manipulation: Controls his own gravity field",
+        "Heart-Core: A dense gravitational core that maintains his body's coherence during plasma transformation"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "mathias-shroud", "type": "ally"},
+        {"character_id": "augustus", "type": "enemy"},
+        {"character_id": "bloodstream", "type": "enemy"},
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "alice-martel", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 29",
+      "status": "alive",
+      "tags": ["red-genome", "living-sun", "carnival", "hero", "most-powerful"]
+    },
+    {
+      "id": "mathias-shroud",
+      "name": "Mathias Martel",
+      "aliases": ["Shroud", "Invisiboy"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "early 20s",
+      "description": "Can turn invisible by manipulating his glass-based armor. Young, earnest, reminds Ryan of Felix.",
+      "personality": "Serious, analytical, deeply principled. More willing to use lethal force than most heroes but still conflicted about it. Son of the original Pythia (Alice Martel).",
+      "background": "Member of the Carnival and vanguard operative who arrived in New Rome before Leo's main group. His mother Alice Martel (Pythia) was injured fighting Mechron and he is carrying out her prophetic agenda. Was responsible for assassinating several Augusti Made Men before meeting Ryan.",
+      "current_power_level": "Blue Genome / Glass Manipulation + Telepathy",
+      "cultivation_path": "Blue Genome / Glass Manipulator",
+      "special_abilities": [
+        "Glass Control: Telekinetically controls glass and silica, forming shards, walls, spears",
+        "Invisibility: Alters his glass armor to refract light, rendering himself invisible",
+        "Telepathy (limited): Can read surface thoughts and project images to others"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "alice-martel", "type": "family"},
+        {"character_id": "fortuna-manada", "type": "love-interest"}
+      ],
+      "first_appearance": "Ch. 17",
+      "status": "alive",
+      "tags": ["blue-genome", "glass", "carnival", "vigilante", "assassin"]
+    },
+    {
+      "id": "bloodstream",
+      "name": "Freddie Sabino",
+      "aliases": ["Bloodstream"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "40s-50s",
+      "description": "A Psycho whose body is made of blood he can crystallize and project. Can infect others with his blood, turning them into clones sharing a hive mind.",
+      "personality": "In his good moments, shows genuine love for Len. Otherwise consumed by his power and mental instability. Hates himself as much as he hates the world.",
+      "background": "Len's biological father. Ryan's adoptive guardian. Became a Psycho, body degenerating into a blood-construct entity. His genetic code allows him to turn others into clones through blood infection. Was hunted down and destroyed by the Carnival.",
+      "current_power_level": "Psycho / Unlimited Blood Cloning + Blood Crystallization",
+      "cultivation_path": "Psycho / Haematokinetic Cloner",
+      "special_abilities": [
+        "Blood Control: Crystallizes and projects his blood as weapons with extreme force",
+        "Infectious Cloning: Infects hosts with a drop of his blood, transforming them into copies of himself sharing a hive mind",
+        "Unlimited Clones (theoretically): Psychologically limited to about 10 clones but has no biological upper limit",
+        "Hive Mind: All active clones share awareness and coordinate"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "len-sabino", "type": "family"},
+        {"character_id": "ryan-romano", "type": "family"},
+        {"character_id": "leo-hargraves", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 64",
+      "status": "dead",
+      "tags": ["psycho", "blood-control", "hive-mind", "extinction-threat", "tragic-villain"]
+    },
+    {
+      "id": "timmy-panda",
+      "name": "Timmy",
+      "aliases": ["The Panda", "Pandamania"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "20s",
+      "description": "In human form: a young man with white-dyed hair and black spots painted around his eyes. In Panda form: a massive panda larger than a polar bear. Fully regenerates when switching between forms.",
+      "personality": "Naive, earnest, desperately wants to be taken seriously as a hero. Refers to himself in the third person as 'The Panda.' Becomes fiercely loyal to Ryan as his 'Sifu.'",
+      "background": "A local vigilante trying to fight crime with only the power to transform into a giant panda. Ryan adopts him as a sidekick and trains him.",
+      "current_power_level": "Green Genome / Panda Transformation",
+      "cultivation_path": "Green Genome / Werebear (Panda variant)",
+      "special_abilities": [
+        "Panda Transformation: Becomes a panda larger than a polar bear with enhanced strength and durability",
+        "Full Regeneration: Completely heals all injuries when switching between human and panda form"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["il-migliore"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["green-genome", "werebear", "panda", "sidekick", "comic-relief"]
+    },
+    {
+      "id": "wardrobe-yukiko",
+      "name": "Yukiko",
+      "aliases": ["Wardrobe", "Yuki"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "20s",
+      "description": "Japanese woman with an infectiously bright smile. Wears a costume that can change shape to mimic other heroes' outfits.",
+      "personality": "Enthusiastically fashion-obsessed, cheerful, surprisingly combat-capable. Dreams of having a dedicated arch-nemesis. Is serious about her craft.",
+      "background": "Il Migliore's resident costume designer and shapeshifter. Her power involves wearing a techno-organic symbiote that can mimic the appearance and some properties of other personas' costumes. Designed Ryan's famous cashmere suit.",
+      "current_power_level": "White Genome / Persona Mimicry",
+      "cultivation_path": "White Genome / Costume Mimicry Symbiote",
+      "special_abilities": [
+        "Costume Mimicry: Can transform her techno-organic symbiote into any persona's costume, gaining some of that persona's abilities",
+        "Theft: By assuming a thief persona, can supernaturally steal items from others' hands"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["il-migliore"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "rival"},
+        {"character_id": "felix-manada", "type": "ally"},
+        {"character_id": "wyvern-nora", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 53",
+      "status": "alive",
+      "tags": ["white-genome", "costume", "il-migliore", "arch-nemesis"]
+    },
+    {
+      "id": "fortuna-manada",
+      "name": "Fortuna Manada",
+      "aliases": ["Lucky Girl", "Fortuna"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "early 20s",
+      "description": "Blindingly beautiful woman with long golden hair and extravagant fashion. Felix's sister.",
+      "personality": "Entitled, narcissistic on the surface, but genuinely loves her brother Felix. Obsessively pursues Mathias Martel as a romantic interest.",
+      "background": "Felix's sister and member of the Augusti family through birth. Has a probability-manipulation power so extreme that things always work out in her favor. Eventually sides with Ryan and Livia against her parents when Felix's life is threatened.",
+      "current_power_level": "Violet Genome / Probability Manipulation (Extreme Luck)",
+      "cultivation_path": "Violet Genome / Lucky Star",
+      "special_abilities": [
+        "Probability Manipulation: Everything that can go well for her does; extends to finding people, surviving accidents, and affecting the immediate environment"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "felix-manada", "type": "family"},
+        {"character_id": "narcinia-manada", "type": "family"},
+        {"character_id": "livia-augusti", "type": "ally"},
+        {"character_id": "mathias-shroud", "type": "love-interest"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 14",
+      "status": "alive",
+      "tags": ["luck", "violet-genome", "fortune", "felix-sister"]
+    },
+    {
+      "id": "narcinia-manada",
+      "name": "Narcinia Manada",
+      "aliases": ["Narcinia"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "teens",
+      "description": "Younger sister of Felix and Fortuna. Shy in large groups but becomes excited by novel ideas. Can create life from her blood.",
+      "personality": "Gentle, curious, easily corrupted by Ryan's suggestions. Has a pure heart and strong potential power.",
+      "background": "Youngest Manada sibling. Her blood-based power to create animals was secretly exploited by Augustus to power the Bliss drug process. Her mother Julie Costa had similar biokinetic powers. Augustus murdered her mother and 'adopted' Narcinia to exploit her ability.",
+      "current_power_level": "Green Genome / Blood Life Creation",
+      "cultivation_path": "Green Genome / Sanguine Creator",
+      "special_abilities": [
+        "Blood Life Creation: Can create any animal, plant, or chimera from a drop of her own blood"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "felix-manada", "type": "family"},
+        {"character_id": "fortuna-manada", "type": "family"},
+        {"character_id": "augustus", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 36",
+      "status": "alive",
+      "tags": ["green-genome", "blood-creation", "victim", "manada-sister"]
+    },
+    {
+      "id": "enrique-manada",
+      "name": "Enrique Manada",
+      "aliases": ["Greenhand"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "30s-40s",
+      "description": "Well-dressed and authoritative. Has a plant-manipulation Genius power. Is Il Migliore's manager.",
+      "personality": "Genuinely idealistic but bound by family loyalties. Was disgusted by Dynamis' Lab 66 secrets. Willing to reform the company from within.",
+      "background": "Manager of Il Migliore and son of Hector Manada (Dynamis CEO). Was groomed to be VP but sacked after pushing for social reforms. His brother Alphonse replaced him. Eventually becomes Ryan's key ally inside Dynamis.",
+      "current_power_level": "Green Genome / Plant Manipulation",
+      "cultivation_path": "Green Genome / Botanical Control",
+      "special_abilities": [
+        "Plant Manipulation: Controls plants and botanical matter"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["il-migliore", "dynamis"],
+      "relationships": [
+        {"character_id": "wyvern-nora", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "hector-manada", "type": "family"},
+        {"character_id": "alphonse-fallout", "type": "family"}
+      ],
+      "first_appearance": "Ch. 13",
+      "status": "alive",
+      "tags": ["green-genome", "il-migliore", "dynamis", "reformer"]
+    },
+    {
+      "id": "hector-manada",
+      "name": "Hector Manada",
+      "aliases": ["Hector"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "60s",
+      "description": "Elderly CEO of Dynamis.",
+      "personality": "Conservative, corrupt, obsessed with maintaining the status quo. Made a deal with Augustus allowing the crime lord to operate in exchange for stability.",
+      "background": "CEO of the Dynamis megacorporation. Father of Enrique and Alphonse. Struck a deal with Augustus to maintain New Rome's corporate peace. Enabled Rust Town's degradation and Psycho exploitations.",
+      "current_power_level": "Normal human (CEO power)",
+      "cultivation_path": "None",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["dynamis"],
+      "relationships": [
+        {"character_id": "enrique-manada", "type": "family"},
+        {"character_id": "alphonse-fallout", "type": "family"},
+        {"character_id": "augustus", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 26",
+      "status": "alive",
+      "tags": ["non-genome", "ceo", "dynamis", "corrupt"]
+    },
+    {
+      "id": "alphonse-fallout",
+      "name": "Alphonse Manada",
+      "aliases": ["Fallout", "Atom Smasher"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "30s-40s",
+      "description": "A ghoulish, shining skull—his body undergone nuclear transformation. Radiates lethal radiation that disrupts Genome powers.",
+      "personality": "Coldly fanatical about ending Augustus's power at any cost. Believes democratizing Elixirs justifies kidnapping Len and threatening children.",
+      "background": "Replaced his brother Enrique as Dynamis VP after Enrique pushed too hard for reform. Was sent to wage war in Sicily. Eventually reveals his plan to mass-produce Elixirs by exploiting Len's refinement ability.",
+      "current_power_level": "Red Genome / Nuclear Radiation Emission",
+      "cultivation_path": "Red Genome / Radioactive",
+      "special_abilities": [
+        "Nuclear Radiation: Emits lethal radiation that disrupts Genome powers and kills normal humans",
+        "Ghoulish Transformation: His body transformed into a radioactive construct"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["dynamis"],
+      "relationships": [
+        {"character_id": "hector-manada", "type": "family"},
+        {"character_id": "enrique-manada", "type": "family"},
+        {"character_id": "len-sabino", "type": "enemy"},
+        {"character_id": "ryan-romano", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 62",
+      "status": "alive",
+      "tags": ["red-genome", "radiation", "dynamis", "vice-president", "antagonist"]
+    },
+    {
+      "id": "dr-tyrano",
+      "name": "Dr. Tyrano",
+      "aliases": ["Dr. Tyrano"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "40s",
+      "description": "Has used an experimental gene-splicing serum to give himself a dinosaur-human hybrid appearance—tail, scales, reptilian features. Has a pet called Tricerador (half-Labrador, half-triceratops).",
+      "personality": "Intensely passionate about genetic science, dinosaurs, and cloning. Dreams of giving every household a pet dinosaur.",
+      "background": "Dynamis/Il Migliore's head scientist. Specializes in cloning, gene therapy, and reverse-engineering Elixirs. Made the Hercules Elixir knockoff from Wyvern's genetic material.",
+      "current_power_level": "Blue Genius / Gene-Splicing Specialist (self-modified into dino-hybrid)",
+      "cultivation_path": "Blue Genome / Gene Therapist Genius",
+      "special_abilities": [
+        "Genius-level genetics and cloning knowledge",
+        "Self-modification: Permanently altered his own genome to take dinosaur-hybrid form",
+        "Reverse Elixir Engineering: Can synthesize imperfect knockoff Elixirs from Genome DNA samples"
+      ],
+      "owned_artifacts": ["tricerador"],
+      "faction_ids": ["il-migliore", "dynamis"],
+      "relationships": [
+        {"character_id": "wyvern-nora", "type": "ally"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 55",
+      "status": "alive",
+      "tags": ["blue-genius", "genetics", "dinosaur", "il-migliore", "scientist"]
+    },
+    {
+      "id": "alchemo",
+      "name": "Alchemo",
+      "aliases": ["Alchemo", "The Doll's Father"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "unknown (cyborg)",
+      "description": "A Genius who has replaced much of his body with cybernetic components including syringe-fingers for direct neural interfacing. His exposed brain interfaces directly with computer systems.",
+      "personality": "Clinical, emotionally detached, views others as biological systems. Made an artificial daughter (The Doll) and shows rare paternal care toward her.",
+      "background": "Independent Genius specializing in wetware computing and neural interfaces. Created The Doll as an android daughter. Ryan accessed Mechron's database in exchange for Alchemo helping fix Len's brain-transfer damage.",
+      "current_power_level": "Blue Genius / Wetware and Cybernetics Expert",
+      "cultivation_path": "Blue Genius / Cyberneticist",
+      "special_abilities": [
+        "Neural Interface: Can directly interface with and control any computer or AI system via syringe-fingers",
+        "Wetware Expertise: Creates synthetic brains and consciousness-transfer devices"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "the-doll", "type": "family"}
+      ],
+      "first_appearance": "Ch. 72",
+      "status": "alive",
+      "tags": ["blue-genius", "cyborg", "wetware", "neutral-party"]
+    },
+    {
+      "id": "the-doll",
+      "name": "Tea",
+      "aliases": ["The Doll", "Tea"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "appears young (android)",
+      "description": "Artificial humanoid with a hidden rocket launcher arm compartment and reinforced metal body beneath artificial skin. Smiles constantly. Has red-glowing eyes.",
+      "personality": "Warmly devoted to those she considers 'family.' Extremely perceptive emotionally despite being artificial.",
+      "background": "Alchemo's android daughter with a rocket launcher hidden in her arm. Acts as caretaker at Mechron's bunker during Ryan's Meta-Gang arc.",
+      "current_power_level": "Android / Enhanced Physical Construction",
+      "cultivation_path": "N/A (android)",
+      "special_abilities": [
+        "Rocket Launcher Arm: Hidden rocket launcher compartment in one arm",
+        "Reinforced Metal Body: Near-bulletproof, laser-resistant chassis beneath synthetic skin",
+        "Enhanced Reflexes: Android-speed reaction time"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "alchemo", "type": "family"},
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "sarah-orphan", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 75",
+      "status": "alive",
+      "tags": ["android", "genius-creation", "caretaker"]
+    },
+    {
+      "id": "sarah-orphan",
+      "name": "Sarah",
+      "aliases": ["Sarah"],
+      "role": "supporting",
+      "gender": "female",
+      "age": "10-12",
+      "description": "Brunette girl in an oversized pink dress. Fiercely protective of the orphanage and its children. Treats Len as her mother figure ('Mama').",
+      "personality": "Stubborn, courageous for her age, pragmatic about violence in a sad way. Idolizes Len.",
+      "background": "De facto leader among the Rust Town orphan children. Hid a crappy revolver under her dress and threatened Ryan when he first arrived.",
+      "current_power_level": "Normal human child",
+      "cultivation_path": "None",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "len-sabino", "type": "family"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 14",
+      "status": "alive",
+      "tags": ["child", "orphan", "civilian"]
+    },
+    {
+      "id": "giulia-costa",
+      "name": "Giulia Costa",
+      "aliases": ["Giulia"],
+      "role": "minor",
+      "gender": "female",
+      "age": "child (under 10)",
+      "description": "Small blonde girl who carries books rather than toys when evacuating. Shy and avoids eye contact with Genomes. Calls Leo Hargraves 'Uncle Leo.'",
+      "personality": "Quiet, bookish, gentle.",
+      "background": "Daughter of Julie and Bruno Costa. A second-generation Genome with resistance to sickness, hardened organs, accelerated healing. Her death would trigger Bloodstream's extinction event.",
+      "current_power_level": "Second-generation Genome (latent enhanced physiology)",
+      "cultivation_path": "Second-generation Genome",
+      "special_abilities": [
+        "Enhanced Physiology: Resistance to disease, toxins, hardened organs, accelerated healing from birth"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 29",
+      "status": "alive",
+      "tags": ["second-gen-genome", "child", "key-to-prophecy"]
+    },
+    {
+      "id": "renesco",
+      "name": "Renesco",
+      "aliases": ["Renesco"],
+      "role": "minor",
+      "gender": "male",
+      "age": "50s-60s",
+      "description": "Balding, wrinkled old man with tanned skin. Stands behind the counter of the Jolie Wrangler bar.",
+      "personality": "Surly, suspicious, but ultimately pragmatic. Accepts bribes.",
+      "background": "Barman at the Jolie Wrangler pub, an Augusti front. Was the recipient of Ryan's first delivery and the first source of information about Len in New Rome.",
+      "current_power_level": "Normal human",
+      "cultivation_path": "None",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 1",
+      "status": "alive",
+      "tags": ["civilian", "barman", "augusti-associate"]
+    },
+    {
+      "id": "paulie",
+      "name": "Paulie",
+      "aliases": ["Paulie"],
+      "role": "minor",
+      "gender": "male",
+      "age": "40s",
+      "description": "Scrawny, balding little man. Half-French, half-British. Wears goggles. Runs a disorganized garage-shop in Rust Town.",
+      "personality": "Bitter about Ryan destroying his old workshop. Grudgingly helpful.",
+      "background": "Independent tech dealer in Rust Town who knew Len when she operated as the Underdiver. Gave Ryan crucial information about Len's history. His wish—to have the Meta-Gang removed from the Junkyard—was Ryan's first major promise to fulfill.",
+      "current_power_level": "Normal human",
+      "cultivation_path": "None",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "ally"},
+        {"character_id": "len-sabino", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 7",
+      "status": "alive",
+      "tags": ["civilian", "tech-dealer", "rust-town"]
+    },
+    {
+      "id": "frank-the-mad",
+      "name": "Frank",
+      "aliases": ["Frank the Mad", "Agent Frank", "Franky"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Three-and-a-half meters tall metal titan with a patriotic delusion of being an American president's secret service agent.",
+      "personality": "Delusional patriot who genuinely believes Ryan is the President of the United States. Extremely loyal to 'Mr. President.'",
+      "background": "Meta-Gang Psycho. Among the survivors of the Junkyard battle who became Ryan's most loyal soldier in his 'Meta-Gang President' regime.",
+      "current_power_level": "Psycho / Metal Titan",
+      "cultivation_path": "Psycho / Iron Body",
+      "special_abilities": [
+        "Iron Body: Near-invulnerable metal physique",
+        "Superhuman Strength: Can toss humans through buildings"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "ryan-romano", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 11",
+      "status": "alive",
+      "tags": ["psycho", "iron-body", "loyal", "deluded", "meta-gang"]
+    },
+    {
+      "id": "mongrel",
+      "name": "Mongrel",
+      "aliases": ["Mongrel"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "unknown",
+      "description": "A disfiguring metamorph Psycho. Tumors, extra powers, unstable form.",
+      "personality": "Feral, bestial. Has lost most higher cognitive functions due to Elixir conflicts.",
+      "background": "A Meta-Gang Psycho who consumed a White Elixir plus almost all knockoff Elixirs available. The result is a being with potentially unlimited powers but a destroyed mind.",
+      "current_power_level": "Psycho / Unlimited Multi-Power (deteriorated)",
+      "cultivation_path": "White + all knockoff Elixirs",
+      "special_abilities": [
+        "Multi-Power Channeling: White Elixir allows him to use more than two abilities simultaneously",
+        "Full mutation: Physical form distorted beyond recognition by Elixir conflicts"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 14",
+      "status": "alive",
+      "tags": ["psycho", "white-elixir", "multi-power", "meta-gang", "feral"]
+    },
+    {
+      "id": "mosquito",
+      "name": "Mosquito",
+      "aliases": ["Mosquito"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Can take a monstrous mosquito-monster form with claw-like hands and wings. Can grow enormous when fully transformed.",
+      "personality": "Eager for violence and blood.",
+      "background": "Meta-Gang Psycho with insect transformation. Known for destroying Ryan's Plymouth Fury in one loop.",
+      "current_power_level": "Psycho / Giant Insect Transformation",
+      "cultivation_path": "Psycho / Insectoid Morph",
+      "special_abilities": [
+        "Insect Transformation: Can become a massive mosquito-monster form with claws, wings, and enormous size"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"},
+        {"character_id": "ryan-romano", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 4",
+      "status": "alive",
+      "tags": ["psycho", "insect", "meta-gang"]
+    },
+    {
+      "id": "the-land",
+      "name": "The Land",
+      "aliases": ["The Land"],
+      "role": "antagonist",
+      "gender": "female",
+      "age": "unknown",
+      "description": "A mouthless humanoid with baby-like short legs and a humongous, hairless head. Her true form is almost entirely made of solid dirt with glowing yellow eyes.",
+      "personality": "Not much personality shown; communicates mainly through gestures.",
+      "background": "Meta-Gang Psycho with geokinetic powers. Can fuse with and control enormous areas of earth and stone.",
+      "current_power_level": "Psycho / Geokinesis",
+      "cultivation_path": "Psycho / Earth Fusion",
+      "special_abilities": [
+        "Earth Fusion: Merges with the earth itself to control and manipulate stone, soil, and dirt over large areas"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["meta-gang"],
+      "relationships": [
+        {"character_id": "adam-the-ogre", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 37",
+      "status": "alive",
+      "tags": ["psycho", "geokinetic", "earth-fusion", "meta-gang"]
+    },
+    {
+      "id": "mechron",
+      "name": "Mechron",
+      "aliases": ["Mechron"],
+      "role": "antagonist",
+      "gender": "male",
+      "age": "70s (at death)",
+      "description": "Wizened old man in simple white clothes who needs a black cane to walk. Small, unimposing.",
+      "personality": "Bitter, trauma-fueled, convinced he alone could have saved the world. Driven by grief over the Srebrenica massacre.",
+      "background": "The rogue Genius dictator who bombed most of Europe and caused the Genome Wars. Specializes in multi-agent AI systems. Created orbital weapons (Kujata and Bahamut satellites), a biomechanical gravity-dragon, and vast drone armies. Was killed by Leo Hargraves when he accidentally opened a portal to a dark dimension.",
+      "current_power_level": "Blue Genius / Multi-Agent AI Systems",
+      "cultivation_path": "Blue Genius / AI Systems Master",
+      "special_abilities": [
+        "Multi-Agent AI: Creates AI systems that develop new technologies across all fields",
+        "Force Field Generation: Personal and structural force fields",
+        "Particle Accelerator: His fortress doubles as a dimensional collider"
+      ],
+      "owned_artifacts": ["mechron-fortress", "bahamut-satellite", "kujata-satellite"],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "enemy"}
+      ],
+      "first_appearance": "Ch. 41",
+      "status": "dead",
+      "tags": ["blue-genius", "ai-systems", "warlord", "historical-villain", "dead"]
+    },
+    {
+      "id": "nidhogg",
+      "name": "Nidhogg",
+      "aliases": ["Nidhogg"],
+      "role": "supporting",
+      "gender": "male",
+      "age": "unknown",
+      "description": "A Danish warlord who can transform into a kilometers-long near-invulnerable reptilian serpent.",
+      "personality": "Terse, warrior-like. Focused on results.",
+      "background": "A Green Genome warlord who allied with the Carnival to fight Mechron.",
+      "current_power_level": "Green Genome / Titan Serpent Transformation",
+      "cultivation_path": "Green Genome / World Serpent",
+      "special_abilities": [
+        "Serpent Transformation: Transforms into a kilometers-long near-invulnerable serpent",
+        "Corpse Absorption: Absorbs defeated enemies to regenerate lost biomass",
+        "Acid Spit: Can melt fortress walls"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 40",
+      "status": "alive",
+      "tags": ["green-genome", "serpent", "warlord", "carnival-ally"]
+    },
+    {
+      "id": "julie-costa",
+      "name": "Julie Costa",
+      "aliases": ["Julie"],
+      "role": "minor",
+      "gender": "female",
+      "age": "30s",
+      "description": "A biochemist with biokinetic powers. Murdered by Augustus.",
+      "personality": "Optimistic, compassionate, scientific. Deeply loved her husband Bruno and daughter Giulia.",
+      "background": "Biochemist who received an Elixir through a Wonderbox. Married Bruno Costa. Was murdered by Augustus when he came to take Narcinia. Giulia's mother.",
+      "current_power_level": "Green Genome / DNA/Biokinesis",
+      "cultivation_path": "Green Genome / Genetic Modifier",
+      "special_abilities": [
+        "Biokinesis: Can interact with and modify organic DNA",
+        "Environmental Purification: Developed modified plants capable of purifying polluted ecosystems"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [
+        {"character_id": "giulia-costa", "type": "family"},
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 29",
+      "status": "dead",
+      "tags": ["green-genome", "deceased", "mother", "biokinesis"]
+    },
+    {
+      "id": "alice-martel",
+      "name": "Alice Martel",
+      "aliases": ["Pythia"],
+      "role": "minor",
+      "gender": "female",
+      "age": "40s-50s",
+      "description": "The original Pythia. Co-founder of the Carnival with Leo. Now recovering from injuries sustained fighting Mechron.",
+      "personality": "Her presence is mostly through references and the legacy she left.",
+      "background": "One of the founding members of the Carnival alongside Leo Hargraves. A powerful precognitive Genome who compiled detailed predictions of global threats including Bloodstream's extinction scenario. Severely injured during the battle with Mechron. Her son Mathias (Shroud) is carrying on her mission.",
+      "current_power_level": "Violet Genome / Precognition (Pythia)",
+      "cultivation_path": "Violet Genome / Oracle",
+      "special_abilities": [
+        "Precognition: Could see the future with significant detail; compiled detailed threat assessments for years"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"},
+        {"character_id": "mathias-shroud", "type": "family"}
+      ],
+      "first_appearance": "Ch. 91",
+      "status": "alive",
+      "tags": ["violet-genome", "precognition", "carnival", "original-member"]
+    },
+    {
+      "id": "the-cossack",
+      "name": "The Cossack",
+      "aliases": ["The Cossack"],
+      "role": "minor",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Member of the Carnival. Man of few words and extreme directness. Moves at incredible speed.",
+      "personality": "Laconic, action-oriented, focused on efficiency.",
+      "background": "Carnival member who fought alongside Leo in major battles. Caught the Kujata satellite single-handedly by flying after it at g-force crushing speeds.",
+      "current_power_level": "Red Genome / Speed Flight",
+      "cultivation_path": "Red Genome / Supersonic Flyer",
+      "special_abilities": [
+        "Supersonic Flight: Can move at speeds sufficient to catch orbital launch vehicles",
+        "G-Force Resistance: Capable of enduring crushing g-forces"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 40",
+      "status": "alive",
+      "tags": ["red-genome", "carnival", "speed"]
+    },
+    {
+      "id": "ace",
+      "name": "Ace",
+      "aliases": ["Ace"],
+      "role": "minor",
+      "gender": "female",
+      "age": "unknown",
+      "description": "Carnival member. Focus on evacuation and support roles during major battles.",
+      "personality": "Organized and empathetic.",
+      "background": "Member of the Carnival. Fought alongside Leo at Mechron's fortress.",
+      "current_power_level": "Unknown Genome",
+      "cultivation_path": "Unknown",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 40",
+      "status": "alive",
+      "tags": ["carnival", "support"]
+    },
+    {
+      "id": "stitch",
+      "name": "Stitch",
+      "aliases": ["Stitch"],
+      "role": "minor",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Wears a plague doctor costume. Carnival's biologist/medic.",
+      "personality": "Precise, clinical, calm even when delivering horrifying information.",
+      "background": "Carnival member specializing in biological threats. Analyzed Bloodstream's samples and discovered he has no biological upper limit to his clones.",
+      "current_power_level": "Unknown (possibly Blue Genius)",
+      "cultivation_path": "Unknown / Biologist",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 90",
+      "status": "alive",
+      "tags": ["carnival", "biologist", "medic"]
+    },
+    {
+      "id": "mr-wave",
+      "name": "Mr. Wave",
+      "aliases": ["Mr. Wave"],
+      "role": "minor",
+      "gender": "male",
+      "age": "unknown",
+      "description": "Boastful Genome. Ryan finds him 'cringey' but admits to finding him cool when truth-compelled.",
+      "personality": "Arrogant and show-off. Has hard limits about harming children.",
+      "background": "Carnival member and well-known superhero.",
+      "current_power_level": "Unknown high-tier Genome",
+      "cultivation_path": "Unknown",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["carnival"],
+      "relationships": [
+        {"character_id": "leo-hargraves", "type": "ally"}
+      ],
+      "first_appearance": "Ch. 90",
+      "status": "alive",
+      "tags": ["carnival", "hero"]
+    },
+    {
+      "id": "jean-stephanie",
+      "name": "Jean-Stéphanie",
+      "aliases": ["His Highness Jean-Stéphanie the First, Sovereign Prince of Monaco"],
+      "role": "minor",
+      "gender": "male",
+      "age": "unknown",
+      "description": "A creature/Genome who rules Monaco. Described as having elongated arms, distorted facial features, and wearing a suit with a fedora.",
+      "personality": "Unknown—communicates only through announcements over loudspeakers and his clown servants.",
+      "background": "The ruler of Monaco after the apocalypse. Claims to have ascended to the throne 'by virtue of everyone else being dead.' Commands an army of golden-masked clown constructs who eat unwelcome guests. Monaco is a place 'nobody returns from.'",
+      "current_power_level": "Unknown / Possibly extremely powerful",
+      "cultivation_path": "Unknown",
+      "special_abilities": [
+        "Clown Constructs: Commands masked clown entities that can disable Genome powers within Monaco's territory",
+        "Power Negation Zone: Something within Monaco prevents Genome powers from activating"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [],
+      "first_appearance": "Ch. 64",
+      "status": "alive",
+      "tags": ["mysterious", "ruler", "monaco", "dangerous"]
+    },
+    {
+      "id": "minerva",
+      "name": "Minerva",
+      "aliases": ["Minerva"],
+      "role": "minor",
+      "gender": "female",
+      "age": "young",
+      "description": "Pluto's niece. Blue Genome.",
+      "personality": "Not directly depicted.",
+      "background": "Pluto's niece with the ability to interact with parallel universes. Pluto wonders how her ability would interact with Ryan's temporal powers.",
+      "current_power_level": "Blue Genome / Parallel Universe Interaction",
+      "cultivation_path": "Blue Genome",
+      "special_abilities": [
+        "Parallel Universe Interaction: Can interact with alternate realities"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "pluto", "type": "family"}
+      ],
+      "first_appearance": "Ch. 20",
+      "status": "alive",
+      "tags": ["blue-genome", "august-family", "parallel-universe"]
+    },
+    {
+      "id": "sparrow",
+      "name": "Sparrow",
+      "aliases": ["Sparrow"],
+      "role": "minor",
+      "gender": "female",
+      "age": "20s",
+      "description": "Pluto's bodyguard. Has a black uniform and assault rifle. Thoroughly professional.",
+      "personality": "Loyal, competent.",
+      "background": "Pluto's personal bodyguard and hunting partner.",
+      "current_power_level": "Enhanced human / Genome (type unspecified)",
+      "cultivation_path": "Unknown",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["augusti"],
+      "relationships": [
+        {"character_id": "pluto", "type": "subordinate"}
+      ],
+      "first_appearance": "Ch. 12",
+      "status": "alive",
+      "tags": ["bodyguard", "augusti"]
+    },
+    {
+      "id": "eva-fabre",
+      "name": "Eva Fabre",
+      "aliases": ["Eva Fabre"],
+      "role": "minor",
+      "gender": "female",
+      "age": "appears 30s (hasn't aged since 1992)",
+      "description": "Short black hair, blue eyes, unremarkable appearance. Has not aged in over a decade. Can teleport across continents within minutes.",
+      "personality": "Unknown. Tracks suggest methodical and dangerous.",
+      "background": "Former lead geneticist at France's secret biological weapons laboratory 'Station Orpheon' in Antarctica. In 1992, a purple flash and crash preceded all 22 other researchers dying. Eva's body was never found. In the present she distributes fake vaccines through 'New H' that turn recipients into monsters.",
+      "current_power_level": "Unknown (Violet-class teleportation minimum)",
+      "cultivation_path": "Unknown",
+      "special_abilities": [
+        "Global Teleportation: Can move between two sides of the Earth within an hour",
+        "Anti-aging: Has not visibly aged since 1992"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [],
+      "first_appearance": "Ch. 101",
+      "status": "unknown",
+      "tags": ["mysterious", "antagonist", "teleporter", "immortal", "villain"]
+    },
+    {
+      "id": "cardinal-andreas-torque",
+      "name": "Cardinal Andreas Torque",
+      "aliases": ["Cardinal Torque"],
+      "role": "minor",
+      "gender": "male",
+      "age": "60s-70s",
+      "description": "Catholic Cardinal. Elderly, deeply experienced.",
+      "personality": "Methodical, deeply religious, pragmatic about evil.",
+      "background": "Leader of the Malleus Maleficarum, a Church organization investigating supernatural and Genome incidents. Currently tracking Eva Fabre and the monster incidents.",
+      "current_power_level": "Normal human",
+      "cultivation_path": "None",
+      "special_abilities": [],
+      "owned_artifacts": [],
+      "faction_ids": ["malleus-maleficarum"],
+      "relationships": [],
+      "first_appearance": "Ch. 101",
+      "status": "alive",
+      "tags": ["non-genome", "church", "investigator"]
+    },
+    {
+      "id": "the-alchemist",
+      "name": "The Alchemist",
+      "aliases": ["The Alchemist"],
+      "role": "minor",
+      "gender": "unknown",
+      "age": "unknown",
+      "description": "Never directly seen in the novel. Distributed Wonderboxes containing Elixirs to seemingly random people around the world, setting off the Genome Wars.",
+      "personality": "Inscrutable. Possibly intended to create a new race of superhumans capable of breeding.",
+      "background": "The mysterious figure responsible for creating and distributing the Elixirs that gave humans superpowers, triggering the Genome Wars. The Elixirs behave like viruses—alive, intelligent to a degree, and selective in their bonding.",
+      "current_power_level": "Unknown",
+      "cultivation_path": "Unknown / Elixir Creator",
+      "special_abilities": [
+        "Elixir Creation: Created the Wonderboxes and their Elixirs that grant superpowers"
+      ],
+      "owned_artifacts": [],
+      "faction_ids": [],
+      "relationships": [],
+      "first_appearance": "Ch. 25",
+      "status": "unknown",
+      "tags": ["mysterious", "elixir-creator", "world-changer"]
+    }
+  ],
+  "power_system": {
+    "name": "Elixir Genome System",
+    "description": "Superpowers come from Elixirs—living semi-intelligent substances distributed in 'Wonderboxes' by the mysterious Alchemist during 'Last Easter.' When an Elixir bonds to a human, it rewrites the host's DNA to make them the vessel of a unique power drawn from a parallel dimension corresponding to the Elixir's color. Each power is unique (no two Genomes have exactly the same ability) though powers may be variants. An Elixir only bonds to one person even when divided into doses. Normal humans cannot bond with a second Elixir without conflict; taking two causes the Elixirs to fight over the genetic code, producing 'Psychos'—beings with two powers but unstable genetics who must periodically inject more Elixirs to stabilize. Rare individuals (like Augustus) have a genetic quirk allowing two powers to coexist without conflict. Knockoff Elixirs ('serums') are imperfect copies that give a fraction of a real power. Elixirs guide their hosts subtly and compel Psychos to seek more doses. Genomes are resistant to disease and age slowly.",
+    "tiers": [
+      {
+        "rank": 1,
+        "name": "Normal Human",
+        "description": "Baseline humanity with no Elixir bonding.",
+        "sub_stages": ["Civilian"],
+        "power_feats": ["No superhuman abilities"],
+        "notable_individuals": [],
+        "breakthrough_requirements": "N/A",
+        "lifespan_extension": "N/A"
+      },
+      {
+        "rank": 2,
+        "name": "Knockoff Genome",
+        "description": "Human who consumed a synthetic 'serum' (knockoff Elixir), gaining a weak fraction of a genuine power. Widely marketed products like the 'Hercules Elixir' and 'Tempest' serum fall here.",
+        "sub_stages": ["Single-ability (diminished)"],
+        "power_feats": ["Minor telekinesis", "Weak aerokinesis", "Modest enhanced strength"],
+        "notable_individuals": [],
+        "breakthrough_requirements": "Purchase and consumption of a commercial Knockoff Elixir",
+        "lifespan_extension": "Minimal if any"
+      },
+      {
+        "rank": 3,
+        "name": "Genome (Standard)",
+        "description": "Human who bonded with a genuine Alchemist Elixir. Possesses one unique superpower and general physical enhancement.",
+        "sub_stages": ["Early mastery", "Experienced", "Expert", "Master"],
+        "power_feats": ["Highly individual based on power type; generally superhuman in their field"],
+        "notable_individuals": ["ryan-romano", "len-sabino", "wyvern-nora", "felix-manada", "zanbato-jamie", "lanka-sphere", "livia-augusti", "fortuna-manada"],
+        "breakthrough_requirements": "Bonding with an Alchemist Elixir; no repeatable process known",
+        "lifespan_extension": "Extended; exact duration unknown"
+      },
+      {
+        "rank": 4,
+        "name": "Psycho (Dual Elixir)",
+        "description": "A human who has taken two or more Elixirs. Gains two powers but their genetic code becomes permanently unstable. Must periodically inject more Elixirs to stabilize. Often experience mental deterioration and physical mutation.",
+        "sub_stages": ["Early-stage Psycho (still functional)", "Mid-stage (significant mutation)", "Late-stage (severely deteriorated)"],
+        "power_feats": ["Two or more superhuman abilities", "Physical mutations", "Periodic Elixir dependency"],
+        "notable_individuals": ["adam-the-ogre", "psyshock", "ghoul", "acid-rain-helen", "sarin", "mosquito", "frank-the-mad", "mongrel", "bloodstream"],
+        "breakthrough_requirements": "Consuming a second genuine Elixir after already bonding with one",
+        "lifespan_extension": "Shortened without regular Elixir doses"
+      },
+      {
+        "rank": 5,
+        "name": "Unique Dual Genome (No Side Effects)",
+        "description": "Extraordinarily rare individuals who can channel two Elixir powers without Psycho deterioration. The two Elixirs coexist independently rather than conflicting.",
+        "sub_stages": ["Stable Dual Power"],
+        "power_feats": ["Two full superhuman abilities with no mental or physical deterioration"],
+        "notable_individuals": ["augustus"],
+        "breakthrough_requirements": "Specific genetic predisposition; cannot be reliably replicated",
+        "lifespan_extension": "Normal Genome lifespan"
+      },
+      {
+        "rank": 6,
+        "name": "Genius (Blue Genome)",
+        "description": "Humans whose Elixir enhances their intelligence to superhuman levels, connecting them to the 'Akashic Records'—a dimension of pure information. The most dangerous long-term due to their technological output.",
+        "sub_stages": ["Emerging Genius", "Productive Genius", "Master Genius", "Reality-Altering Genius"],
+        "power_feats": ["Technology that defies current scientific understanding", "Artificial intelligence creation", "Bioengineering", "Dimensional research"],
+        "notable_individuals": ["len-sabino", "vulcan-sharif", "dr-tyrano", "alchemo", "mechron"],
+        "breakthrough_requirements": "Blue Elixir bonding",
+        "lifespan_extension": "Standard Genome extension"
+      }
+    ],
+    "special_constitutions": [
+      {
+        "id": "unique-dual-genome",
+        "name": "Unique Dual Genome Constitution",
+        "rarity": "Ancient",
+        "description": "An extraordinarily rare genetic trait that allows a human to bond with two Elixirs without the conflicts that cause the Psycho condition. The two Elixirs modify different DNA sequences or otherwise coexist independently.",
+        "known_bearers": ["augustus"],
+        "advantages": ["Two full superpowers with no mental deterioration", "No Elixir addiction", "Full cognitive function"],
+        "disadvantages": ["Extremely rare; cannot be reliably identified or replicated"],
+        "lore": "Augustus is the most famous known case. Dr. Tyrano noted that Augustus's two powers lack obvious synergy, suggesting they truly coexist independently."
+      },
+      {
+        "id": "second-gen-genome",
+        "name": "Second-Generation Genome",
+        "rarity": "Rare",
+        "description": "Children born to two Genome parents inherit secondary mutations without taking an Elixir: enhanced healing, resistance to disease and toxins, hardened organs.",
+        "known_bearers": ["giulia-costa"],
+        "advantages": ["Natural disease resistance", "Accelerated healing", "May eventually gain full powers without an Elixir"],
+        "disadvantages": ["Uncertain full power manifestation"],
+        "lore": "Julie Costa suspected the Alchemist's goal was to create a new breeding race of superhumans, making the Second-Generation the fulfillment of this agenda."
+      }
+    ],
+    "daos_or_paths": [
+      {
+        "id": "violet-path",
+        "name": "Violet Path (Temporal Powers)",
+        "description": "Powers drawn from a Violet dimension of pure time and probability. Violet Genomes can manipulate time in various ways: stopping it, skipping it forward, rewinding to save points, or perceiving the 'Purple World' between moments. Violet powers interfere with each other when two Violet Genomes use their abilities simultaneously.",
+        "known_practitioners": ["ryan-romano", "livia-augusti", "fortuna-manada", "acid-rain-helen", "pluto", "alice-martel"],
+        "associated_techniques": ["quicksave-ability", "timestop", "time-skip-livia", "acid-teleport", "death-will"]
+      },
+      {
+        "id": "red-path",
+        "name": "Red Path (Energy Powers)",
+        "description": "Powers drawn from a Red dimension of energy, plasma, and gravity. Includes fire, plasma beams, gravity manipulation, light swords, and electrical powers. The most combat-oriented path.",
+        "known_practitioners": ["leo-hargraves", "zanbato-jamie", "alphonse-fallout"],
+        "associated_techniques": ["plasma-beam", "solar-transformation", "crimson-katana"]
+      },
+      {
+        "id": "blue-path",
+        "name": "Blue Path (Intellect Powers / Akashic Records)",
+        "description": "Powers drawn from a Blue dimension of pure information called the Akashic Records. Blue Genomes become Geniuses with superhuman intelligence. Some develop perception-based powers like precognition.",
+        "known_practitioners": ["len-sabino", "vulcan-sharif", "dr-tyrano", "alchemo", "mechron", "luigi-crypto"],
+        "associated_techniques": ["truth-compulsion"]
+      },
+      {
+        "id": "green-path",
+        "name": "Green Path (Organic Powers)",
+        "description": "Powers drawn from a Green dimension of organic matter. Green Genomes gain power over living things: animals, plants, their own biological transformation, or even DNA. The most diverse path.",
+        "known_practitioners": ["wyvern-nora", "timmy-panda", "ki-jung-chitter", "narcinia-manada", "nidhogg", "julie-costa"],
+        "associated_techniques": []
+      },
+      {
+        "id": "orange-path",
+        "name": "Orange Path (Chemical/Matter Powers)",
+        "description": "Powers drawn from an Orange dimension of chemical manipulation. Orange Genomes can manipulate chemicals, create energy spheres, summon acid, or charge objects with explosive energy.",
+        "known_practitioners": ["lanka-sphere", "felix-manada"],
+        "associated_techniques": []
+      },
+      {
+        "id": "white-path",
+        "name": "White Path (Adaptive/Mimicry Powers)",
+        "description": "Extremely rare White Elixirs grant adaptive or mimicry-based powers. The White Genome can potentially channel multiple powers. Mongrel's White Elixir allowed him to use powers beyond the normal two-Elixir limit.",
+        "known_practitioners": ["mongrel", "wardrobe-yukiko"],
+        "associated_techniques": []
+      }
+    ],
+    "floor_records": [],
+    "regression_loops": [
+      {
+        "note": "The novel tracks Ryan's loops by date. May 8th 2020 is the primary save point.",
+        "loop_number": 1,
+        "trigger": "Ryan's first death in New Rome (ice spear from Ghoul through the chest)",
+        "key_changes": ["Ryan learns Ghoul's ambush pattern", "Befriends Renesco"],
+        "outcome": "Ryan successfully completes delivery and defeats Ghoul using car + baseball bat"
+      },
+      {
+        "loop_number": 2,
+        "trigger": "Ryan killed by Psyshock's allies (DNA tracker ambush at ship graveyard)",
+        "key_changes": ["Learns about Shroud and the Carnival's presence", "Gains information on Len's location"],
+        "outcome": "Fails; Psyshock survives and Adam gets orbital weapon access"
+      },
+      {
+        "loop_number": 3,
+        "trigger": "New Rome destroyed by Bahamut orbital laser after Meta-Gang gains full bunker control",
+        "key_changes": ["Ryan defeats Adam but New Rome is already destroyed", "Len presumably dead on Ischia"],
+        "outcome": "Bad Ending — Ryan resets; learns he must address bunker sooner"
+      },
+      {
+        "loop_number": 4,
+        "trigger": "Psyshock body-jumps into Len via brain-transfer procedure",
+        "key_changes": ["Len's brain-transfer works in principle", "Psyshock hijacks her body"],
+        "outcome": "Psyshock captures Ryan; Ryan eventually resets"
+      },
+      {
+        "loop_number": 5,
+        "trigger": "Dynamis submarine forces and Alphonse threaten the underwater base",
+        "key_changes": ["Len activated brain-transfer; Len survives but procedure has side effects"],
+        "outcome": "Partial success — proof of concept works"
+      },
+      {
+        "loop_number": 6,
+        "trigger": "Final loop / Perfect Run",
+        "key_changes": ["Len successfully transfers her memories across loops via improved brain-copy machine", "Ryan reunites with Len who remembers", "Adam defeated", "Dynamis corruption exposed", "Mechron bunker secured"],
+        "outcome": "SUCCESS — The Perfect Run achieved; Len remembers Ryan; Ryan no longer alone"
+      }
+    ]
+  },
+  "techniques": [
+    {
+      "id": "quicksave-ability",
+      "name": "Quicksave (Save Point)",
+      "type": "passive",
+      "tier": "Unique Violet",
+      "rank_required": "Violet Genome",
+      "description": "Ryan can designate a specific moment in time as a 'save point.' Upon death or activation, his consciousness returns to that moment with full memory of all events that occurred after it.",
+      "effects": ["Restores Ryan to save point moment on death", "Retains all memories from the erased loop", "The rest of the universe's state reverts to the save point moment"],
+      "weaknesses": ["Can only set one save point at a time", "Save point requires conscious action to establish", "Cannot carry physical objects or other people across loops"],
+      "origin": "Gained with Ryan's Violet Elixir",
+      "known_users": ["ryan-romano"],
+      "lore": "The save point is Ryan's ace in the hole that he never reveals. Over centuries of loops, he accumulated vast knowledge through repetition. The ability also accumulates 'metaphysical weight'—the impression of great age detected by Pluto."
+    },
+    {
+      "id": "timestop",
+      "name": "Time Stop",
+      "type": "ability",
+      "tier": "Unique Violet",
+      "rank_required": "Violet Genome",
+      "description": "Ryan momentarily freezes all observable time, creating a 'Purple World' of frozen moments in which he can move freely.",
+      "effects": ["Freezes all matter and energy except Ryan himself", "Creates the 'Purple World' (violet-tinted frozen reality)", "Allows repositioning, aiming, and counterattacking within frozen time"],
+      "weaknesses": ["Requires conscious activation", "Acid Rain and other Violet Genomes can sense and react to its activation", "Cannot stop time within Monaco's territory"],
+      "origin": "Violet Elixir / Violet dimension",
+      "known_users": ["ryan-romano"],
+      "lore": "The Purple World is the frozen-time space between moments. Acid Rain, also a Violet Genome, can perceive and partially act within it, making her one of Ryan's hardest counters."
+    },
+    {
+      "id": "time-skip-livia",
+      "name": "Time Skip",
+      "type": "ability",
+      "tier": "Unique Violet",
+      "rank_required": "Violet Genome",
+      "description": "Livia Augusti can fast-forward time in her local area, causing targets (and herself) to skip forward in time without experiencing the intervening moments.",
+      "effects": ["Affected targets lose consciousness of skipped time", "Can use skipped time to reposition herself or strike", "Disrupts even Ryan's memory of events during the skip"],
+      "weaknesses": ["Unknown limits on distance and duration"],
+      "origin": "Livia's Violet Elixir",
+      "known_users": ["livia-augusti"],
+      "lore": "Ryan speculates Livia's mother was the Violet Genome who contributed this power, and Augustus only has the lightning side."
+    },
+    {
+      "id": "acid-teleport",
+      "name": "Acid Rain Teleportation",
+      "type": "movement",
+      "tier": "Psycho Dual",
+      "rank_required": "Psycho (Orange + Violet)",
+      "description": "Acid Rain can switch her position with any raindrop within her acid cloud's radius, effectively teleporting anywhere inside her weather effect.",
+      "effects": ["Teleportation within acid cloud range", "Can appear from any angle within the rain", "Acts faster than Ryan's timestop (smaller spatial scope)"],
+      "weaknesses": ["Limited to her acid cloud's range", "Cannot teleport outside the rain boundary"],
+      "origin": "Acid Rain's dual Psycho powers",
+      "known_users": ["acid-rain-helen"],
+      "lore": "The interference between Acid Rain's Violet teleportation and Ryan's Violet time-stop made her one of his most dangerous opponents."
+    },
+    {
+      "id": "solar-transformation",
+      "name": "Solar Transformation",
+      "type": "passive",
+      "tier": "Red Extreme",
+      "rank_required": "Red Genome (Master)",
+      "description": "Leo Hargraves can transform his entire body into a living star, becoming a stellar plasma entity. His heart-core—a dense gravitational center—maintains his body's coherence during transformation.",
+      "effects": ["Transforms body into living plasma/stellar fire", "Near-invulnerability in solar form", "Plasma beams powerful enough to melt fortress walls", "Flight at mach speeds"],
+      "weaknesses": ["Dark dimensional forces can consume even his solar body", "The dragon's gravitational field could suppress his movement"],
+      "origin": "Leo's Red Elixir",
+      "known_users": ["leo-hargraves"],
+      "lore": "Even going supernova couldn't destroy Augustus in one loop. The Heart-Core is the only thing keeping Leo's plasma body from dispersing."
+    },
+    {
+      "id": "plasma-beam",
+      "name": "Plasma Beam",
+      "type": "attack",
+      "tier": "Red",
+      "rank_required": "Red Genome",
+      "description": "Ranged projection of superheated plasma capable of melting steel and destroying force fields.",
+      "effects": ["Melts metal on contact", "Can disable energy force fields"],
+      "weaknesses": ["Can be countered by sufficiently powerful force fields"],
+      "origin": "Leo's Red Elixir",
+      "known_users": ["leo-hargraves"],
+      "lore": ""
+    },
+    {
+      "id": "crimson-katana",
+      "name": "Crimson Light Katana",
+      "type": "attack",
+      "tier": "Red",
+      "rank_required": "Red Genome",
+      "description": "Zanbato manifests a perfect replica of a katana made of solid crimson light.",
+      "effects": ["Sharp enough to cut through most materials", "Appears on command"],
+      "weaknesses": [],
+      "origin": "Zanbato's Red Elixir",
+      "known_users": ["zanbato-jamie"],
+      "lore": ""
+    },
+    {
+      "id": "truth-compulsion",
+      "name": "Truth Compulsion (Veritas)",
+      "type": "ability",
+      "tier": "Blue",
+      "rank_required": "Blue Genome",
+      "description": "Luigi's power forces anyone speaking to him to be compelled to tell the truth and cannot stop mid-sentence once they begin.",
+      "effects": ["Forces complete honesty in anyone addressing Luigi", "Cannot be resisted by will alone"],
+      "weaknesses": ["The person can decline to speak at all"],
+      "origin": "Luigi's Blue Elixir",
+      "known_users": ["luigi-crypto"],
+      "lore": "Ryan warned Luigi that someday he would ask the wrong question and get an answer he didn't want to hear."
+    },
+    {
+      "id": "death-will",
+      "name": "Death Will",
+      "type": "ability",
+      "tier": "Violet Extreme",
+      "rank_required": "Violet Genome (Extreme)",
+      "description": "Pluto can will any being to die, with no warning, no protection, and no counter according to available information.",
+      "effects": ["Instant death to the target with no mechanism described", "No physical contact required"],
+      "weaknesses": ["Unknown limits; Ryan's save point allows him to 'survive' it by reverting"],
+      "origin": "Pluto's Violet Elixir",
+      "known_users": ["pluto"],
+      "lore": "She also has an 'age sensing' ability that lets her perceive a being's metaphysical weight of years—detecting Ryan's centuries of accumulated temporal mass."
+    },
+    {
+      "id": "blood-infection",
+      "name": "Blood Infection (Bloodstream Cloning)",
+      "type": "attack",
+      "tier": "Psycho Extreme",
+      "rank_required": "Psycho",
+      "description": "Bloodstream can infect any being with a circulatory system with a single drop of his blood, transforming the host into a clone of himself sharing his hive mind.",
+      "effects": ["Transforms infected hosts into Bloodstream clones", "Clones share his powers and hive mind awareness", "Can infect humans and animals", "No theoretical upper limit on clone count"],
+      "weaknesses": ["Psychological trauma limits his willing use of full potential", "Carnival's containment strategy: isolate and incinerate all clones simultaneously"],
+      "origin": "Bloodstream's Psycho dual Elixir",
+      "known_users": ["bloodstream"],
+      "lore": "The Carnival discovered Bloodstream's limit of 10 clones is entirely psychological. If fully unleashed, he could theoretically infect all life on Earth within months."
+    },
+    {
+      "id": "explosive-charge",
+      "name": "Explosive Charge",
+      "type": "attack",
+      "tier": "Orange",
+      "rank_required": "Orange Genome",
+      "description": "Felix charges any solid matter with energy on touch, causing detonation after a delay. With practice, can modulate charge size and timing.",
+      "effects": ["Charges objects with explosive Red Flux energy", "Delayed detonation (controllable timing)", "Can throw charged objects as grenades"],
+      "weaknesses": ["Requires physical contact to charge", "Cannot charge energy or non-solid matter"],
+      "origin": "Felix's Orange Elixir",
+      "known_users": ["felix-manada"],
+      "lore": "Dr. Tyrano identified that Felix's charges use 'Red Flux'—the same energy dimension that powers Leo and Zanbato's abilities, just expressed differently through his unique Orange Elixir."
+    },
+    {
+      "id": "panda-regen",
+      "name": "Panda Transformation and Regeneration",
+      "type": "passive",
+      "tier": "Green",
+      "rank_required": "Green Genome",
+      "description": "Timmy transforms into a massive panda and completely heals all injuries when switching between human and panda form.",
+      "effects": ["Full physical healing on every transformation", "Enhanced strength and durability in panda form", "Can be transformed repeatedly to heal"],
+      "weaknesses": ["In panda form can only eat bamboo (meat causes revulsion)"],
+      "origin": "Timmy's Green Elixir",
+      "known_users": ["timmy-panda"],
+      "lore": "Ryan's training regimen for the Panda: 'You get hit. You become panda. You heal. You hit back.' Simple but brutally effective."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "plymouth-fury",
+      "name": "Plymouth Fury (Ryan's Car)",
+      "type": "mount",
+      "grade": "Customized Genius-modified vehicle",
+      "description": "A highly customized red Plymouth Fury. Self-driving via a synthetic wetware brain in a hidden hatch under the hood. Also houses the Chronoradio. Frequently destroyed and replaced.",
+      "abilities": ["Self-driving via synthetic brain computer", "Reinforced chassis for ramming", "Hidden compartments for weapons and equipment", "Can be remotely summoned by Ryan's whistle"],
+      "origin": "Ryan's personal vehicle, modified over countless loops",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "Low",
+      "lore": "The car's synthetic brain is a wetware computer grown in a jar by a client Genius. It also powers the Chronoradio. The discovery of the brain in the car is a major comedic moment when Ryan's allies find it."
+    },
+    {
+      "id": "the-plushie",
+      "name": "The Rabbit Plushie (WMD)",
+      "type": "weapon",
+      "grade": "World-Ending Artifact",
+      "description": "A white rabbit plushie that is Ryan's most destructive weapon. When activated via a switch on its back, it releases an uncontrollable energy effect that devastates everything in range. Has since developed sentience and entered a suicidal phase.",
+      "abilities": ["Uncontrollable energy release capable of killing near-invulnerable beings", "Has begun developing independent behavior (reproduces, plays dead, commits increasingly creative suicide attempts)", "Cannot be permanently destroyed by conventional means"],
+      "origin": "Built by Ryan in an unsupervised experiment",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "High",
+      "lore": "The plushie is genuinely feared by knowledgeable parties. It has since developed enough awareness to attempt suicide (trying guns, ropes, water buckets with jumper cables)."
+    },
+    {
+      "id": "chronoradio",
+      "name": "Chronoradio",
+      "type": "tool",
+      "grade": "Genius-modified prototype",
+      "description": "A radio that can tap into alternate timelines and pick up broadcasts from parallel pasts. Powered by the synthetic brain in Ryan's Plymouth Fury. Used by Ryan to communicate across loops after Len develops the brain-transfer mechanism.",
+      "abilities": ["Receives radio broadcasts from alternate parallel timelines", "Used as a communication device across time loops after Len's modification"],
+      "origin": "Ryan assembled it from Genius-built components over multiple loops",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "It eventually becomes the device through which Len communicates with Ryan across loops, confirming the success of the brain-transfer at the start of the Perfect Run."
+    },
+    {
+      "id": "fisty-brothers",
+      "name": "The Fisty Brothers (Pisto-Gauntlets)",
+      "type": "weapon",
+      "grade": "Customized Genius-derived",
+      "description": "Metallic gauntlets with hydraulic piston-powered rams. Based on Mechron-era pisto-gauntlet designs, upgraded with electrical shock effects.",
+      "abilities": ["Piston-powered ram strike", "Electrical shock effect on impact", "Enhanced physical strikes against Genome-level durability targets"],
+      "origin": "Based on Mechron drone technology; Ryan's personal customization",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "Ryan calls them 'The Fisty Brothers' and claims they are the real A-bombs of the world."
+    },
+    {
+      "id": "coil-gun",
+      "name": "Coil Gun",
+      "type": "weapon",
+      "grade": "Customized",
+      "description": "A coilgun that fires projectiles faster and more powerfully than conventional firearms, capable of punching through Genome-level materials.",
+      "abilities": ["Fires magnetically-accelerated projectiles at extreme velocity", "Can penetrate robot armor and energy shields that bullets cannot"],
+      "origin": "Ryan's personal workshop",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": ""
+    },
+    {
+      "id": "laser-blade",
+      "name": "Laser Blade",
+      "type": "weapon",
+      "grade": "Advanced",
+      "description": "A handheld energy blade that can cut through most materials.",
+      "abilities": ["Projects a blade of focused energy", "Can cut through standard Genome-resistant materials"],
+      "origin": "Unknown; part of Ryan's gear",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": ""
+    },
+    {
+      "id": "a-bomb",
+      "name": "A-Bomb (Miniaturized Nuclear Device)",
+      "type": "weapon",
+      "grade": "WMD",
+      "description": "A miniaturized nuclear explosive that Ryan carries as a deterrent. Eventually manufactures several using Mechron's matter replicator.",
+      "abilities": ["Nuclear explosion on detonation", "Psychological deterrent"],
+      "origin": "Originally built by Ryan; later replicated using Mechron's bunker technology",
+      "current_owner": "ryan-romano",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "Vulcan immediately confiscated Ryan's original A-bomb as a 'respect tax' for insulting her about Wyvern."
+    },
+    {
+      "id": "underdiver-armor",
+      "name": "Underdiver Armor (JIM Suit)",
+      "type": "armor",
+      "grade": "Genius-constructed",
+      "description": "A large diving suit built from scavenged materials by Len. Resembles an Old World JIM diving suit but modified with weapons systems including a minigun. Crimson-painted.",
+      "abilities": ["Withstands oceanic pressure", "Minigun attachment", "Full environmental protection", "Water manipulation interface"],
+      "origin": "Built by Len Sabino from scavenged parts in Rust Town",
+      "current_owner": "len-sabino",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "Paulie helped Len maintain the suit by providing parts. It was her calling card as 'The Underdiver.'"
+    },
+    {
+      "id": "bathyspheres",
+      "name": "Len's Bathyspheres",
+      "type": "mount",
+      "grade": "Genius-constructed",
+      "description": "Spherical undersea vehicles with no cables—powered by propellers. Crimson-painted, steampunk-influenced design.",
+      "abilities": ["Undersea navigation and transport", "Automatic pilot", "Pre-recorded message system"],
+      "origin": "Built by Len Sabino",
+      "current_owner": "len-sabino",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "Ryan recognized these immediately as Len's work—the fondness for steampunk aesthetic, rugged efficiency, and crimson paint."
+    },
+    {
+      "id": "laika-submarine",
+      "name": "The Laika (Submarine)",
+      "type": "mount",
+      "grade": "Genius-constructed",
+      "description": "Len's personal submarine. Three-room layout: machinery room, supply storage, and living quarters with bunk bed and control panel.",
+      "abilities": ["Full undersea navigation", "Automated controls", "Small enough to be operated by one person"],
+      "origin": "Built by Len Sabino before the novel begins",
+      "current_owner": "len-sabino",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "The Laika was the submarine Len and Ryan used to flee from the Carnival when Bloodstream was being hunted."
+    },
+    {
+      "id": "undersea-habitat",
+      "name": "Len's Undersea Habitat",
+      "type": "tool",
+      "grade": "Genius-constructed",
+      "description": "A 50 m² apartment built on the seafloor, accessible via an airlock. Blue and red painted walls. Has kitchen, bedroom, bathroom, and main room with a porthole overlooking the abyss.",
+      "abilities": ["Withstands full ocean-floor pressure", "Automated food supply system", "Sensor systems to detect intruders", "Automated distress message system"],
+      "origin": "Built by Len Sabino near Ischia Island",
+      "current_owner": "len-sabino",
+      "previous_owners": [],
+      "spirit_intelligence": "None",
+      "lore": "Ryan finds this place when Vulcan takes him there in her suit. It is both Len's sanctuary and her prison."
+    },
+    {
+      "id": "vulcan-power-armor",
+      "name": "Vulcan's Power Armor",
+      "type": "armor",
+      "grade": "Genius-constructed / Gold-Plated",
+      "description": "Nearly 5 meters tall, gold-plated power armor. Cockpit located between the shoulders. Controlled via neural interface (Vulcan's cranial implant). Houses plasma beams, rockets, cannons, and a miniaturized fusion reactor.",
+      "abilities": ["Plasma beams", "Rocket launcher", "Cannon batteries", "Fusion reactor power", "Neural interface remote control", "Can enter undersea mode for deep diving"],
+      "origin": "Designed and built by Jasmine Sharif (Vulcan)",
+      "current_owner": "vulcan-sharif",
+      "previous_owners": [],
+      "spirit_intelligence": "Low",
+      "lore": "Vulcan designed the cockpit between the shoulders specifically to avoid the standard 'center-of-mass' targeting that Dynamis soldiers use."
+    },
+    {
+      "id": "mechron-fortress",
+      "name": "Mechron's Fortress (Sarajevo)",
+      "type": "formation",
+      "grade": "World-Class Genius Construction",
+      "description": "A massive fortress built in an infinity-symbol shape in Sarajevo. Doubles as a particle accelerator. Has a command center, biomechanical brains (AI supercomputers), force fields, a collider, and housed a dimensional portal to the Akashic Records.",
+      "abilities": ["Particle accelerator / dimensional collider", "AI-controlled armies of drones and robots", "Force fields", "Dimensional portal capability"],
+      "origin": "Built by Mechron",
+      "current_owner": null,
+      "previous_owners": ["mechron"],
+      "spirit_intelligence": "High",
+      "lore": "The fortress was destroyed in the battle between Leo and Mechron. The dark dimension portal that appeared consumed Mechron and destroyed the fortress."
+    },
+    {
+      "id": "bahamut-satellite",
+      "name": "Bahamut (Orbital Laser)",
+      "type": "weapon",
+      "grade": "WMD / Orbital",
+      "description": "An enormous orbital weapon the size of a skyscraper. Has enough firepower to devastate a city from orbit.",
+      "abilities": ["Orbital laser bombardment capable of destroying entire city blocks"],
+      "origin": "Built by Mechron",
+      "current_owner": null,
+      "previous_owners": ["mechron"],
+      "spirit_intelligence": "None",
+      "lore": "The Bahamut was the weapon Adam the Ogre eventually gained partial control over, using it to devastate New Rome."
+    },
+    {
+      "id": "kujata-satellite",
+      "name": "Kujata (Orbital Weapon)",
+      "type": "weapon",
+      "grade": "WMD / Orbital",
+      "description": "A second orbital weapon launched alongside the Bahamut from Mechron's fortress.",
+      "abilities": ["Orbital bombardment capability"],
+      "origin": "Built by Mechron",
+      "current_owner": null,
+      "previous_owners": ["mechron"],
+      "spirit_intelligence": "None",
+      "lore": "The Cossack managed to bring down the Kujata by catching up to it and destroying it before it reached a stable orbit."
+    },
+    {
+      "id": "mechron-scorpion-mech",
+      "name": "Mechron's Scorpion Mech (Toasty)",
+      "type": "weapon",
+      "grade": "WMD-tier Mech",
+      "description": "An enormous Mechron-made combat mech reprogrammed by Ryan with a new 'Toasty' personality matrix. Has spider legs, weapon systems, and enormous firepower.",
+      "abilities": ["Area denial artillery", "Heavy weapon systems", "Spider legs for difficult terrain", "Reprogrammed AI personality loves destroying things"],
+      "origin": "Built by Mechron; reprogrammed by Ryan",
+      "current_owner": "ryan-romano",
+      "previous_owners": ["mechron"],
+      "spirit_intelligence": "High",
+      "lore": "Toasty guards the entrance to Mechron's bunker during Ryan's Meta-Gang President arc."
+    },
+    {
+      "id": "tricerador",
+      "name": "Tricerador",
+      "type": "mount",
+      "grade": "Genius Creation",
+      "description": "Half-Labrador, half-triceratops chimera created by Dr. Tyrano. Has three horns, a dog's wagging tail, and makes saurian sounds.",
+      "abilities": ["Triceratops durability and horns", "Dog loyalty and trainability"],
+      "origin": "Created by Dr. Tyrano",
+      "current_owner": "dr-tyrano",
+      "previous_owners": [],
+      "spirit_intelligence": "Low",
+      "lore": "Ryan immediately forgives Tyrano's many crimes upon seeing the creature, realizing someone who wants dinosaur pets can't be all bad."
+    }
+  ],
+  "pills_and_resources": [
+    {
+      "id": "elixir-violet",
+      "name": "Violet Elixir",
+      "type": "potion",
+      "grade": "Alchemist-Original",
+      "effects": ["Grants one unique Violet-path superpower to the bonded Genome"],
+      "side_effects": ["None if first Elixir; triggers Psycho condition if combined with another"],
+      "ingredients": ["Unknown—produced by the Alchemist"],
+      "rarity": "Legendary",
+      "known_locations": [],
+      "used_by": ["ryan-romano"]
+    },
+    {
+      "id": "elixir-red",
+      "name": "Red Elixir",
+      "type": "potion",
+      "grade": "Alchemist-Original",
+      "effects": ["Grants one unique Red-path superpower (energy, plasma, fire, gravity)"],
+      "side_effects": ["None if first; Psycho condition if combined"],
+      "ingredients": ["Unknown"],
+      "rarity": "Legendary",
+      "known_locations": [],
+      "used_by": ["leo-hargraves", "zanbato-jamie", "alphonse-fallout"]
+    },
+    {
+      "id": "elixir-blue",
+      "name": "Blue Elixir",
+      "type": "potion",
+      "grade": "Alchemist-Original",
+      "effects": ["Connects the Genome to the Akashic Records, granting superhuman intelligence and Genius-level insight"],
+      "side_effects": ["None if first; Psycho condition if combined"],
+      "ingredients": ["Unknown"],
+      "rarity": "Legendary",
+      "known_locations": [],
+      "used_by": ["len-sabino", "vulcan-sharif", "mechron", "dr-tyrano", "luigi-crypto"]
+    },
+    {
+      "id": "elixir-green",
+      "name": "Green Elixir",
+      "type": "potion",
+      "grade": "Alchemist-Original",
+      "effects": ["Grants organic/biological manipulation powers"],
+      "side_effects": ["None if first; Psycho condition if combined"],
+      "ingredients": ["Unknown"],
+      "rarity": "Legendary",
+      "known_locations": [],
+      "used_by": ["wyvern-nora", "timmy-panda", "narcinia-manada", "nidhogg"]
+    },
+    {
+      "id": "elixir-white",
+      "name": "White Elixir",
+      "type": "potion",
+      "grade": "Alchemist-Original",
+      "effects": ["Grants adaptive/mimicry powers; allows the host to channel more than two Elixirs without them cannibalizing each other"],
+      "side_effects": ["Still subject to Elixir conflicts and addiction if combined with others"],
+      "ingredients": ["Unknown"],
+      "rarity": "Legendary",
+      "known_locations": [],
+      "used_by": ["mongrel", "wardrobe-yukiko"]
+    },
+    {
+      "id": "bliss-drug",
+      "name": "Bliss",
+      "type": "potion",
+      "grade": "Augusti-manufactured narcotic",
+      "effects": ["Highly addictive euphoric drug"],
+      "side_effects": ["Severe addiction", "Responsible for approximately 20,000 deaths per year across Italy, Spain, France, Turkey, Libya"],
+      "ingredients": ["Manufactured at the Bliss Factory on Ischia Island"],
+      "rarity": "Common",
+      "known_locations": ["ischia-island", "rust-town", "new-rome"],
+      "used_by": []
+    },
+    {
+      "id": "rampage-drug",
+      "name": "Rampage",
+      "type": "potion",
+      "grade": "Combat Stimulant",
+      "effects": ["Greatly extends time-stop duration", "Enhanced physical performance"],
+      "side_effects": ["Unknown long-term effects"],
+      "ingredients": ["Unknown—obtained through Ryan's criminal contacts"],
+      "rarity": "Rare",
+      "known_locations": [],
+      "used_by": ["ryan-romano"]
+    },
+    {
+      "id": "knockoff-elixir-hercules",
+      "name": "Hercules Elixir",
+      "type": "potion",
+      "grade": "Commercial Knockoff",
+      "effects": ["Grants minor enhanced strength based on Wyvern's power sample"],
+      "side_effects": ["Significantly weaker than a true Elixir"],
+      "ingredients": ["Wyvern's genetic material synthesized by Dr. Tyrano"],
+      "rarity": "Common",
+      "known_locations": ["new-rome"],
+      "used_by": []
+    },
+    {
+      "id": "knockoff-elixir-tempest",
+      "name": "Tempest Serum",
+      "type": "potion",
+      "grade": "Commercial Knockoff",
+      "effects": ["Grants minor aerokinesis to the user"],
+      "side_effects": ["Significantly weaker than a true Genome wind power"],
+      "ingredients": ["Unknown"],
+      "rarity": "Common",
+      "known_locations": ["new-rome"],
+      "used_by": []
+    }
+  ],
+  "bloodlines": [],
+  "beasts_and_creatures": [
+    {
+      "id": "eugene-henry",
+      "name": "Eugène-Henry von Schrödinger",
+      "rank": "Unknown (Violet-influenced)",
+      "type": "spirit-beast",
+      "description": "Ryan's cat. After the events of the Psyshock attack, appears to partially exist in the Violet/Purple dimension. Randomly teleports.",
+      "abilities": ["Apparent teleportation (possibly switching between the Purple World and reality)", "Livia cannot perceive it clearly—suggests existence across two realities simultaneously"],
+      "habitat": [],
+      "tame_difficulty": "N/A",
+      "named_individuals": [
+        {"name": "Eugène-Henry von Schrödinger", "owner": "ryan-romano", "notes": "Ryan's beloved cat. Named after Schrödinger's thought experiment. Has absorbed Violet Flux and gained unusual powers."}
+      ],
+      "drops": [],
+      "lore": "Ryan theorizes Eugène-Henry partially exists in the Purple World, making him a Schrödinger's Cat in a literal sense—existing in two states simultaneously."
+    },
+    {
+      "id": "mechron-bio-dragon",
+      "name": "Mechron's Biomechanical Dragon",
+      "rank": "Extreme (Red Genome-tier)",
+      "type": "ancient-creature",
+      "description": "A 10-meter-tall European dragon with solar-sail wings. Red scales mixed with black machinery covering the chest, head, and claws. One of Mechron's most advanced creations—proves Mechron could give Elixirs to non-human entities.",
+      "abilities": ["Gravity Control: Can project crushing gravitational forces or create wormholes to deflect attacks", "Wormhole Creation: Can open miniature black holes to teleport itself or redirect enemy attacks", "Flight: Solar-sail wings", "Extreme durability"],
+      "habitat": ["mechrons-bunker"],
+      "tame_difficulty": "Impossible",
+      "named_individuals": [],
+      "drops": [],
+      "lore": "Mechron reverse-engineered the Elixir process to give this creature powers. It was the first known case of a non-human gaining Genome abilities."
+    },
+    {
+      "id": "darkling",
+      "name": "Darkling (The Shoggoth)",
+      "rank": "Unknown (Extradimensional)",
+      "type": "elemental",
+      "description": "A mass of black ooze that slithers like a shadow. Can flow through surfaces. Negates Genome powers in its vicinity. Dissolves Elixir-infused materials on contact.",
+      "abilities": ["Ooze Form: Can flow through cracks and over surfaces", "Power Negation: Proximity negates Genome abilities", "Elixir Dissolution: Can dissolve Elixir-infused liquids and portals by absorbing them"],
+      "habitat": [],
+      "tame_difficulty": "Impossible",
+      "named_individuals": [
+        {"name": "Darkling", "owner": "ryan-romano", "notes": "Ryan's unusual pet from a dark dimension. Has since returned 'home' to its dimension."}
+      ],
+      "drops": [],
+      "lore": "Ryan acquired Darkling as a pet from some unknown dark dimension encounter. It briefly appears in the bunker battle where it consumes Mechron's telekinetic guard-robot."
+    },
+    {
+      "id": "clown-constructs",
+      "name": "Monaco Clown Constructs",
+      "rank": "Unknown",
+      "type": "undead",
+      "description": "Human-like entities with unnaturally white skin and gold, silver, or bronze croupier masks for faces. Eyes and mouth ooze darkness. Wear croupier costumes.",
+      "abilities": ["Power negation within Monaco territory", "Apparent invulnerability to conventional weapons", "Carry cutlery and napkins—eat unwelcome guests"],
+      "habitat": ["monaco"],
+      "tame_difficulty": "Impossible",
+      "named_individuals": [],
+      "drops": [],
+      "lore": "Created by or serving Jean-Stéphanie, Sovereign Prince of Monaco. Monaco is a place 'nobody returns from' because these entities eat any guest who overstays their welcome."
+    },
+    {
+      "id": "james-poole-monster",
+      "name": "Stanford Monster (James Poole)",
+      "rank": "Unknown (6m+ tall)",
+      "type": "monster",
+      "description": "A white-skinned, faceless beast six meters tall with abnormally long arms and a glowing light where the face should be. Surrounded by blue mist that turns people feral.",
+      "abilities": ["Extreme superhuman strength", "Feral contagion aura: Blue mist causes people to go feral"],
+      "habitat": [],
+      "tame_difficulty": "Impossible",
+      "named_individuals": [
+        {"name": "James Poole", "owner": null, "notes": "Former repairman transformed via fake vaccine from Eva Fabre's company 'New H.' Escaped into the Mojave Desert."}
+      ],
+      "drops": [],
+      "lore": "Connected to Eva Fabre's 'New H' company and the Malleus Maleficarum's investigation."
+    }
+  ],
+  "locations": [
+    {
+      "id": "new-rome",
+      "name": "New Rome",
+      "type": "city",
+      "description": "The largest metropolis in Italy, built around the shores of the Gulf of Naples after Mechron's drones bombed the original city. Has the tallest buildings in what remains of Italy, anchored by the Dynamis Tower to the north. Divided into wealthy districts (Golden Coast, Patrician District) and the impoverished, walled-off Rust Town to the northwest.",
+      "dangers": ["Augusti crime syndicate operations", "Meta-Gang Psycho attacks", "Corrupt Private Security", "Orbital laser bombardment (in bad loops)"],
+      "resources": ["bliss-drug"],
+      "factions_present": ["augusti", "meta-gang", "il-migliore", "dynamis"],
+      "notable_characters": ["ryan-romano", "len-sabino", "vulcan-sharif", "augustus", "wyvern-nora", "felix-manada"],
+      "is_accessible": "Open",
+      "lore": "New Rome was rebuilt by Dynamis megacorporation money after Mechron's bombing of Naples. Operates under a Cold War-like detente between Dynamis/Il Migliore and the Augusti."
+    },
+    {
+      "id": "rust-town",
+      "name": "Rust Town",
+      "type": "city",
+      "description": "New Rome's poor northwest neighborhood, walled off from the rest of the city. Home to industrial plants whose pollution turns the air sickly yellow. Has a Junkyard at its center where Geniuses once traded.",
+      "dangers": ["Meta-Gang occupation of the Junkyard", "Toxic air requiring masks", "Corrupt or absent Private Security", "Mechron's bunker below the Junkyard"],
+      "resources": [],
+      "factions_present": ["meta-gang"],
+      "notable_characters": ["ryan-romano", "len-sabino", "psyshock", "adam-the-ogre", "paulie", "sarah-orphan"],
+      "is_accessible": "Restricted",
+      "lore": "Rust Town's population consists of displaced original inhabitants of the Gulf of Naples. The area is deliberately kept degraded to separate the underclass from New Rome's wealthy districts."
+    },
+    {
+      "id": "junkyard",
+      "name": "The Junkyard",
+      "type": "dungeon",
+      "description": "An old coal mine transformed into an open landfill at the center of Rust Town. Taken over by the Meta-Gang. Conceals the entrance to Mechron's hidden bunker below.",
+      "dangers": ["Meta-Gang occupation", "Mechron's bunker defenses", "Toasty guarding the entrance"],
+      "resources": [],
+      "factions_present": ["meta-gang"],
+      "notable_characters": ["adam-the-ogre", "psyshock", "ryan-romano"],
+      "is_accessible": "Restricted",
+      "lore": "The Junkyard's transformation into molten trash after the Mechron bunker battle conveniently hides the bunker's entrance from Dynamis."
+    },
+    {
+      "id": "mechrons-bunker",
+      "name": "Mechron's Secret Bunker (New Rome)",
+      "type": "ancient-ruin",
+      "description": "A massive underground complex beneath the Junkyard. Contains labs, a holographic observatory, a futuristic armory, a miniature particle collider, an AI systems network, and an Orbital Communications Center that controls the Bahamut satellite. Has an underwater access point.",
+      "dangers": ["AI-controlled turrets and defense robots", "Telekinetic guard robot", "Connection to the Bahamut orbital weapon"],
+      "resources": ["mechron-scorpion-mech"],
+      "factions_present": ["meta-gang"],
+      "notable_characters": ["ryan-romano", "adam-the-ogre", "psyshock", "alchemo"],
+      "is_accessible": "Restricted",
+      "lore": "One of Mechron's backup bases. Contains data backups of all Mechron's research, including secrets of the Elixir system, methods to cure the Psycho condition, and the Bahamut firing controls."
+    },
+    {
+      "id": "ischia-island",
+      "name": "Ischia Island (Bliss Factory)",
+      "type": "secret-realm",
+      "description": "An island off the coast of New Rome where the Augusti operate their fortress-lab producing the Bliss drug.",
+      "dangers": ["Augusti defenses", "Orbital laser strike in bad loops"],
+      "resources": ["bliss-drug"],
+      "factions_present": ["augusti"],
+      "notable_characters": ["augustus"],
+      "is_accessible": "Restricted",
+      "lore": "The Bliss Factory on Ischia is the economic engine of the Augusti criminal empire."
+    },
+    {
+      "id": "monaco",
+      "name": "Monaco",
+      "type": "dimension",
+      "description": "The former luxury microstate on the French Riviera, somehow preserved from the apocalypse. Buildings intact, streets empty. Controlled by Jean-Stéphanie and his clown constructs. Genome powers cannot activate within its territory.",
+      "dangers": ["Clown constructs", "Power negation zone", "Jean-Stéphanie's appetite for guests"],
+      "resources": [],
+      "factions_present": [],
+      "notable_characters": ["jean-stephanie", "ryan-romano"],
+      "is_accessible": "Restricted",
+      "lore": "Monaco is 'the place nobody returns from.' Ryan visited it during his years of searching for Len and barely escaped. His powers didn't work there."
+    },
+    {
+      "id": "il-migliore-hq",
+      "name": "Il Migliore Tower",
+      "type": "sect",
+      "description": "Il Migliore's headquarters tower in New Rome. Houses hero apartments, Dr. Tyrano's lab, Wardrobe's fashion floor, Star Studios, and the corporate infrastructure of Dynamis' superhero brand.",
+      "dangers": [],
+      "resources": [],
+      "factions_present": ["il-migliore", "dynamis"],
+      "notable_characters": ["wyvern-nora", "felix-manada", "wardrobe-yukiko", "dr-tyrano", "enrique-manada"],
+      "is_accessible": "Restricted",
+      "lore": "The tower is as much a marketing operation as a hero base. Ryan attends an orientation video and decides to hack the company instead."
+    },
+    {
+      "id": "vulcan-foundry",
+      "name": "Vulcan's Foundry (Little Maghreb)",
+      "type": "sect",
+      "description": "The Augusti's weapon production facility in Little Maghreb. Appears to be an ordinary foundry but houses a full weapon manufacturing operation.",
+      "dangers": ["Vulcan's power armor", "Augusti guards"],
+      "resources": [],
+      "factions_present": ["augusti"],
+      "notable_characters": ["vulcan-sharif"],
+      "is_accessible": "Restricted",
+      "lore": "Nobody is stupid enough to attack Vulcan's foundry, including Private Security and Il Migliore. Site of Ryan's first meeting with Vulcan."
+    },
+    {
+      "id": "rust-town-orphanage",
+      "name": "Rust Town Orphanage and Animal Shelter",
+      "type": "dungeon",
+      "description": "A combined orphanage and animal shelter in the south of Rust Town. Crumbling cinder block building with a large fenced area for hundreds of stray cats and dogs. Operated by Len as a safe haven.",
+      "dangers": ["Psyshock attacks", "Meta-Gang proximity"],
+      "resources": [],
+      "factions_present": [],
+      "notable_characters": ["len-sabino", "sarah-orphan", "giulia-costa", "ryan-romano", "psyshock"],
+      "is_accessible": "Open",
+      "lore": "The orphanage is Len's primary reason to remain near the surface. Ryan's defense of the orphanage from Psyshock is a turning point in his relationship with Len."
+    },
+    {
+      "id": "jolie-wrangler",
+      "name": "Jolie Wrangler Pub",
+      "type": "dungeon",
+      "description": "An unremarkable pub in New Rome's Golden Coast tourist district. An Augusti front business run by Renesco. Scene of Ryan's first delivery and Ghoul's first attack.",
+      "dangers": ["Ghoul attacks (early loops)"],
+      "resources": [],
+      "factions_present": ["augusti"],
+      "notable_characters": ["renesco", "ryan-romano", "ghoul"],
+      "is_accessible": "Open",
+      "lore": "Site of Ryan's first death in the novel."
+    },
+    {
+      "id": "mechron-fortress",
+      "name": "Mechron's Fortress (Sarajevo)",
+      "type": "ancient-ruin",
+      "description": "The massive infinity-symbol-shaped fortress in Sarajevo that served as Mechron's primary base. Now destroyed after Leo's assault and the dark dimensional event.",
+      "dangers": ["Destroyed"],
+      "resources": [],
+      "factions_present": [],
+      "notable_characters": ["mechron", "leo-hargraves"],
+      "is_accessible": "Destroyed",
+      "lore": "The site where Leo Hargraves killed Mechron and the dark dimension portal opened. Something within the portal 'gazed back' and destroyed Mechron completely."
+    },
+    {
+      "id": "undersea-base",
+      "name": "Len's Undersea Habitat (Ischia Seafloor)",
+      "type": "dungeon",
+      "description": "Len's 50m² apartment on the seafloor near Ischia, accessible via airlock large enough for Vulcan's armor. Has kitchen, bedroom, bathroom, and porthole overlooking the abyss.",
+      "dangers": ["Dynamis submarine attacks in later arcs", "Ocean-floor pressure"],
+      "resources": [],
+      "factions_present": [],
+      "notable_characters": ["len-sabino", "ryan-romano", "vulcan-sharif"],
+      "is_accessible": "Restricted",
+      "lore": "Ryan finds this place when Vulcan transports him there in her suit. It is both Len's sanctuary and her prison—she never goes above the surface."
+    }
+  ],
+  "realms_and_dimensions": [
+    {
+      "id": "violet-dimension",
+      "name": "The Purple World (Violet Dimension)",
+      "hierarchy_rank": 1,
+      "description": "The dimension from which all Violet Genomes draw their temporal powers. Experienced by Ryan as a purple-hued frozen world during timestop. Acid Rain described it as 'paradise.' Contains temporal energy and probability manipulation.",
+      "access_methods": ["Violet Elixir bonding", "Time-stop activation reveals its edges", "Acid Rain could partially enter it through teleportation"],
+      "known_factions": [],
+      "lore": "Ryan occasionally perceives the Purple World's edges when using his powers intensely. Acid Rain was obsessed with accessing it fully."
+    },
+    {
+      "id": "akashic-records",
+      "name": "The Akashic Records (Blue World)",
+      "hierarchy_rank": 2,
+      "description": "A dimension of pure intellect and information. The source of Blue Elixir powers and the Genius ability. Contains 'all data, all information, all knowledge, all intent, and emotions.' Mechron attempted to access it directly through his particle collider, instead opening a portal to the dark dimension.",
+      "access_methods": ["Blue Elixir bonding (indirect access)", "Mechron's particle accelerator (direct, unstable access)"],
+      "known_factions": [],
+      "lore": "Images from the Akashic Records showed Leo scenes from his life, then alien worlds covered in oceans. Mechron called it 'the universal compendium—the source of all powers.'"
+    },
+    {
+      "id": "dark-dimension",
+      "name": "The Dark Dimension (The Abyss)",
+      "hierarchy_rank": 3,
+      "description": "An unknown dimension of pure void and nothingness. When Mechron's particle collider accidentally opened a portal to it, it emitted a 'pulse of darkness' that vaporized the biomechanical brains and disintegrated Mechron atom-by-atom. Something within it 'gazed back.'",
+      "access_methods": ["Mechron's particle collider accidentally opened it", "Darkling may have come from here"],
+      "known_factions": [],
+      "lore": "'The abyss gazed back.' This dark gaze began unraveling Leo's solar body and destroyed Mechron completely. Pythia could only see black where the future should be regarding this threat."
+    }
+  ],
+  "factions": [
+    {
+      "id": "augusti",
+      "name": "The Augusti",
+      "type": "clan",
+      "description": "The dominant crime family of New Rome and most of Italy. Controls Bliss drug production, weapons manufacturing through Vulcan's foundry, and numerous legitimate fronts. Has a Cold War-like detente with Dynamis.",
+      "alignment": "evil",
+      "standing": "Major Power",
+      "headquarters": "new-rome",
+      "leader": "augustus",
+      "notable_members": ["pluto", "livia-augusti", "vulcan-sharif", "zanbato-jamie", "lanka-sphere", "ki-jung-chitter", "luigi-crypto", "fortuna-manada"],
+      "allied_factions": ["dynamis"],
+      "enemy_factions": ["carnival", "meta-gang"],
+      "signature_techniques": ["crimson-katana"],
+      "history": "Founded by Jupiter Augustus using his near-invincible powers and ruthless ambition. Built the Bliss drug empire to fund an army of Genome enforcers. Augustus is dying of cancer and plans one final push to ensure Livia's succession.",
+      "lore": "The three Augustus siblings (Jupiter/Augustus, Pluto, Neptune) use Roman deity names. Augustus sees himself as a Roman god-emperor."
+    },
+    {
+      "id": "meta-gang",
+      "name": "The Meta-Gang",
+      "type": "guild",
+      "description": "A Psycho gang led by Adam the Ogre. All members are Psychos who came to New Rome seeking access to Mechron's bunker to find a cure for their degenerating Elixir dependency. Unusually disciplined—deliberately avoided attacking Dynamis infrastructure to stay under the radar.",
+      "alignment": "chaotic",
+      "standing": "Major Power",
+      "headquarters": "junkyard",
+      "leader": "adam-the-ogre",
+      "notable_members": ["psyshock", "ghoul", "acid-rain-helen", "sarin", "mosquito", "frank-the-mad", "mongrel", "the-land"],
+      "allied_factions": [],
+      "enemy_factions": ["augusti", "il-migliore", "dynamis"],
+      "signature_techniques": [],
+      "history": "Moved into New Rome specifically to access Mechron's bunker research. After Psyshock's death prevented full bunker access, Adam fired the Bahamut in rage.",
+      "lore": "Ryan respected the Meta-Gang's unusual strategic discipline. Adam the Ogre's true motive was never finding a cure; it was taking others down with him."
+    },
+    {
+      "id": "meta-gang-president",
+      "name": "President's Meta-Gang",
+      "type": "guild",
+      "description": "Ryan's version of the Meta-Gang after defeating Adam. Officially headed by 'Mr. President' (Ryan), with Sarin as VP. Guards Mechron's bunker from Dynamis.",
+      "alignment": "neutral",
+      "standing": "Hidden Force",
+      "headquarters": "mechrons-bunker",
+      "leader": "ryan-romano",
+      "notable_members": ["sarin", "frank-the-mad", "mosquito", "acid-rain-helen", "the-land"],
+      "allied_factions": ["carnival"],
+      "enemy_factions": ["dynamis"],
+      "signature_techniques": [],
+      "history": "Formed after Ryan defeats Adam. Ryan adopts presidential persona and reorganizes the Meta remnants into a force holding Mechron's bunker against Dynamis.",
+      "lore": "The presidential persona is one of Ryan's most elaborate long-term jokes."
+    },
+    {
+      "id": "il-migliore",
+      "name": "Il Migliore",
+      "type": "guild",
+      "description": "Dynamis Corporation's official superhero team and the protectors of New Rome. Celebrity superheroes on Dynamis' payroll. They police criminal activity selectively—too afraid of the Augusti to truly disrupt them.",
+      "alignment": "neutral",
+      "standing": "Major Power",
+      "headquarters": "il-migliore-hq",
+      "leader": "wyvern-nora",
+      "notable_members": ["wyvern-nora", "felix-manada", "wardrobe-yukiko", "timmy-panda", "dr-tyrano", "enrique-manada"],
+      "allied_factions": ["dynamis"],
+      "enemy_factions": ["meta-gang", "augusti"],
+      "signature_techniques": [],
+      "history": "Founded by Dynamis as a superhero brand. Members like Atom Cat join hoping to make a real difference, but find the organization too corporate and passive.",
+      "lore": "Wyvern is both the team's leader and its most genuine hero."
+    },
+    {
+      "id": "dynamis",
+      "name": "Dynamis Corporation",
+      "type": "empire",
+      "description": "The megacorporation that controls New Rome and much of the Mediterranean region. Built the city from scratch after Mechron's bombing. Controls the Private Security, Il Migliore, manufacturing, media, and Knockoff Elixir production.",
+      "alignment": "neutral",
+      "standing": "Major Power",
+      "headquarters": "new-rome",
+      "leader": "hector-manada",
+      "notable_members": ["hector-manada", "alphonse-fallout", "enrique-manada", "dr-tyrano", "wyvern-nora"],
+      "allied_factions": ["il-migliore", "augusti"],
+      "enemy_factions": ["meta-gang", "carnival"],
+      "signature_techniques": [],
+      "history": "Founded after the Genome Wars. Built New Rome as a corporate city-state. Maintained a Cold War-style peace with the Augusti under Hector's leadership.",
+      "lore": "Dynamis is described as a stabilizing force despite its systemic corruption—Shroud admits it can be reformed once Hector retires."
+    },
+    {
+      "id": "carnival",
+      "name": "The Carnival",
+      "type": "guild",
+      "description": "Leo Hargraves' wandering pro-bono superhero group. 'Real' heroes in contrast to corporate Il Migliore. Operates in individual cells for resilience. Has hunted down major threats including Mechron, Manic Plague, and Bloodstream.",
+      "alignment": "good",
+      "standing": "Hidden Force",
+      "headquarters": null,
+      "leader": "leo-hargraves",
+      "notable_members": ["leo-hargraves", "mathias-shroud", "the-cossack", "ace", "stitch", "mr-wave", "nidhogg", "alice-martel"],
+      "allied_factions": [],
+      "enemy_factions": ["augusti", "meta-gang"],
+      "signature_techniques": ["solar-transformation", "plasma-beam"],
+      "history": "Founded by Leo Hargraves and Alice Martel (Pythia). Has fought Mechron, Manic Plague, and countless other threats. Alice's prophecy about Bloodstream guided the group for years.",
+      "lore": "Ryan admires the Carnival deeply—'real, pro-bono superheroes, wandering knights style'—despite them causing the worst day of his life by killing Bloodstream."
+    },
+    {
+      "id": "malleus-maleficarum",
+      "name": "Malleus Maleficarum",
+      "type": "religion",
+      "description": "A Catholic Church investigation division that investigates supernatural and Genome-related incidents. Has invested heavily in modern technology while maintaining Church connections across the world.",
+      "alignment": "neutral",
+      "standing": "Hidden Force",
+      "headquarters": null,
+      "leader": "cardinal-andreas-torque",
+      "notable_members": ["cardinal-andreas-torque"],
+      "allied_factions": [],
+      "enemy_factions": [],
+      "signature_techniques": [],
+      "history": "An ancient Church institution repurposed for the modern Genome era. Currently investigating the Eva Fabre/New H vaccine-monster incidents.",
+      "lore": "Appears only in the final chapters' epilogue/teaser, establishing a larger conspiracy beyond New Rome's immediate conflicts."
+    }
+  ],
+  "battles_and_events": [
+    {
+      "id": "bar-delivery-and-ghoul-fight",
+      "name": "Delivery to Renesco / Ghoul Attack",
+      "type": "battle",
+      "chapters": "Ch. 1-2",
+      "summary": "Ryan's first loop. Ghoul attacks Renesco's bar and kills Ryan. After multiple loops, Ryan successfully defeats Ghoul using his Plymouth Fury as a weapon and a baseball bat, bribes Private Security, and completes the delivery.",
+      "participants": ["ryan-romano", "ghoul", "renesco"],
+      "outcome": "Ryan defeats Ghoul (arrested by Private Security)",
+      "casualties": [],
+      "significance": "Sets up the novel's loop mechanic and Ryan's style. First contact with New Rome's power dynamics.",
+      "lore_revealed": ["Meta-Gang's presence in New Rome", "Augusti's bar front operations", "Dynamis Private Security's corruption"]
+    },
+    {
+      "id": "harbor-bathysphere-fight",
+      "name": "Harbor Battle (First Meta Encounter)",
+      "type": "battle",
+      "chapters": "Ch. 4-6",
+      "summary": "Ryan accompanies the Augusti on a supply run at the old harbor. The Meta-Gang attacks. Ryan fights Ghoul and Sarin while recognizing Len's bathysphere designs. Psyshock appears at the orphanage soon after.",
+      "participants": ["ryan-romano", "ghoul", "sarin", "zanbato-jamie", "luigi-crypto"],
+      "outcome": "Meta repelled from the harbor run; Ryan discovers Len's tech is being used by the Augusti",
+      "casualties": [],
+      "significance": "First lead on Len's location in New Rome.",
+      "lore_revealed": ["Len has been operating in Rust Town as the Underdiver", "The Augusti use Len's technology"]
+    },
+    {
+      "id": "orphanage-defense",
+      "name": "Defense of Rust Town Orphanage",
+      "type": "battle",
+      "chapters": "Ch. 14-15",
+      "summary": "Psyshock, Mosquito, and Mongrel arrive to abduct orphan children. Ryan and Atom Cat defend the orphanage. Vulcan arrives in her power armor as backup, providing Ryan his first major victory over the Meta.",
+      "participants": ["ryan-romano", "felix-manada", "psyshock", "mosquito", "vulcan-sharif"],
+      "outcome": "Children saved; Meta repelled; Ryan-Vulcan alliance formed",
+      "casualties": [],
+      "significance": "Turning point in Ryan's relationship with the Augusti (Vulcan). Psyshock identifies Ryan as 'little Cesare' and threatens Len's 'Genius brain.'",
+      "lore_revealed": ["Psyshock knew Ryan and Len before their Elixir days", "Adam wants children for Mechron's bunker access"]
+    },
+    {
+      "id": "acid-rain-ship-graveyard",
+      "name": "Acid Rain Ambush (Ship Graveyard)",
+      "type": "battle",
+      "chapters": "Ch. 18-19",
+      "summary": "Psyshock follows Ryan to Shroud's garage using a DNA tracker. Deploys Acid Rain and mechanical hounds. Ryan's Plymouth Fury is destroyed. Shroud fights Psyshock while Ryan battles Acid Rain.",
+      "participants": ["ryan-romano", "psyshock", "acid-rain-helen", "mathias-shroud"],
+      "outcome": "Ryan survives; Shroud is revealed; Acid Rain temporarily defeated",
+      "casualties": [],
+      "significance": "First meeting with Shroud. Discovery that Ryan and Acid Rain's Violet powers interfere.",
+      "lore_revealed": ["Shroud is from the Carnival", "Mechron's bunker exists under New Rome", "Acid Rain and Ryan share Violet power source"]
+    },
+    {
+      "id": "reunion-with-len",
+      "name": "The Reunion (Len's Undersea Habitat)",
+      "type": "discovery",
+      "chapters": "Ch. 23",
+      "summary": "Vulcan transports Ryan to Len's undersea habitat via her power armor. Ryan finds Len alive but in severe mental distress, heavily medicated, staring blankly at walls.",
+      "participants": ["ryan-romano", "len-sabino", "vulcan-sharif"],
+      "outcome": "Ryan finds Len; she is alive but struggling with severe depression",
+      "casualties": [],
+      "significance": "The emotional core of the entire novel. Ryan has searched for Len for years across countless loops.",
+      "lore_revealed": ["Len's mental health condition", "Her relationship with the orphanage children", "Her difficulty interacting with others"]
+    },
+    {
+      "id": "mechron-death-and-dark-portal",
+      "name": "Mechron's Last Stand / The Dark Portal",
+      "type": "battle",
+      "chapters": "Ch. 41",
+      "summary": "Leo Hargraves fights his way to Mechron inside the Sarajevo fortress. Mechron attempts to access the Akashic Records via his particle collider. Instead, a dark dimension's portal opens. Something inside 'gazes back' and destroys Mechron. Leo barely escapes.",
+      "participants": ["leo-hargraves", "mechron"],
+      "outcome": "Mechron destroyed; Sarajevo fortress annihilated; dark dimensional entity briefly manifests",
+      "casualties": ["mechron"],
+      "significance": "Establishes the existence of a dark dimension. Sets up the novel's larger cosmic horror element.",
+      "lore_revealed": ["Dark dimension beyond the Akashic Records exists", "Something inhabits it that destroys with a gaze", "Mechron's motivations and exhaustion"]
+    },
+    {
+      "id": "bahamut-bombardment-new-rome",
+      "name": "Bahamut Bombardment (Bad Loop)",
+      "type": "disaster",
+      "chapters": "Ch. 47",
+      "summary": "In a failed loop, Adam the Ogre gains partial control of Mechron's bunker and uses the Bahamut orbital laser to bombard New Rome, destroying the harbor, strip, Ischia Island, and the Dynamis twin towers.",
+      "participants": ["ryan-romano", "adam-the-ogre", "acid-rain-helen", "sarin", "frank-the-mad", "the-land"],
+      "outcome": "Ryan defeats the Meta remnants but New Rome is destroyed. Ryan resets.",
+      "casualties": [],
+      "significance": "The 'bad ending' that drives Ryan to dedicate himself to preventing this outcome.",
+      "lore_revealed": ["Adam's true sociopathic motive", "The Bahamut's destruction capability"]
+    },
+    {
+      "id": "psyshock-possesses-len",
+      "name": "Psyshock's Possession of Len",
+      "type": "betrayal",
+      "chapters": "Ch. 71",
+      "summary": "In a loop where the brain-transfer succeeds in theory, Psyshock had hidden within the technology. When Len activates the consciousness transfer, Psyshock hitches a ride and takes over her body.",
+      "participants": ["ryan-romano", "len-sabino", "psyshock", "sarin"],
+      "outcome": "Ryan captured; Len's body under Psyshock's control. Ryan eventually escapes and resets.",
+      "casualties": [],
+      "significance": "One of the darkest moments in the novel. Forces Ryan to solve the Psyshock problem before using the device.",
+      "lore_revealed": ["Psyshock's body-jumping can extend to consciousness-transfer technology", "Len's brain is specifically what Psyshock wanted"]
+    },
+    {
+      "id": "bloodstream-hunted",
+      "name": "The Carnival Hunts Bloodstream",
+      "type": "battle",
+      "chapters": "Ch. 90-91",
+      "summary": "Past fragment. The Carnival tracks Bloodstream (Freddie Sabino) through Italy. Stitch reveals Bloodstream has no biological upper limit to his clones. The Carnival battles his remaining clones while Ryan tries to save Len. Ryan deliberately led the Carnival to Bloodstream.",
+      "participants": ["ryan-romano", "len-sabino", "bloodstream", "leo-hargraves", "mathias-shroud", "stitch", "the-cossack", "ace", "mr-wave"],
+      "outcome": "Bloodstream destroyed; Ryan and Len separated for years",
+      "casualties": ["bloodstream"],
+      "significance": "The foundational trauma of the entire novel. Ryan's deliberate decision to lead the Carnival to Bloodstream resulted in years of separation.",
+      "lore_revealed": ["Bloodstream's true unlimited potential", "Ryan's guilty role in their separation", "The Carnival's internal workings"]
+    },
+    {
+      "id": "perfect-run-achieved",
+      "name": "The Perfect Run (Final Loop Begins)",
+      "type": "discovery",
+      "chapters": "Ch. 71",
+      "summary": "Len's improved brain-transfer device, built with Alchemo's expertise and Mechron's database, successfully copies Len's memories across the loop reset. When Ryan returns to May 8th 2020, Len's voice comes from the Chronoradio: 'I do.' Both remember the same timeline.",
+      "participants": ["ryan-romano", "len-sabino", "alchemo"],
+      "outcome": "SUCCESS — the Perfect Run begins",
+      "casualties": [],
+      "significance": "The emotional climax of the entire novel. The moment Ryan has worked toward across countless centuries of loops.",
+      "lore_revealed": ["Brain-transfer technology works across time loops when properly implemented", "Len's love for Ryan was genuine throughout their separation"]
+    },
+    {
+      "id": "monaco-survival",
+      "name": "Ryan's Survival in Monaco",
+      "type": "discovery",
+      "chapters": "Ch. 64-65",
+      "summary": "During his years searching for Len, Ryan enters Monaco—'the place nobody returns from.' Encounters Jean-Stéphanie's clown constructs who attempt to eat him. His powers don't work inside Monaco. Follows arrows carved by a previous survivor to escape.",
+      "participants": ["ryan-romano", "jean-stephanie"],
+      "outcome": "Ryan escapes Monaco (via reset—he saved before entering)",
+      "casualties": [],
+      "significance": "Establishes Monaco as an anomaly and demonstrates that some effects can suppress Ryan's powers.",
+      "lore_revealed": ["Monaco is a power-negation zone", "Jean-Stéphanie rules Monaco with clown constructs"]
+    },
+    {
+      "id": "dynamis-submarine-attack",
+      "name": "Dynamis Submarine Siege",
+      "type": "battle",
+      "chapters": "Ch. 76",
+      "summary": "Alphonse Manada (Fallout) arrives with a Dynamis submarine to force Len to join Dynamis' research program. Threatens to flood the underwater habitat. Ryan, Len, and Felix refuse. Len initiates the brain-transfer while Dynamis bombards the base. Felix says his goodbyes knowing the loop will reset.",
+      "participants": ["ryan-romano", "len-sabino", "felix-manada", "alphonse-fallout"],
+      "outcome": "Base destroyed; brain-transfer activated; Ryan resets",
+      "casualties": [],
+      "significance": "Reveals Alphonse's plan to mass-produce Elixirs. Felix's emotional farewell with Ryan. Len's defiant last words: 'Better dead than corpo.'",
+      "lore_revealed": ["Alphonse wants to democratize Elixirs by mass-producing them", "Dynamis kept Bloodstream in their labs for research"]
+    }
+  ],
+  "arcs": [
+    {
+      "title": "New Rome Arrival and First Contacts",
+      "chapters": "Ch. 1-9",
+      "summary": "Ryan arrives in New Rome on a courier job. Multiple deaths to Ghoul establish the loop mechanic. Ryan beats Ghoul, gets information about Len from Renesco and Paulie, and begins mapping the city's factions. Wyvern recruits him to Il Migliore.",
+      "key_events": ["bar-delivery-and-ghoul-fight"],
+      "characters_introduced": ["ryan-romano", "ghoul", "renesco", "wyvern-nora", "zanbato-jamie", "luigi-crypto", "paulie", "sarin"],
+      "power_level_context": "Ryan at baseline Violet Genome; learning New Rome's layout",
+      "major_gains": ["Information on Len's location", "Connection to Augusti through Zanbato", "Wyvern recruitment offer", "Knowledge of Meta-Gang's presence"]
+    },
+    {
+      "title": "Rust Town and the Meta-Gang Threat",
+      "chapters": "Ch. 10-20",
+      "summary": "Ryan explores Rust Town, fights Meta-Gang members, defends the orphanage with Atom Cat, meets Shroud and learns about the Carnival, discovers Len's undersea habitat through Vulcan's help, and uncovers the Mechron bunker conspiracy.",
+      "key_events": ["harbor-bathysphere-fight", "orphanage-defense", "acid-rain-ship-graveyard"],
+      "characters_introduced": ["lanka-sphere", "ki-jung-chitter", "timmy-panda", "felix-manada", "vulcan-sharif", "pluto", "livia-augusti", "mathias-shroud", "psyshock", "mosquito", "mongrel", "acid-rain-helen", "sarah-orphan"],
+      "power_level_context": "Ryan learning his timestop counters against Acid Rain",
+      "major_gains": ["Vulcan alliance", "Shroud contact", "Orphanage secured", "Mechron bunker revealed"]
+    },
+    {
+      "title": "The Reunion",
+      "chapters": "Ch. 21-30",
+      "summary": "Ryan finally reaches Len's undersea habitat. Their reunion is emotionally complicated—Len is severely depressed and medication-dependent. Ryan begins balancing his quest to help Len with his obligations to various factions, and the brain-transfer project begins forming.",
+      "key_events": ["reunion-with-len"],
+      "characters_introduced": ["len-sabino", "giulia-costa", "julie-costa", "leo-hargraves"],
+      "power_level_context": "Ryan developing multi-faction strategy",
+      "major_gains": ["Reunion with Len", "Understanding of Len's condition", "First hint of brain-transfer concept"]
+    },
+    {
+      "title": "Il Migliore Arc and Corporate Intrigue",
+      "chapters": "Ch. 30-60",
+      "summary": "Ryan joins Il Migliore, gets his cashmere suit, meets Wardrobe and Dr. Tyrano, works to expose Dynamis' corruption, navigates relations between Livia Augusti and the Carnival, and fights his way through multiple faction conflicts. The brain-transfer project with Len advances.",
+      "key_events": [],
+      "characters_introduced": ["wardrobe-yukiko", "dr-tyrano", "fortuna-manada", "narcinia-manada", "enrique-manada", "hector-manada", "alphonse-fallout"],
+      "power_level_context": "Ryan at full tactical mastery; Vulcan armor for some loops",
+      "major_gains": ["Il Migliore knowledge", "Dr. Tyrano's Elixir science", "Cashmere suit", "Panda trained", "Shroud recruited as ally"]
+    },
+    {
+      "title": "Bad Endings and the Perfect Run Preparation",
+      "chapters": "Ch. 40-70",
+      "summary": "Multiple loops end in disaster. Ryan loses Jasmine (Vulcan) in one loop's death, deepening his pain. Alchemo is recruited. The brain-transfer device is perfected using Mechron's database.",
+      "key_events": ["bahamut-bombardment-new-rome", "mechron-death-and-dark-portal", "psyshock-possesses-len", "monaco-survival"],
+      "characters_introduced": ["alchemo", "the-doll", "alice-martel", "bloodstream", "jean-stephanie"],
+      "power_level_context": "Ryan loses and regains allies loop by loop",
+      "major_gains": ["Mechron's database accessed", "Alchemo's help secured", "Brain-transfer technology refined", "Bloodstream threat fully understood"]
+    },
+    {
+      "title": "The Perfect Run",
+      "chapters": "Ch. 71-101",
+      "summary": "The final loop. Len's memories carry over. Ryan fights an emotionally centered battle knowing Len remembers him. The orphanage is defended, Adam is defeated, Dynamis is exposed, and a larger conspiracy (Eva Fabre, the Malleus Maleficarum, a dark dimension entity) is teased for the sequel.",
+      "key_events": ["perfect-run-achieved", "dynamis-submarine-attack", "bloodstream-hunted"],
+      "characters_introduced": ["eva-fabre", "cardinal-andreas-torque"],
+      "power_level_context": "Ryan at peak—presidential persona, multiple A-bombs, Toasty mech, full team assembled",
+      "major_gains": ["Len remembers Ryan permanently", "Meta-Gang neutralized/absorbed", "Mechron's bunker secured", "Dynamis corruption exposed to Wyvern", "Carnival recruited as allies", "Sequel threat established"]
+    }
+  ],
+  "prophecies_and_lore": [
+    {
+      "id": "pythia-bloodstream-prophecy",
+      "title": "Pythia's Bloodstream Extinction Prophecy",
+      "type": "prophecy",
+      "content": "If Len Sabino dies, Bloodstream will lose all psychological restraints, go on a global rampage, and cause an extinction event by infecting all life on Earth with his blood. The Carnival must destroy him before this can happen.",
+      "source": "Alice Martel (Pythia), before her injury fighting Mechron",
+      "related_characters": ["alice-martel", "bloodstream", "len-sabino", "leo-hargraves"],
+      "fulfilled": "Partial",
+      "significance": "The foundational motivation for the Carnival's years-long pursuit of Bloodstream. Ryan's presence and intervention prevented Len's death, circumventing the prophecy."
+    },
+    {
+      "id": "pythia-augustus-warning",
+      "title": "Pythia's Augustus Final Push Prediction",
+      "type": "prophecy",
+      "content": "At some point in the coming years, Augustus will attack Dynamis and attempt to take over Europe by force. He will go all-out, leading to massive casualties.",
+      "source": "Alice Martel (Pythia) / Mathias Martel (summary)",
+      "related_characters": ["alice-martel", "augustus", "ryan-romano", "mathias-shroud"],
+      "fulfilled": "No",
+      "significance": "Drives the Carnival's decision to act against the Augusti now."
+    },
+    {
+      "id": "mechron-dark-vision",
+      "title": "Pythia's Dark Vision of Mechron's End",
+      "type": "prophecy",
+      "content": "'I only see black. It's all black.'—Pythia's vision when asked what waited inside Mechron's fortress for Leo. She could only say 'destroy the bunker at all costs' and 'something worse is coming.'",
+      "source": "Alice Martel (Pythia)",
+      "related_characters": ["alice-martel", "leo-hargraves", "mechron"],
+      "fulfilled": "Partial",
+      "significance": "Whatever opened within Mechron's fortress blinded even the Carnival's precognitive oracle—suggesting a threat beyond mortal comprehension."
+    },
+    {
+      "id": "eva-fabre-mystery",
+      "title": "The Eva Fabre Mystery (New H Conspiracy)",
+      "type": "legend",
+      "content": "A woman who hasn't aged since 1992, can teleport globally, and operates through shell companies to distribute vaccines that turn recipients into monsters. Connected to the Antarctica Station Orpheon incident of 1992.",
+      "source": "Malleus Maleficarum investigation files",
+      "related_characters": ["eva-fabre", "cardinal-andreas-torque"],
+      "fulfilled": "Unknown",
+      "significance": "The sequel hook. Eva Fabre represents a larger threat beyond New Rome's local conflicts."
+    }
+  ],
+  "terminology": [
+    {
+      "term": "Genome",
+      "category": "power-system",
+      "definition": "A human who has bonded with an Alchemist Elixir and gained a unique superpower. Possess enhanced physical capabilities (healing, strength, stamina) compared to normal humans. Age more slowly."
+    },
+    {
+      "term": "Psycho",
+      "category": "power-system",
+      "definition": "A Genome who has taken two or more Elixirs. Gains two powers but suffers unstable genetics, physical mutation, mental deterioration, and addiction to further Elixir injections to maintain stability."
+    },
+    {
+      "term": "Genius",
+      "category": "power-system",
+      "definition": "A Blue Genome—someone whose Elixir connected them to the Akashic Records, granting superhuman intelligence and the ability to develop advanced technology. The most dangerous long-term Genome type."
+    },
+    {
+      "term": "Elixir",
+      "category": "power-system",
+      "definition": "Living semi-intelligent substances distributed in Wonderboxes by the Alchemist. When bonded to a human, rewrites their DNA to make them a vessel for a unique power from a corresponding dimensional color. Behave more like viruses than chemicals."
+    },
+    {
+      "term": "Wonderbox",
+      "category": "world-building",
+      "definition": "The mysterious packages distributed by the Alchemist during 'Last Easter' that contained Elixirs. Their distribution to seemingly random people across the world triggered the Genome Wars."
+    },
+    {
+      "term": "Last Easter",
+      "category": "world-building",
+      "definition": "The event when the Alchemist distributed Wonderboxes containing Elixirs to people around the world, beginning the era of Genomes and eventually triggering the Genome Wars."
+    },
+    {
+      "term": "Genome Wars",
+      "category": "world-building",
+      "definition": "The devastating conflict that ravaged Europe and much of the world. Began when Genomes started using their powers for domination. Mechron's robot armies and bombing campaigns caused the most destruction. Most major European cities were reduced to ruins or rebuilt from scratch."
+    },
+    {
+      "term": "Knockoff Elixir / Serum",
+      "category": "power-system",
+      "definition": "Synthetic imitations of true Elixirs that grant a fraction of a real power. Made by Geniuses (primarily Dr. Tyrano for Dynamis). Much weaker than genuine Elixirs. Sold commercially under brand names like 'Hercules Elixir' and 'Tempest Serum.'"
+    },
+    {
+      "term": "Private Security",
+      "category": "political",
+      "definition": "Dynamis Corporation's armed security force that polices New Rome. Heavily corrupt—accepts bribes. Only zealously protects key infrastructure (power plants, water treatment)."
+    },
+    {
+      "term": "Red Flux",
+      "category": "power-system",
+      "definition": "The energy form of Red Genome powers. When Atom Cat charges objects, he's infusing them with Red Flux—a unique energy that causes later detonation. Dr. Tyrano and Ryan both identify this term from their independent Elixir research."
+    },
+    {
+      "term": "Akashic Records",
+      "category": "world-building",
+      "definition": "The Blue dimension of pure information. Described by Mechron as 'the universal compendium—all data, all information, all knowledge, all intent, and emotions.' The source of Blue Elixir powers and Genius abilities."
+    },
+    {
+      "term": "Purple World",
+      "category": "power-system",
+      "definition": "The frozen-time space Ryan perceives during his time-stop. Everything turns a violet hue and stops moving. Acid Rain also has access to this space and described it as 'paradise—my brain shines with its beauty.'"
+    },
+    {
+      "term": "The Perfect Run",
+      "category": "other",
+      "definition": "Ryan's concept of an ideal loop where everything goes right—the Meta is defeated, New Rome is saved, Len is free, and no one important dies. Achieved when Len's memories are successfully carried across a loop via brain-transfer."
+    },
+    {
+      "term": "Bliss",
+      "category": "item",
+      "definition": "The Augusti's highly addictive narcotic drug, manufactured at the Bliss Factory on Ischia Island. Responsible for thousands of deaths annually. Augustus uses it to subvert communities and fund his operations."
+    },
+    {
+      "term": "Wetware",
+      "category": "power-system",
+      "definition": "Computing systems that use biological matter (specifically brains) as processing components. Alchemo specializes in this field. Ryan's Plymouth Fury runs on a synthetic wetware brain in a jar."
+    },
+    {
+      "term": "Heart-Core",
+      "category": "power-system",
+      "definition": "Leo Hargraves' dense gravitational center that keeps his plasma body coherent. Without it, his energy form would disperse. Allows him to maintain his stellar transformation indefinitely."
+    },
+    {
+      "term": "Second-Generation Genome",
+      "category": "power-system",
+      "definition": "Children born to Genome parents. Inherit secondary mutations without taking an Elixir: enhanced healing, disease resistance, hardened organs. May eventually manifest full powers. Julie Costa theorized the Alchemist created Elixirs specifically to foster this new species."
+    },
+    {
+      "term": "Station Orpheon",
+      "category": "world-building",
+      "definition": "France's secret biological weapons laboratory in Antarctica. In 1992, a purple flash of light and an unidentified object crash preceded all 22 researchers (except Eva Fabre) dying of a mysterious bacteria outbreak. Connected to the novel's sequel hook."
+    },
+    {
+      "term": "New H",
+      "category": "political",
+      "definition": "Eva Fabre's shell company that distributes fake vaccines turning recipients into monsters. Investigated by the Malleus Maleficarum. Possibly short for 'New Human' or similar."
+    },
+    {
+      "term": "Killer Seven",
+      "category": "political",
+      "definition": "Pluto's personal hit squad, deployed to handle threats to the Augusti that even their regular enforcers can't manage."
+    }
+  ],
+  "analysis": {
+    "character_analyses": [
+      {
+        "character_id": "ryan-romano",
+        "fighting_style": "Ryan fights with information asymmetry as his primary weapon. He uses timestop to neutralize enemy attacks, then repositions for maximum effect. Prefers close combat with the Fisty Brothers for armored opponents and coil gun for ranged threats. Uses his car as a weapon in open areas. Relies on memorized loop knowledge to anticipate enemy patterns. Avoids direct confrontation with overwhelming opponents (Augustus) and instead outsmarts or escapes them. Psychological warfare through comedy is a constant—he destabilizes enemies with humor while they cannot understand why nothing affects him.",
+        "move_breakdown": [
+          {
+            "move_name": "Plymouth Ramming",
+            "type": "opener",
+            "description": "Drives his car directly into an enemy at full speed, often through walls",
+            "conditions_used": "Against physically tough enemies in enclosed or accessible spaces",
+            "chapter_first_used": "Ch. 2",
+            "opponents_defeated_with": ["ghoul"],
+            "power_level_when_used": "Baseline Violet"
+          },
+          {
+            "move_name": "Freeze and Counter",
+            "type": "counter",
+            "description": "Activates timestop the moment he senses an incoming attack, repositions, and counterattacks during frozen time",
+            "conditions_used": "Against any physical attack he can sense in advance",
+            "chapter_first_used": "Ch. 2",
+            "opponents_defeated_with": ["ghoul", "psyshock", "mongrel"],
+            "power_level_when_used": "All stages"
+          },
+          {
+            "move_name": "Fisty Brothers Rush",
+            "type": "signature",
+            "description": "Closes the gap via timestop and hammers enemies with piston-powered electrified gauntlets",
+            "conditions_used": "Against armored opponents where ranged weapons are ineffective",
+            "chapter_first_used": "Ch. 4",
+            "opponents_defeated_with": ["ghoul", "psyshock", "mongrel"],
+            "power_level_when_used": "All stages"
+          },
+          {
+            "move_name": "Plushie Deploy",
+            "type": "desperation",
+            "description": "Activates the white rabbit plushie's WMD switch as an area-denial last resort",
+            "conditions_used": "When conventional methods fail against overwhelming opponents",
+            "chapter_first_used": "Ch. 47",
+            "opponents_defeated_with": ["adam-the-ogre"],
+            "power_level_when_used": "High"
+          },
+          {
+            "move_name": "Knife Throw (Timestop Precision)",
+            "type": "finisher",
+            "description": "Freezes time, carefully aims and throws knives to hit specific small targets (eyes, joints)",
+            "conditions_used": "Against opponents where larger weapons are impractical or would cause collateral damage",
+            "chapter_first_used": "Ch. 4",
+            "opponents_defeated_with": ["ghoul"],
+            "power_level_when_used": "All stages (mastered through loop repetition)"
+          }
+        ],
+        "strategic_tendencies": [
+          "Information hoarding—never reveals his save point, only admits to timestop",
+          "Multi-loop preparation—memorizes enemy patterns across deaths to counter them perfectly",
+          "Bribery as conflict resolution—always carries large amounts of cash",
+          "Style over efficiency—prefers dramatic solutions that look cool",
+          "Protecting children at all costs—a moral absolute that overrides all other calculations",
+          "Recruiting rather than killing where possible",
+          "Using comedy to psychologically destabilize enemies"
+        ],
+        "notable_battles": ["bar-delivery-and-ghoul-fight", "harbor-bathysphere-fight", "orphanage-defense", "acid-rain-ship-graveyard", "bahamut-bombardment-new-rome"],
+        "win_loss_draw": {"wins": 0, "losses": 0, "draws": 0},
+        "power_scaling_notes": "Ryan begins as a courier who has mastered basic timestop through centuries of repetition. Over the novel he accumulates weapons, allies, and eventually Rampage drug enhancement. His true power is knowledge—not raw combat ability. Against Augustus he is functionally useless in direct combat.",
+        "character_arc_analysis": "Ryan's arc is fundamentally about healing from loneliness. He spent centuries perfecting a shell of humor and recklessness to avoid acknowledging how alone he was. Finding Len re-opens the wound—she's alive but damaged, and their reunion isn't the triumphant moment he imagined. The real journey is Ryan learning to be vulnerable: trusting Vulcan, trusting Shroud, trusting the Panda, and finally allowing Len to carry some of his burden. The novel ends not with a bang but with Ryan collapsing into tears of relief—the armor finally dropping.",
+        "role_in_world": "Ryan is unique in New Rome because he isn't bound by its political structure. He can play all factions simultaneously because he can reset any mistake. This makes him simultaneously the most powerful strategic asset and the most dangerous wildcard. He becomes a catalyst—his presence accelerates every faction's timeline."
+      },
+      {
+        "character_id": "len-sabino",
+        "fighting_style": "Primarily defensive and utilitarian. Uses her water rifle to create prisons and shields around enemies. Prefers to neutralize threats than kill them. Her power allows precise water control that can form suffocating spheres even around armored opponents. In her JIM suit, her minigun provides direct firepower.",
+        "move_breakdown": [
+          {
+            "move_name": "Water Prison",
+            "type": "signature",
+            "description": "Forms a sphere of water around a target that immediately absorbs and constricts them",
+            "conditions_used": "To non-lethally neutralize threats or buy time",
+            "chapter_first_used": "Ch. 71",
+            "opponents_defeated_with": [],
+            "power_level_when_used": "Full Genius-Hydrokinetic"
+          }
+        ],
+        "strategic_tendencies": ["Avoids combat when possible", "Engineers solutions rather than fights through them", "Focuses on protecting non-combatants"],
+        "notable_battles": [],
+        "win_loss_draw": {"wins": 0, "losses": 0, "draws": 0},
+        "power_scaling_notes": "Len's raw combat power is secondary to her engineering genius. Her true contribution is the brain-transfer device that makes the Perfect Run possible.",
+        "character_arc_analysis": "Len's arc is the other half of Ryan's. Where he overcame loneliness through reckless optimism, she retreated into depression and isolation. Her disability is both literal (the wrong drug combination) and metaphorical (the armor of self-protection she built after her father's deterioration). Ryan refuses to let her stay in that armor. By the end, she chooses to risk trusting again—choosing hope over safety.",
+        "role_in_world": "Len is the reason New Rome's plot happens at all. She's also the key to both Dynamis' Elixir refinement plans and the brain-transfer that breaks Ryan's temporal isolation. She represents hope for both Bloodstream's extinction threat and Ryan's sanity."
+      },
+      {
+        "character_id": "vulcan-sharif",
+        "fighting_style": "Overwhelming firepower from extreme range. Her armor allows her to engage threats that would be lethal to any other fighter while remaining inside a near-invulnerable shell. Uses plasma beams to strip defenses before switching to physical assault from spider-limb repositioning.",
+        "move_breakdown": [
+          {
+            "move_name": "Plasma Barrage",
+            "type": "opener",
+            "description": "Opens engagement with simultaneous multi-cannon plasma fire to strip force fields and overwhelm defenses",
+            "conditions_used": "Standard opening salvo against any hardened target",
+            "chapter_first_used": "Ch. 19",
+            "opponents_defeated_with": ["psyshock"],
+            "power_level_when_used": "Full armor"
+          }
+        ],
+        "strategic_tendencies": ["Overwhelming first strike", "Armor as psychological deterrent as much as weapon", "Uses neural interface to multitask armor and handheld weapons simultaneously"],
+        "notable_battles": ["orphanage-defense"],
+        "win_loss_draw": {"wins": 0, "losses": 0, "draws": 0},
+        "power_scaling_notes": "Within her armor Vulcan is arguably the most dangerous fighter in New Rome aside from Augustus and Leo. Without it she is a standard Genius with no combat power.",
+        "character_arc_analysis": "Vulcan starts as an antagonist (Augusti weapons maker) and becomes one of Ryan's most significant relationships. Her journey is from cynical mercenary pragmatism to genuine investment in protecting people—not because Ryan converted her, but because his trust gave her permission to be someone she already wanted to be.",
+        "role_in_world": "Vulcan represents the arms race dynamic of the Genome world—a Genius whose only product is more effective violence. Her arc asks whether someone defined by weapons manufacturing can be something more."
+      }
+    ],
+    "power_rankings": [
+      {
+        "title": "Top 10 Strongest Genomes (Novel Canon)",
+        "methodology": "Based on demonstrated feats, author statements, and in-universe character assessments",
+        "entries": [
+          {
+            "rank": 1,
+            "character_id": "augustus",
+            "peak_power": "Near-invulnerable ivory body + lightning blasts; survived Leo going supernova",
+            "reasoning": "Survived a direct assault by Leo Hargraves going supernova, which no other being in the novel could endure. His ivory body ignores conventional weapons, plasma, and most superpowers."
+          },
+          {
+            "rank": 2,
+            "character_id": "leo-hargraves",
+            "peak_power": "Living stellar plasma entity",
+            "reasoning": "Defeated Mechron and his armies, survived the dark dimensional gaze that destroyed Mechron, catches orbital launch vehicles, and his plasma beams destroy fortress walls."
+          },
+          {
+            "rank": 3,
+            "character_id": "bloodstream",
+            "peak_power": "Pandemic-level cloning with theoretically unlimited range",
+            "reasoning": "If psychological restraints were removed, Stitch confirmed he could infect all life on Earth within months. No individual Genome can counter a fully unleashed Bloodstream."
+          },
+          {
+            "rank": 4,
+            "character_id": "ryan-romano",
+            "peak_power": "Violet chronokinesis with centuries of accumulated knowledge and WMD arsenal",
+            "reasoning": "Ryan's raw power is modest (timestop), but his information advantage and WMD arsenal (plushie, multiple A-bombs, Toasty mech) place him effectively at the top tier of practical power. Can 'win' any fight by resetting if he loses."
+          },
+          {
+            "rank": 5,
+            "character_id": "pluto",
+            "peak_power": "Instant death will; age sensing",
+            "reasoning": "Pluto's death power has 'no warning, no protection, no counter' according to the characters who know her best. Unknown limits prevent higher ranking."
+          },
+          {
+            "rank": 6,
+            "character_id": "nidhogg",
+            "peak_power": "Kilometers-long near-invulnerable serpent",
+            "reasoning": "Topples buildings and crushes laser towers by presence alone. Absorbs enemy corpses for regeneration. Near-invulnerable to energy weapons in serpent form."
+          },
+          {
+            "rank": 7,
+            "character_id": "vulcan-sharif",
+            "peak_power": "Gold-plated power armor with plasma beams and fusion reactor",
+            "reasoning": "Her armor rivals a battleship. A single Genius capable of threatening most Genomes in direct combat."
+          },
+          {
+            "rank": 8,
+            "character_id": "adam-the-ogre",
+            "peak_power": "Carbon-armored Psycho with orbital weapon access",
+            "reasoning": "Formidable in direct combat and demonstrated access to orbital weapons. His deteriorating condition and the plushie's effectiveness limit his ranking."
+          },
+          {
+            "rank": 9,
+            "character_id": "wyvern-nora",
+            "peak_power": "Full draconic transformation; bench presses school buses",
+            "reasoning": "One of the most powerful physical combatants in New Rome. Her dragon form is described as a serious threat even to Meta-Gang Psychos."
+          },
+          {
+            "rank": 10,
+            "character_id": "psyshock",
+            "peak_power": "Body-jumping telepath with electrokinesis",
+            "reasoning": "The only being who can fundamentally threaten Ryan's core advantage (body-jumping could potentially hijack the Chronoradio/brain-transfer). Extremely dangerous in information and infiltration warfare."
+          }
+        ]
+      }
+    ],
+    "relationship_dynamics": [
+      {
+        "characters": ["ryan-romano", "len-sabino"],
+        "dynamic_type": "romance",
+        "analysis": "The emotional spine of the entire novel. Ryan loved Len romantically as teenagers but has modulated this to 'I just want a friend who remembers me.' Yet his entire existence—centuries of loops—has been organized around finding her. When they finally meet, the gap between his idealized memory and her damaged present is heartbreaking. She never contacted him in four years because she needed to protect herself—a decision Ryan understands intellectually but cannot quite forgive emotionally. Their reunion in the final loop, where she remembers him and he collapses in tears, is the cathartic resolution of this centuries-long wound.",
+        "turning_points": ["reunion-with-len", "perfect-run-achieved"],
+        "thematic_significance": "Represents the cost of loneliness on both parties and the courage required to reconnect after trauma. Also explores whether love can survive the passage of centuries and the transformation of both people."
+      },
+      {
+        "characters": ["ryan-romano", "vulcan-sharif"],
+        "dynamic_type": "romance",
+        "analysis": "Across multiple loops, Ryan and Vulcan develop into a genuine romantic partnership. She is the first person he truly trusts since losing Len. Her request 'promise you won't forget me' haunts Ryan. He carries the weight of every version of Vulcan he's known, even knowing the current one doesn't know their history.",
+        "turning_points": ["reunion-with-len"],
+        "thematic_significance": "Shows Ryan's capacity for love isn't exhausted despite centuries of loss. Also represents the tragedy of the loop mechanic—every connection he makes with anyone except Len is erased."
+      },
+      {
+        "characters": ["ryan-romano", "timmy-panda"],
+        "dynamic_type": "mentorship",
+        "analysis": "Ryan adopts the Panda as a sidekick largely as a joke, but over time genuinely invests in Timmy's growth. The Panda's naive earnestness acts as a mirror for Ryan's own exhausted cynicism. The Panda sees Ryan as 'Sifu'—a master—and though Ryan plays it for laughs, he honors that trust.",
+        "turning_points": [],
+        "thematic_significance": "The found-family theme. Ryan accumulates unlikely companions across loops—the Panda being the purest expression of this."
+      },
+      {
+        "characters": ["ryan-romano", "mathias-shroud"],
+        "dynamic_type": "rivalry",
+        "analysis": "They start as opponents—Shroud killed Ryan multiple times before they established communication. Once talking, they recognize a shared goal: protect the innocent. Their mutual respect is built on both understanding the other's ruthlessness and their sincere desire to avoid unnecessary harm. Ryan eventually reveals his time-loop secret to Mathias—one of the most significant trust acts in the novel.",
+        "turning_points": ["acid-rain-ship-graveyard"],
+        "thematic_significance": "Two people who would be enemies in a simpler story choosing cooperation because their values overlap despite their methods diverging."
+      },
+      {
+        "characters": ["felix-manada", "fortuna-manada"],
+        "dynamic_type": "loyalty",
+        "analysis": "Felix resents Fortuna's attachment to their Augusti parents and dismisses her as shallow. He only realizes how wrong he was when Fortuna chooses him over their parents in the final crisis. Felix's final words before Ryan resets—asking Ryan to make sure he understands what his sister did for him—show how deeply this revelation affects him.",
+        "turning_points": ["dynamis-submarine-attack"],
+        "thematic_significance": "Family bonds can survive terrible circumstances if the love underneath is genuine. Also comments on how easy it is to misjudge people who perform shallow personas as a coping mechanism."
+      }
+    ],
+    "foreshadowing_analysis": [
+      {
+        "hint": "Ryan mentions the plushie was built in an unsupervised experiment and is his most devastating weapon before any power is described",
+        "chapter_hinted": "Ch. 1",
+        "payoff": "The plushie is deployed against Adam and eventually challenges Augustus himself, becoming a running escalating threat throughout",
+        "chapter_payoff": "Ch. 47",
+        "quality": "Subtle"
+      },
+      {
+        "hint": "Renesco mentions that the Meta attack pattern is unusual—they're restraining themselves from hitting Dynamis' infrastructure",
+        "chapter_hinted": "Ch. 7",
+        "payoff": "Revealed that the Meta deliberately avoided provoking Dynamis while pursuing the Mechron bunker goal",
+        "chapter_payoff": "Ch. 47",
+        "quality": "Subtle"
+      },
+      {
+        "hint": "Pluto notes Ryan's 'unusual age' and metaphysical weight despite his biological youth",
+        "chapter_hinted": "Ch. 20",
+        "payoff": "Confirmed as the accumulated temporal mass from centuries of loops—Pluto's age-sensing power detected Ryan's true 'age'",
+        "chapter_payoff": "Ch. 20",
+        "quality": "Brilliant"
+      },
+      {
+        "hint": "Mechron's particle accelerator is described as causing 'space itself bending and twisting'",
+        "chapter_hinted": "Ch. 41",
+        "payoff": "The collider opened a portal to the dark dimension, which destroyed Mechron and briefly threatened Leo",
+        "chapter_payoff": "Ch. 41",
+        "quality": "Obvious"
+      },
+      {
+        "hint": "The Chronoradio picks up transmissions 'from parallel timelines' from the novel's earliest chapters",
+        "chapter_hinted": "Ch. 1",
+        "payoff": "The Chronoradio becomes the mechanism by which Len communicates across loops in the Perfect Run, retroactively making this technology critical",
+        "chapter_payoff": "Ch. 71",
+        "quality": "Subtle"
+      }
+    ],
+    "plot_patterns": [
+      {
+        "pattern": "Ryan dies, resets, does it better",
+        "occurrences": ["Ch. 1 (Ghoul kills Ryan 3 times)", "Ch. 4 (acid rain ambush)", "Ch. 47 (Bahamut bad ending)", "Ch. 71 (Psyshock possession)", "Multiple minor deaths throughout"],
+        "analysis": "The core loop mechanic is used with increasing sophistication. Early loops are quick death/retry cycles. Mid-game loops span days of events. Late-game loops are nearly the entire novel length. The emotional weight of each reset increases as Ryan accumulates more meaningful connections that are erased."
+      },
+      {
+        "pattern": "Information asymmetry as power",
+        "occurrences": ["Ryan always knows enemy attack patterns", "Ryan knows Shroud's real identity from the start", "Ryan knows Adam's true motive", "Ryan knows Psyshock's body-jumping ability"],
+        "analysis": "The novel consistently rewards paying attention. Ryan's advantage isn't his Elixir but his accumulated knowledge. This is used both for comedy (everyone thinks he's psychic) and tragedy (he can't share this knowledge meaningfully with anyone except Len in the final loop)."
+      },
+      {
+        "pattern": "Villain becomes reluctant ally",
+        "occurrences": ["Vulcan (Augusti capo → Ryan's partner)", "Livia Augusti (Augustus's daughter → Ryan's ally)", "Sarin (Meta-Gang → Ryan's VP)", "Frank (Meta-Gang delusional → loyal 'secret service')", "Acid Rain (murderous Psycho → apologetic reformed 'Helen')"],
+        "analysis": "Used effectively because each conversion feels earned. The novel establishes these characters as people with comprehensible motivations before making them allies. The Psycho cures especially work because the derangement was always shown as external interference with their base nature."
+      },
+      {
+        "pattern": "Corporate/institutional corruption paralleling personal corruption",
+        "occurrences": ["Dynamis' corruption mirrors Hector's personal compromises", "Augusti's crime mirrors Augustus's personal arrogance", "Il Migliore's corporate compromise mirrors individual members' compromises"],
+        "analysis": "Void Herald consistently shows that institutions reflect the people who lead them. The solution to institutional corruption is always finding the right person within the institution (Enrique for Dynamis, Livia for the Augusti) rather than destroying the institution entirely."
+      }
+    ],
+    "world_building_insights": [
+      {
+        "insight": "New Rome's Cold War structure is intentionally fragile—maintained only by mutual assured destruction and corruption",
+        "evidence": ["Private Security accepts bribes from Augusti and Meta", "Il Migliore lets Augusti operate in exchange for stability", "Dynamis' deal with Augustus to not 'rock the boat'"],
+        "significance": "This fragility is why Ryan's interventions have such large effects. He's playing within a system that everyone secretly knows will collapse—he just knows when and how."
+      },
+      {
+        "insight": "The Elixirs are living entities that guide their hosts—potentially the Alchemist's mechanism for creating a new humanity",
+        "evidence": ["Elixirs 'subtly guide' Genomes with their ability", "Psychos are driven by the Elixir to seek more doses", "Each Elixir selects from a 'collective database' making powers unique", "Julie Costa's second-generation Genome theory"],
+        "significance": "The Alchemist wasn't just creating powered humans—they were planting seeds for an evolutionary leap. The Elixirs themselves are agents of this process."
+      },
+      {
+        "insight": "The dark dimension introduced at Mechron's death represents a cosmic-level threat beyond New Rome's local politics",
+        "evidence": ["Pythia's visions go completely dark at Mechron's fortress", "The 'abyss that gazes back' destroys Mechron and threatens Leo", "Eva Fabre's age-immunity and global teleportation suggest other Elixir sources or dimensional contact", "The Malleus Maleficarum tracking monster incidents globally"],
+        "significance": "The Perfect Run resolves New Rome's immediate conflicts but deliberately leaves a larger existential threat unsolved—appropriate for a series opener."
+      }
+    ],
+    "thematic_analysis": {
+      "central_themes": [
+        "Loneliness as the true villain—more than any Psycho or crime lord, isolation is what truly damages Ryan and Len",
+        "The price of power—every Genome's ability comes with a cost (Psychos with sanity, Ryan with connection, Augustus with humanity)",
+        "Finding family in unlikely places—Ryan's 'found family' of misfits matters as much as his reunion with Len",
+        "Institutional vs. individual morality—good people exist inside corrupt systems; the solution is supporting those people",
+        "The past that haunts us—Bloodstream, Monaco, the separation: trauma doesn't disappear, it must be processed",
+        "Hope as a radical act—in a post-apocalyptic world, Ryan's refusal to stop caring is actively countercultural"
+      ],
+      "motifs": [
+        "Loops and repetition—mechanical (time loops) and psychological (Ryan's coping mechanisms, trauma patterns)",
+        "Masks and personas—Ryan's mask, the presidential costume, Psycho mutations hiding humanity beneath",
+        "Gaming language in a world that forgot games—Ryan's isolation made concrete by the fact nobody understands his references",
+        "The rabbit plushie as escalating cosmic absurdity—comedy as a vehicle for genuine dread",
+        "Color coding of powers (Violet/Blue/Red/Green/Orange/White) as a visual grammar for the world's rules"
+      ],
+      "author_message": "The Perfect Run argues that connection is worth any cost—that the willingness to be vulnerable, to trust, to let people in despite the inevitable pain of loss, is what makes existence meaningful. Ryan's centuries of self-protective humor were never protection; they were the cage. The perfect run isn't about winning fights or saving cities—it's about finally being able to cry in front of someone who remembers why."
+    },
+    "unanswered_questions": [
+      {
+        "question": "Who is the Alchemist and what is their ultimate goal?",
+        "context": "The Alchemist distributed Wonderboxes containing Elixirs to seemingly random people worldwide, triggering the Genome Wars. Never directly appears in the novel.",
+        "theories": ["The Alchemist intended to create second-generation Genomes as a new species to replace baseline humanity (Julie Costa's theory)", "The Alchemist may be connected to the dark dimension or the Eva Fabre mystery", "The Elixirs' semi-sentient behavior suggests the Alchemist designed them as evolutionary agents rather than weapons"]
+      },
+      {
+        "question": "What is the dark dimension entity that destroyed Mechron and who/what gazes back?",
+        "context": "When Mechron's particle collider opened a portal to the Akashic Records, a dark dimension converged instead. Something within destroyed Mechron atom-by-atom and began consuming Leo before he escaped.",
+        "theories": ["The Akashic Records have a counterpart—a dimension of pure void/entropy", "The 'gaze' is of an entity similar in scope to the Alchemist but fundamentally opposed", "Eva Fabre may be connected to this dimension (purple flash in Antarctica 1992)"]
+      },
+      {
+        "question": "Who is Eva Fabre and what is she building toward?",
+        "context": "Former French geneticist who hasn't aged since 1992, can teleport globally, and is distributing vaccines that create monsters. Connected to the Antarctica Station Orpheon incident.",
+        "theories": ["Eva Fabre gained her powers from the 1992 Antarctica event (Violet Elixir or direct dimensional contact)", "Her monster-creation program is for a private army or to trigger another evolutionary event", "She may be connected to the Alchemist as a disciple, agent, or rival"]
+      },
+      {
+        "question": "What are the 'Ultimate Ones' referenced in the novel?",
+        "context": "Augustus is described as the most powerful creature on Earth 'short of the Ultimate Ones'—implying beings more powerful than even him exist.",
+        "theories": ["The Ultimate Ones may be the dark dimension entities", "They may be first-generation Genomes who achieved transcendence", "Could be Mechron's most advanced creations that escaped his control"]
+      },
+      {
+        "question": "What is Neptune's power and role in the Augusti hierarchy?",
+        "context": "Pluto mentions Neptune as the third Augustus sibling who serves as consigliere. Never directly appears in the novel.",
+        "theories": ["Following the Roman deity naming pattern, Neptune likely has water/sea-related powers", "As consigliere, they are probably the strategic brain of the operation"]
+      }
+    ]
+  }
+}
