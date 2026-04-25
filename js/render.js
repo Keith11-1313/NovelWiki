@@ -188,7 +188,6 @@ const R = {
     const novelId  = novel.__meta?.id || '';
     const coverUrl = novel.__meta?._coverUrl || null;
     const fallbacks = novelId ? Store.getCoverFallbacks(novelId) : [];
-    const nuUrl    = Store.getNovelUpdatesUrl(n.title, novel.__meta?._sourceUrl);
 
     const imgSrc = coverUrl || (fallbacks[0] || '');
 
@@ -209,12 +208,6 @@ const R = {
     /* Hidden img just to drive fallback chain */
     const loaderImg = imgSrc ? `<img src="${imgSrc}" alt="" aria-hidden="true" onerror="${loaderOnError}" style="display:none;position:absolute">` : '';
 
-    const nuBtn = nuUrl ? `
-      <a href="${nuUrl}" target="_blank" rel="noopener noreferrer"
-         class="btn btn-secondary btn-sm" style="margin-top:12px;width:fit-content">
-        <i class="bi bi-book-half"></i> Read this Novel
-      </a>` : '';
-
     return `<div class="fade-in">
       <!-- World hero banner -->
       <div id="${heroId}" class="char-hero mb-24" style="position:relative;overflow:hidden;padding:0;${heroBgStyle}align-items:stretch;flex-direction:column;min-height:260px;">
@@ -230,7 +223,7 @@ const R = {
               </div>
               <div class="page-title" style="margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.7)">${this.safe(n.title, 'Novel')}</div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${genreTag}${themeTags}</div>
-              ${nuBtn}
+
             </div>
             <div class="stat-row" style="margin:0">${statBoxes}</div>
           </div>

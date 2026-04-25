@@ -393,10 +393,9 @@ function printPage() { window.print(); }
   _currentNovelId_wiki    = id;
   window._currentNovelId  = id;
 
-  // attach meta info so render.js can read the cover and source url
+  // attach meta info so render.js can read the cover url
   const fallbacks = Store.getCoverFallbacks(id);
-  const nuUrl     = Store.getNovelUpdatesUrl(novel.novel?.title);
-  novel.__meta = { id, _sourceUrl: nuUrl };
+  novel.__meta = { id };
 
   Store.trackView(id);
 

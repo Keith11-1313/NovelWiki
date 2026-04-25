@@ -281,7 +281,6 @@ document.addEventListener('keydown', e => {
       },
       _fromDataFolder: true,
       _coverUrl: Store.getCoverUrl(id),
-      _sourceUrl: Store.getNovelUpdatesUrl(novel.title, manifest.source_url),
     };
   });
 

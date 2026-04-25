@@ -238,19 +238,6 @@ const Store = {
     });
   },
 
-  // builds a novelupdates.com url from the novel title
-  // can be overridden if the manifest already has a source_url
-  getNovelUpdatesUrl(title, overrideUrl) {
-    if (overrideUrl) return overrideUrl;
-    if (!title) return null;
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .trim()
-      .replace(/\s+/g, '-');
-    return `https://www.novelupdates.com/series/${slug}/`;
-  },
-
   // figures out the base path of the project
   // needed so the data/ folder works even if the site is hosted in a subdirectory
   _dataBase() {
