@@ -636,7 +636,7 @@ const R = {
 
   bloodlineList(novel) {
     const list = this.arr(novel.bloodlines);
-    if (!list.length) return this.emptyState('No Bloodlines', '', 'bi-dna');
+    if (!list.length) return this.emptyState('No Bloodlines', '', 'bi-droplet');
     const cards = list.map(b => `
       <div class="card">
         <div class="card-title mb-4">${this.safe(b.name)}</div>
@@ -654,7 +654,7 @@ const R = {
       </div>`).join('');
 
     return `<div class="fade-in">
-      <div class="page-title"><i class="bi bi-dna"></i>Bloodlines</div>
+      <div class="page-title"><i class="bi bi-droplet"></i>Bloodlines</div>
       <div class="page-subtitle">${list.length} bloodlines</div>
       <div class="grid-auto">${cards}</div>
     </div>`;

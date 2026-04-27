@@ -42,7 +42,7 @@ const Search = {
         [p.type, p.grade, (p.effects || []).join(', ')].filter(Boolean).join(' · ').slice(0, 120)));
 
     (n.bloodlines || []).forEach(b =>
-      add('Bloodline', 'bi-dna', b.id, b.name,
+      add('Bloodline', 'bi-droplet', b.id, b.name,
         (b.lore || '').slice(0, 120)));
 
     (n.beasts_and_creatures || []).forEach(b =>

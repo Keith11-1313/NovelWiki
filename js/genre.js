@@ -26,7 +26,7 @@ const Genre = {
     { id: 'techniques',  label: 'Techniques & Skills', icon: 'bi-lightning',             section: 'world'    },
     { id: 'artifacts',   label: 'Artifacts & Items',   icon: 'bi-gem',                   section: 'world'    },
     { id: 'pills',       label: 'Pills & Resources',   icon: 'bi-capsule',               section: 'world'    },
-    { id: 'bloodlines',  label: 'Bloodlines',          icon: 'bi-dna',                   section: 'world'    },
+    { id: 'bloodlines',  label: 'Bloodlines',          icon: 'bi-droplet',               section: 'world'    },
     { id: 'bestiary',    label: 'Bestiary',            icon: 'bi-bug',                   section: 'world'    },
     { id: 'locations',   label: 'Locations',           icon: 'bi-map',                   section: 'world'    },
     { id: 'realms',      label: 'Realms & Dimensions', icon: 'bi-globe2',                section: 'world'    },
