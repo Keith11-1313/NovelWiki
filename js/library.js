@@ -50,69 +50,61 @@ function renderLibrary(novels) {
   }
   empty.classList.add('hidden');
 
-  grid.innerHTML = novels.map(n => {
+  grid.innerHTML = novels.map((n, idx) => {
     const color    = genreColors[n.type] || '#f0a500';
     const icon     = genreIcons[n.type]  || 'bi-book';
     const s        = n.stats || {};
     const id       = n.id;
 
-    // build cover image with multiple format fallbacks so it works with jpg, jpeg, png, webp
+    // build cover image with multiple format fallbacks
     const fallbacks = Store.getCoverFallbacks(id);
     const fb1 = fallbacks[1] || '';
     const fb2 = fallbacks[2] || '';
     const fb3 = fallbacks[3] || '';
 
-    const cardTop = `
-      <div class="novel-card-cover-wrap" style="position:relative;height:160px;overflow:hidden;background:${color}22">
-        <img
-          src="${fallbacks[0]}"
-          alt=""
-          onerror="
-            var f=['${fb1}','${fb2}','${fb3}'];
-            var i=this.dataset.fi=parseInt(this.dataset.fi||0)+1;
-            if(f[i-1])this.src=f[i-1];else this.style.display='none';
-          "
-          style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.7))"></div>
-        <div style="position:absolute;bottom:0;left:0;width:3px;height:100%;background:${color}"></div>
-      </div>`;
-
+    const statsHtml = [
+      s.characters  ? `<span class="novel-stat"><i class="bi bi-people"></i>${s.characters} chars</span>`      : '',
+      s.arcs        ? `<span class="novel-stat"><i class="bi bi-diagram-3"></i>${s.arcs} arcs</span>`          : '',
+      s.techniques  ? `<span class="novel-stat"><i class="bi bi-lightning"></i>${s.techniques} tech</span>`    : '',
+      s.locations   ? `<span class="novel-stat"><i class="bi bi-map"></i>${s.locations} loc</span>`            : '',
+    ].filter(Boolean).slice(0, 3).join('');
 
     return `
-      <div class="novel-card" data-type="${Utils.escapeHtml(n.type || '')}" data-title="${Utils.escapeHtml(n.title || '')}" onclick="openNovel('${n.id}')">
-        ${cardTop}
-        <div class="novel-card-body">
-          <div class="novel-card-title">${Utils.escapeHtml(n.title)}</div>
-          <div class="novel-card-genre">
-            <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">
+      <div class="novel-card fade-in-up" style="--i:${(idx % 8) + 1}" data-type="${Utils.escapeHtml(n.type || '')}" data-title="${Utils.escapeHtml(n.title || '')}" onclick="openNovel('${n.id}')">
+        <div class="novel-card-cover-wrap">
+          <img
+            src="${fallbacks[0]}"
+            alt=""
+            onerror="
+              var f=['${fb1}','${fb2}','${fb3}'];
+              var i=this.dataset.fi=parseInt(this.dataset.fi||0)+1;
+              if(f[i-1])this.src=f[i-1];else this.style.display='none';
+            "
+          >
+          <div class="novel-card-overlay"></div>
+          <div class="novel-card-genre-badge">
+            <span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44;backdrop-filter:blur(12px)">
               <i class="bi ${icon}"></i>${Utils.escapeHtml((n.type || 'other').replace(/-/g, ' '))}
             </span>
-            ${(n.genre_tags || []).slice(0, 2).map(t => `<span class="badge badge-muted">${Utils.escapeHtml(t)}</span>`).join('')}
           </div>
-          <div class="novel-card-stats">
-            ${s.characters  ? `<span class="novel-stat"><i class="bi bi-people"></i>${s.characters} chars</span>`      : ''}
-            ${s.arcs        ? `<span class="novel-stat"><i class="bi bi-diagram-3"></i>${s.arcs} arcs</span>`          : ''}
-            ${s.techniques  ? `<span class="novel-stat"><i class="bi bi-lightning"></i>${s.techniques} techniques</span>` : ''}
-            ${s.locations   ? `<span class="novel-stat"><i class="bi bi-map"></i>${s.locations} locations</span>`      : ''}
+          <div class="novel-card-info">
+            <div class="novel-card-title">${Utils.escapeHtml(n.title)}</div>
+            <div class="novel-card-stats">${statsHtml}</div>
           </div>
-          ${n.__lastViewed ? `<div class="novel-card-viewed"><i class="bi bi-clock"></i> ${Utils.timeAgo(n.__lastViewed)}</div>` : ''}
         </div>
         <div class="novel-card-actions">
-          <a href="wiki.html?novel=${n.id}" class="btn btn-secondary btn-sm" onclick="event.stopPropagation()">
+          <a href="wiki.html?novel=${n.id}" class="btn btn-secondary btn-sm" style="flex:1;justify-content:center" onclick="event.stopPropagation()">
             <i class="bi bi-book-open"></i>Open Wiki
           </a>
-          <button class="btn btn-ghost btn-sm" title="Export as JSON" aria-label="Export as JSON"
-            onclick="event.stopPropagation(); downloadNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
-            <i class="bi bi-download" aria-hidden="true"></i>
+          <button class="btn btn-ghost btn-sm" title="Export" onclick="event.stopPropagation(); downloadNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
+            <i class="bi bi-download"></i>
           </button>
           ${!n._fromDataFolder ? `
-          <button class="btn btn-ghost btn-sm" title="Edit novel" aria-label="Edit novel"
-            onclick="event.stopPropagation(); editNovel('${n.id}')">
-            <i class="bi bi-pencil" aria-hidden="true"></i>
+          <button class="btn btn-ghost btn-sm" title="Edit" onclick="event.stopPropagation(); editNovel('${n.id}')">
+            <i class="bi bi-pencil"></i>
           </button>
-          <button class="btn btn-danger btn-sm" title="Delete novel" aria-label="Delete novel"
-            onclick="event.stopPropagation(); deleteNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
-            <i class="bi bi-trash" aria-hidden="true"></i>
+          <button class="btn btn-danger btn-sm" title="Delete" onclick="event.stopPropagation(); deleteNovel('${n.id}', '${Utils.escapeHtml(n.title)}')">
+            <i class="bi bi-trash"></i>
           </button>` : ''}
         </div>
       </div>`;
