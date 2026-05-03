@@ -40,6 +40,26 @@ function sanitizeHtml(html) {
 // ----- ROUTER -----
 // handles hash-based navigation between wiki sections
 // e.g. #characters, #characters/some-character-id
+
+// triggers staggered entrance animations on cards as they scroll into view
+function _initStaggerObserver(root) {
+  const items = root.querySelectorAll('.card, .hub-card, .timeline-item, .relation-item');
+  if (!items.length) return;
+
+  // items already tagged with --i via the template get auto-delays from CSS
+  // for items without a tag, we assign them here
+  let idx = 0;
+  items.forEach(el => {
+    if (!el.style.getPropertyValue('--i')) {
+      el.style.setProperty('--i', (idx % 8) + 1);
+      idx++;
+    }
+    if (!el.classList.contains('fade-in-up')) {
+      el.classList.add('fade-in-up');
+    }
+  });
+}
+
 const Router = {
   novel: null,
 
@@ -115,7 +135,10 @@ const Router = {
       console.error('Render error on page:', page, e);
     }
 
-    requestAnimationFrame(() => out.classList.add('content-visible'));
+    requestAnimationFrame(() => {
+      out.classList.add('content-visible');
+      _initStaggerObserver(out);
+    });
   },
 
   // highlights the active nav item in the sidebar
