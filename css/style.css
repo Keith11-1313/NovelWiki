@@ -1201,3 +1201,94 @@ input, textarea, select { font-family: inherit; }
   body { background:#fff!important; color:#000!important; }
   .card { border:1px solid #ccc!important; background:#fff!important; }
 }
+
+/* ===== SKELETON LOADING ===== */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card)          0%,
+    var(--bg-hover)         40%,
+    var(--bg-card)          60%,
+    var(--bg-card)         100%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius);
+}
+
+/* Skeleton card that matches novel-card proportions */
+.skeleton-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.skeleton-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+}
+.skeleton-text {
+  height: 12px;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+.skeleton-text.short  { width: 55%; }
+.skeleton-text.medium { width: 75%; }
+
+/* ===== PAGE TRANSITIONS ===== */
+/* The existing .fade-in class uses opacity only.
+   .fade-in-slide adds a gentle upward slide for section switches. */
+@keyframes fade-in-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in-slide-up 0.22s ease both;
+}
+
+/* Library cards stagger via --i custom property (already set in library.js) */
+.fade-in-up {
+  animation: fade-in-slide-up 0.28s ease both;
+  animation-delay: calc(var(--i, 1) * 35ms);
+}
+
+/* ===== SEARCH DROPDOWN — KEYBOARD FOCUS ===== */
+.search-drop-item.focused {
+  background: var(--bg-hover);
+  border-color: var(--accent-border);
+  color: var(--text-primary);
+  outline: none;
+}
+
+/* ===== NOSCRIPT BANNER ===== */
+.noscript-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--bg-base, #09090b);
+  color: var(--text-primary, #fafafa);
+  font-family: var(--font-body, sans-serif);
+  font-size: 16px;
+  text-align: center;
+  padding: 32px;
+}
+.noscript-banner strong {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 4px;
+}

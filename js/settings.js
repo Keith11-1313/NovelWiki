@@ -477,14 +477,139 @@ function resetSettings() {
   updateAccentPickerVisibility();
 }
 
+// ─── Settings modal injection ─────────────────────────────────────────────────
+// Builds and appends the settings overlay to <body> on first open.
+// Avoids duplicating the markup across every HTML page.
+
+function injectSettingsModal() {
+  if (document.getElementById('settings-overlay')) return; // already present
+
+  const isWiki    = document.body.classList.contains('page-wiki');
+  const genreRow  = isWiki ? `
+      <div class="settings-section-label">Genre Accent</div>
+      <div class="settings-row" id="row-genre-accent">
+        <div>
+          <div class="settings-row-label" style="display:flex;align-items:center;gap:8px;">
+            Match Genre Color
+            <span class="genre-chip" id="genre-accent-chip"></span>
+            <span id="genre-accent-name" style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);"></span>
+          </div>
+          <div class="settings-row-sub">Auto-apply accent based on novel genre</div>
+        </div>
+        <label class="toggle-wrap" aria-label="Use genre accent color">
+          <input type="checkbox" id="toggle-genre-accent" class="toggle-input" onchange="onToggleGenreAccent(this.checked)">
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>` : '';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'settings-overlay';
+  overlay.id = 'settings-overlay';
+  overlay.setAttribute('onclick', 'handleOverlayClick(event)');
+  overlay.innerHTML = `
+    <div class="settings-panel">
+      <div class="settings-header">
+        <div class="settings-title">Appearance</div>
+        <button class="settings-close" onclick="closeSettings()" aria-label="Close settings"><i class="bi bi-x" aria-hidden="true"></i></button>
+      </div>
+
+      <div class="settings-section-label" style="margin-top:0">Mode</div>
+      <div class="day-night-row">
+        <div class="day-night-left">
+          <i class="bi bi-moon day-night-icon" id="day-night-icon"></i>
+          <span class="day-night-label" id="day-night-label">Night Mode</span>
+        </div>
+        <label class="toggle-wrap" aria-label="Toggle day or night mode">
+          <input type="checkbox" id="toggle-day-night" class="toggle-input" onchange="onToggleDayNight(this.checked)">
+          <span class="dn-track"><span class="dn-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="settings-section-label">Theme</div>
+      <div class="theme-presets" id="theme-presets"></div>
+
+      ${genreRow}
+
+      <div class="settings-section-label">Accent Color</div>
+      <div class="settings-row" id="row-custom-accent">
+        <div>
+          <div class="settings-row-label">Primary Accent</div>
+          <div class="settings-row-sub">Used for highlights, links &amp; active states</div>
+        </div>
+        <div class="color-picker-wrap">
+          <input type="color" id="cp-accent" oninput="onColorPick('accent', this.value)">
+          <input type="text" class="color-picker-hex" id="hex-accent" maxlength="7" placeholder="#ff304f" oninput="onHexInput('accent', this.value)">
+        </div>
+      </div>
+
+      <div class="settings-section-label">Background Colors</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Base Background</div>
+          <div class="settings-row-sub">Page root color</div>
+        </div>
+        <div class="color-picker-wrap">
+          <input type="color" id="cp-bg-base" oninput="onColorPick('bg-base', this.value)">
+          <input type="text" class="color-picker-hex" id="hex-bg-base" maxlength="7" placeholder="#07080c" oninput="onHexInput('bg-base', this.value)">
+        </div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Card Background</div>
+          <div class="settings-row-sub">Panels and cards</div>
+        </div>
+        <div class="color-picker-wrap">
+          <input type="color" id="cp-bg-card" oninput="onColorPick('bg-card', this.value)">
+          <input type="text" class="color-picker-hex" id="hex-bg-card" maxlength="7" placeholder="#0d101a" oninput="onHexInput('bg-card', this.value)">
+        </div>
+      </div>
+
+      <div class="settings-section-label">Text Colors</div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Primary Text</div></div>
+        <div class="color-picker-wrap">
+          <input type="color" id="cp-text-primary" oninput="onColorPick('text-primary', this.value)">
+          <input type="text" class="color-picker-hex" id="hex-text-primary" maxlength="7" placeholder="#f4f7fb" oninput="onHexInput('text-primary', this.value)">
+        </div>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Secondary Text</div></div>
+        <div class="color-picker-wrap">
+          <input type="color" id="cp-text-secondary" oninput="onColorPick('text-secondary', this.value)">
+          <input type="text" class="color-picker-hex" id="hex-text-secondary" maxlength="7" placeholder="#bfd1f2" oninput="onHexInput('text-secondary', this.value)">
+        </div>
+      </div>
+
+      <div class="settings-section-label">UI Scale</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Border Radius</div>
+          <div class="settings-row-sub">Corner rounding (px)</div>
+        </div>
+        <div class="range-wrap">
+          <input type="range" id="range-radius" min="0" max="32" step="2" value="6" oninput="onRadiusChange(this.value)">
+          <span class="range-value" id="range-radius-val">6px</span>
+        </div>
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn btn-ghost" onclick="resetSettings()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+        <button class="btn btn-primary" onclick="closeSettings()"><i class="bi bi-check2"></i> Done</button>
+      </div>
+    </div>`;
+
+  document.body.appendChild(overlay);
+}
+
 // ─── Panel open/close ─────────────────────────────────────────────────────────
 
 function openSettings() {
+  injectSettingsModal();
   initSettingsPanel();
   document.getElementById('settings-overlay').classList.add('open');
 }
 function closeSettings() {
-  document.getElementById('settings-overlay').classList.remove('open');
+  document.getElementById('settings-overlay')?.classList.remove('open');
 }
 function handleOverlayClick(e) {
   if (e.target === document.getElementById('settings-overlay')) closeSettings();

@@ -17,6 +17,25 @@ const genreIcons = {
 let allNovels  = [];   // combined list from data folder + localStorage
 let _dataNovels = [];  // tracks which novels came from the data/ folder
 let _crossSearchMode = false;
+let _sortMode = 'default'; // current sort: 'default' | 'az' | 'za' | 'chars' | 'recent'
+
+// applies the current sort mode to a list and returns a new sorted copy
+function applySortToList(list) {
+  const copy = [...list];
+  switch (_sortMode) {
+    case 'az':    return copy.sort((a, b) => a.title.localeCompare(b.title));
+    case 'za':    return copy.sort((a, b) => b.title.localeCompare(a.title));
+    case 'chars': return copy.sort((a, b) => (b.stats?.characters || 0) - (a.stats?.characters || 0));
+    case 'recent': return copy.sort((a, b) => (b._importedAt || 0) - (a._importedAt || 0));
+    default:      return copy; // 'default' = original load order
+  }
+}
+
+// called by the sort <select> in the toolbar
+function sortLibrary(mode) {
+  _sortMode = mode;
+  filterLibrary();
+}
 
 // renders the "recently opened" chip strip above the library grid
 function renderRecentlyViewed() {
@@ -127,7 +146,7 @@ function filterLibrary() {
     const matchGenre = !genre || n.type === genre;
     return matchTitle && matchGenre;
   });
-  renderLibrary(filtered);
+  renderLibrary(applySortToList(filtered));
 }
 
 // searches across all novels' full content, not just titles
@@ -239,10 +258,13 @@ document.addEventListener('keydown', e => {
 (async function init() {
   const grid = document.getElementById('novel-grid');
   if (grid) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <i class="bi bi-hourglass-split"></i>
-      <h3>Loading library…</h3>
-    </div>`;
+    // Show 4 skeleton cards while data loads
+    grid.innerHTML = Array.from({ length: 4 }, () => `
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-cover"></div>
+        <div class="skeleton skeleton-text medium"></div>
+        <div class="skeleton skeleton-text short"></div>
+      </div>`).join('');
   }
 
   // load novels from the data/ folder (pre-made ones that ship with the project)

@@ -222,6 +222,17 @@ function buildSidebar(novel) {
 // ----- SEARCH -----
 // live search dropdown that shows as the user types in the search box
 let _searchDropdownOpen = false;
+let _dropdownFocusIdx   = -1; // -1 = no item focused, 0+ = index of focused item
+
+// moves the keyboard focus cursor within the dropdown
+function _moveDdFocus(dir) {
+  const items = document.querySelectorAll('#search-dropdown .search-drop-item');
+  if (!items.length) return;
+  items[_dropdownFocusIdx]?.classList.remove('focused');
+  _dropdownFocusIdx = Math.max(0, Math.min(items.length - 1, _dropdownFocusIdx + dir));
+  items[_dropdownFocusIdx]?.classList.add('focused');
+  items[_dropdownFocusIdx]?.scrollIntoView({ block: 'nearest' });
+}
 
 // debounced so it doesnt hit the search index on every single keypress
 const _doLiveSearch = Utils.debounce((q) => {
@@ -247,25 +258,42 @@ const _doLiveSearch = Utils.debounce((q) => {
 
   dropdown.classList.add('open');
   _searchDropdownOpen = true;
+  _dropdownFocusIdx   = -1; // reset cursor on every new query
 }, 150);
 
 function handleSearchInput(e) {
   _doLiveSearch(e.target.value.trim());
 }
 
-// pressing enter goes to the full search results page
+// ArrowDown/Up move keyboard cursor; Enter navigates to focused item or falls back to full search
 function handleSearch(e) {
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (_searchDropdownOpen) { _moveDdFocus(1); }
+    return;
+  }
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (_searchDropdownOpen) { _moveDdFocus(-1); }
+    return;
+  }
   if (e.key === 'Enter') {
     const q = e.target.value.trim();
-    if (q) Router.go(`search/${encodeURIComponent(q)}`);
+    if (_searchDropdownOpen && _dropdownFocusIdx >= 0) {
+      Search.navigateByIndex(_dropdownFocusIdx, Store.getCurrentId());
+    } else if (q) {
+      Router.go(`search/${encodeURIComponent(q)}`);
+    }
     closeSearchDropdown();
+    return;
   }
   if (e.key === 'Escape') closeSearchDropdown();
 }
 
 function closeSearchDropdown() {
   document.getElementById('search-dropdown')?.classList.remove('open');
-  _searchDropdownOpen = false;
+  _searchDropdownOpen  = false;
+  _dropdownFocusIdx    = -1;
 }
 
 // closes dropdown when clicking anywhere outside the search area
