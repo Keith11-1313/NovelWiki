@@ -308,6 +308,10 @@ function syncDayNightToggle() {
   if (toggle) toggle.checked = _current.mode === 'light';
   const label = document.getElementById('day-night-label');
   if (label) label.textContent = _current.mode === 'light' ? 'Day Mode' : 'Night Mode';
+  const icon = document.getElementById('day-night-icon');
+  if (icon) {
+    icon.className = _current.mode === 'light' ? 'bi bi-sun day-night-icon' : 'bi bi-moon day-night-icon';
+  }
 }
 
 function updateSwatches() {
