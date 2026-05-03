@@ -56,7 +56,7 @@ function renderLibrary(novels) {
     const s        = n.stats || {};
     const id       = n.id;
 
-    // build cover image with multiple format fallbacks so it works with jpeg, jpg, png, webp
+    // build cover image with multiple format fallbacks so it works with jpg, jpeg, png, webp
     const fallbacks = Store.getCoverFallbacks(id);
     const fb1 = fallbacks[1] || '';
     const fb2 = fallbacks[2] || '';

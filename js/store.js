@@ -179,20 +179,20 @@ const Store = {
     } catch (_) { return []; }
   },
 
-  // returns the first cover url to try (jpeg)
+  // returns the primary cover url to try (jpg)
   // the img tag handles the rest of the fallbacks via onerror
   getCoverUrl(id) {
     const base = this._dataBase();
-    return `${base}data/${id}.jpeg`;
+    return `${base}data/${id}.jpg`;
   },
 
   // returns all cover image urls to try in order
-  // supports jpeg, jpg, png, webp so basically any common format works
+  // jpg is tried first since that's the standard format for all covers
   getCoverFallbacks(id) {
     const base = this._dataBase();
     return [
-      `${base}data/${id}.jpeg`,
       `${base}data/${id}.jpg`,
+      `${base}data/${id}.jpeg`,
       `${base}data/${id}.png`,
       `${base}data/${id}.webp`,
     ];
