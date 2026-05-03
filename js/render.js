@@ -210,20 +210,19 @@ const R = {
 
     return `<div class="fade-in">
       <!-- World hero banner -->
-      <div id="${heroId}" class="char-hero mb-24" style="position:relative;overflow:hidden;padding:0;${heroBgStyle}align-items:stretch;flex-direction:column;min-height:260px;">
+      <div id="${heroId}" class="char-hero mb-24" style="position:relative;overflow:hidden;padding:0;${heroBgStyle}align-items:stretch;flex-direction:column;min-height:280px;border-radius:var(--radius-xl);">
         ${loaderImg}
         <!-- Dark overlay -->
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,15,.45) 0%,rgba(5,7,15,.82) 55%,rgba(5,7,15,.97) 100%),radial-gradient(circle at top right,rgba(var(--accent-rgb),.22),transparent 55%);pointer-events:none"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,7,15,.3) 0%,rgba(5,7,15,.75) 55%,rgba(5,7,15,.97) 100%),radial-gradient(circle at top right,rgba(var(--accent-rgb),.25),transparent 55%);pointer-events:none"></div>
         <!-- Content -->
-        <div style="position:relative;z-index:1;padding:36px 32px;display:flex;flex-direction:column;gap:16px;width:100%;box-sizing:border-box">
+        <div style="position:relative;z-index:1;padding:40px 32px;display:flex;flex-direction:column;gap:16px;width:100%;box-sizing:border-box">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px">
             <div>
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:6px">
                 <i class="bi bi-globe2"></i>&nbsp;${this.safe(n.world_name, 'Unknown World')}
               </div>
-              <div class="page-title" style="margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.7)">${this.safe(n.title, 'Novel')}</div>
+              <div class="page-title" style="margin-bottom:10px;text-shadow:0 2px 16px rgba(0,0,0,.8)">${this.safe(n.title, 'Novel')}</div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${genreTag}${themeTags}</div>
-
             </div>
             <div class="stat-row" style="margin:0">${statBoxes}</div>
           </div>
@@ -234,9 +233,6 @@ const R = {
       <div class="section-title"><i class="bi bi-compass"></i>Navigate the Wiki</div>
       <div class="hub-grid">${hubCards}</div>
     </div>`;
-
-
-
   },
 
   _moduleCount(novel, id) {
@@ -263,15 +259,17 @@ const R = {
     if (!chars.length) return this.emptyState('No Characters', 'Add novel data to see characters.', 'bi-people');
 
     const roles = [...new Set(chars.map(c => c.role).filter(Boolean))];
-    const cards = chars.map(c => {
+    const roleColors = { protagonist: 'var(--grade-legendary)', antagonist: 'var(--grade-mythic)', supporting: 'var(--grade-rare)', minor: 'var(--grade-common)' };
+    const cards = chars.map((c, i) => {
       const initials = (c.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-      return `<div class="card card-clickable" data-searchable="${this.safe(c.name)} ${this.safe((c.aliases || []).join(' '))} ${this.safe(c.role || '')}" data-filters="char-role" data-filterCharRole="${this.safe(c.role || '')}" onclick="Router.go('characters/${c.id}')">
+      const avatarBg = roleColors[c.role] || 'var(--accent)';
+      return `<div class="card card-clickable fade-in-up" style="--i:${(i % 8) + 1}" data-searchable="${this.safe(c.name)} ${this.safe((c.aliases || []).join(' '))} ${this.safe(c.role || '')}" data-filters="char-role" data-filterCharRole="${this.safe(c.role || '')}" onclick="Router.go('characters/${c.id}')">
         <div class="card-header">
           <div>
             <div class="card-title">${this.safe(c.name)}</div>
             <div class="card-meta">${this.arr(c.aliases).join(' · ') || '—'}</div>
           </div>
-          <div style="width:44px;height:44px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#000;flex-shrink:0">${initials}</div>
+          <div style="width:44px;height:44px;border-radius:10px;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#000;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,255,255,0.15);font-family:var(--font-display)">${initials}</div>
         </div>
         <div class="badge-row-scroll mb-8">
           ${this.roleBadge(c.role)} ${this.statusBadge(c.status)}

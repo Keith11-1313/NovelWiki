@@ -268,10 +268,11 @@ input, textarea, select { font-family: inherit; }
 .stat-box-label { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.35px; margin-top:4px; }
 
 /* ===== CHARACTER HERO ===== */
-.char-hero { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; display:flex; gap:24px; align-items:flex-start; margin-bottom:24px; }
-.char-avatar { width:80px; height:80px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:600; color:#000; flex-shrink:0; background:var(--accent); }
+.char-hero { background:var(--glass-bg); backdrop-filter:var(--glass-blur-sm); -webkit-backdrop-filter:var(--glass-blur-sm); border:1px solid var(--glass-border); border-radius:var(--radius-xl); padding:28px; display:flex; gap:24px; align-items:flex-start; margin-bottom:24px; position:relative; overflow:hidden; }
+.char-hero::before { content:''; position:absolute; top:-40px; right:-40px; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle,rgba(var(--accent-rgb),0.12) 0%,transparent 70%); pointer-events:none; }
+.char-avatar { width:80px; height:80px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700; color:#000; flex-shrink:0; background:var(--accent); box-shadow:0 0 0 3px rgba(var(--accent-rgb),0.3), var(--shadow-glow); font-family:var(--font-display); }
 .char-info { flex:1; }
-.char-name { font-size:36px; font-weight:400; letter-spacing:-0.9px; line-height:1.0; }
+.char-name { font-family:var(--font-display); font-size:36px; font-weight:800; letter-spacing:-1.5px; line-height:1.0; }
 .char-aliases { font-size:12px; color:var(--text-muted); margin:4px 0 10px; }
 .char-badges { display:flex; gap:6px; flex-wrap:wrap; }
 
@@ -284,12 +285,13 @@ input, textarea, select { font-family: inherit; }
 .detail-table td:last-child { font-size:13px; color:var(--text-secondary); }
 
 /* ===== WIKI TABLE ===== */
-.table-wrapper { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+.table-wrapper { background:var(--glass-bg); backdrop-filter:var(--glass-blur-sm); border:1px solid var(--glass-border); border-radius:var(--radius-lg); overflow:hidden; }
 .wiki-table { width:100%; border-collapse:collapse; font-size:13px; }
-.wiki-table thead tr { background:var(--bg-elevated); text-align:left; }
-.wiki-table th { padding:10px 14px; font-size:10px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.35px; border-bottom:1px solid var(--border); }
-.wiki-table td { padding:12px 14px; color:var(--text-secondary); border-bottom:1px solid var(--border-muted); vertical-align:top; }
-.wiki-table tbody tr:hover { background:var(--bg-card); }
+.wiki-table thead tr { background:rgba(var(--accent-rgb),0.05); text-align:left; }
+.wiki-table th { padding:10px 14px; font-size:10px; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:0.35px; border-bottom:1px solid var(--glass-border); }
+.wiki-table td { padding:12px 14px; color:var(--text-secondary); border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; }
+.wiki-table tbody tr { transition:background 0.12s; }
+.wiki-table tbody tr:hover { background:rgba(var(--accent-rgb),0.05); }
 .wiki-table tbody tr:last-child td { border-bottom:none; }
 
 /* Tier rank circles */
@@ -304,12 +306,12 @@ input, textarea, select { font-family: inherit; }
 
 /* ===== TIMELINE ===== */
 .timeline { position:relative; padding-left:32px; }
-.timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:1px; background:var(--border); }
-.timeline-item { position:relative; margin-bottom:24px; }
-.timeline-dot { position:absolute; left:-26px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--bg-base); }
-.timeline-chapter { font-size:10px; color:var(--accent); font-weight:500; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.35px; }
-.timeline-title { font-size:16px; font-weight:400; margin-bottom:8px; letter-spacing:-0.16px; }
-.timeline-body { font-size:13px; color:var(--text-secondary); line-height:1.5; }
+.timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, rgba(var(--accent-rgb),0.5), transparent); }
+.timeline-item { position:relative; margin-bottom:24px; animation:fadeInUp 0.4s ease both; }
+.timeline-dot { position:absolute; left:-26px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--bg-base); box-shadow:0 0 8px rgba(var(--accent-rgb),0.5); }
+.timeline-chapter { font-size:10px; color:var(--accent); font-weight:600; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.35px; }
+.timeline-title { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:8px; letter-spacing:-0.3px; }
+.timeline-body { font-size:13px; color:var(--text-secondary); line-height:1.6; }
 
 /* ===== FILTER BAR ===== */
 .filter-bar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; align-items:center; }
@@ -400,6 +402,11 @@ input, textarea, select { font-family: inherit; }
 
 /* ===== HUB GRID ===== */
 .hub-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+/* First two hub cards span wider on large screens */
+@media (min-width:900px) {
+  .hub-grid .hub-card:nth-child(1),
+  .hub-grid .hub-card:nth-child(2) { grid-column: span 2; }
+}
 .hub-card { background:var(--glass-bg); backdrop-filter:var(--glass-blur-sm); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:20px 16px; text-align:center; cursor:pointer; transition:var(--transition-fast); text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; }
 .hub-card:hover { border-color:var(--accent-border); background:rgba(var(--accent-rgb),0.08); transform:translateY(-3px); box-shadow:var(--shadow-glow); }
 .hub-card i { font-size:26px; color:var(--accent); filter:drop-shadow(0 0 8px rgba(var(--accent-rgb),0.4)); }
